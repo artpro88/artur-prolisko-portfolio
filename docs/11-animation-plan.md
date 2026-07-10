@@ -79,18 +79,15 @@ Every chapter change = a ground switch (dark↔light). Transition = **cross-diss
 - Capability clusters reveal on scroll; hover emphasises a cluster (siblings dim 10%).
 
 ### 11 · Technologies (light)
-- Tool marks fade/appear in a calm grid; hover = tint to accent + label.
+- Tool marks fade/appear in a calm grid, **each with its name printed beneath** (visible by default per §5a); hover = tint to accent only.
 
-### 12 · Testimonials (dark, conditional)
-- Quote cross-fades (carousel); attribution slides in; auto-advance pauses on hover/focus.
-
-### 13 · Recognition (light)
+### 12 · Recognition (light)
 - Credential rows reveal top-down; badge subtle shine sweep on enter (once).
 
-### 14 · Personal (light, conditional)
-- Soft, slow reveals; portrait subtle parallax; warmest scene light.
+### 13 · About (light)
+- Soft, slow reveals; portrait subtle parallax (if provided); warmest scene light.
 
-### 15 · Contact (dark, resolving)
+### 14 · Contact (dark, resolving)
 - 3D resolves to one stable form; headline + CTA reveal; button premium hover (glow + lift); form fields animated focus rings.
 
 ---

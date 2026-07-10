@@ -8,7 +8,7 @@
 
 ## The Concept: "The Widening Lens"
 
-The portfolio is a single, continuous scroll — one story, fifteen chapters — built on one governing metaphor: **the lens widens.**
+The portfolio is a single, continuous scroll — one story, fourteen chapters — built on one governing metaphor: **the lens widens.**
 
 We open tight and personal (a twelve-year-old, one screen, one app). As the visitor scrolls, the frame pulls back to reveal ever-larger systems: one product, one platform, one market, one industry. The **persistent 3D scene is the physical embodiment of this widening** — a single luminous object in the hero that, chapter by chapter, multiplies, organises, and resolves into a structured constellation representing an entire product ecosystem, then settles.
 
@@ -136,6 +136,6 @@ Each chapter = one message, one feeling, one visual focus. Copy is deliberately 
 
 ## Pacing & length
 
-- **15 chapters, but not 15 full viewports of reading.** Several are short "breath" moments (Introduction, Design Philosophy, Personal Side) that pass in a single scroll gesture. Heavy chapters (Brands, Timeline, Achievements, Featured Projects) get more room.
+- **14 chapters, but not 14 full viewports of reading.** Several are short "breath" moments (Introduction, Design Philosophy, About) that pass in a single scroll gesture. Heavy chapters (Brands, Timeline, Achievements, Featured Projects) get more room. **Exception:** the Timeline is deliberately long — 7 full-height role sections with the scroll-fill rail.
 - Target full-story scroll time: **~90–120 seconds** of deliberate scrolling; skimmable in ~30.
 - The light/dark alternation is the reader's **chapter clock** — each ground-switch says "new idea."

@@ -8,10 +8,10 @@
 
 ## 1. Site model
 
-This is a **single-page, scroll-driven narrative** — not a multi-page site. All 15 chapters live on one route (`/`) as full-height sections with scroll-snap. Deep content (long case studies) lives on secondary routes so the main story stays lean.
+This is a **single-page, scroll-driven narrative** — not a multi-page site. All 14 chapters live on one route (`/`) as full-height sections with scroll-snap. Deep content (long case studies) lives on secondary routes so the main story stays lean.
 
 ```
-/                         → The story (15 chapters, one continuous scroll)
+/                         → The story (14 chapters, one continuous scroll)
 ├── #hero                 1. Hero
 ├── #intro                2. Introduction
 ├── #brands               3. Brands I've Worked With
@@ -66,7 +66,7 @@ Hero shows an elegant animated cue (Ch.1 only). Disappears after first scroll.
 
 ## 3. Reading order & acts
 
-The 15 chapters group into **four narrative acts** (mirrors the nav's 4 jumps):
+The 14 chapters group into **four narrative acts** (mirrors the nav's 4 jumps):
 
 | Act | Chapters | Anchor jump | Purpose |
 |-----|----------|-------------|---------|

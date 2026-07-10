@@ -4,7 +4,7 @@
 **Phase:** 1 (Strategy)
 **Date:** July 10, 2026
 
-The 3D is a **persistent, single-scene experience** that evolves across all 15 chapters — the physical embodiment of the story's governing metaphor, **"the widening lens."** It is built with **Three.js + React Three Fiber + Drei**. It must reinforce content, never dominate it.
+The 3D is a **persistent, single-scene experience** that evolves across all 14 chapters — the physical embodiment of the story's governing metaphor, **"the widening lens."** It is built with **Three.js + React Three Fiber + Drei**. It must reinforce content, never dominate it.
 
 ---
 

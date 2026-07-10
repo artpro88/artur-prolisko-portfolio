@@ -11,9 +11,12 @@ Assets pulled from the current site to **reuse and retouch** into the new luxury
 | `leovegas.png` | LeoVegas | Brands + Timeline | 197×48 |
 | `Storspiller.png` | Storspiller | Brands | 210×48 |
 | `Photojet.png` | Photojet | (optional / early side project) | 245×48 |
-| — | **Fitzdares** | Brands + Timeline (current role) | **No asset — need real logo.** Placeholder: letter-spaced wordmark. |
+| `fitzdares.png` | **Fitzdares** | Brands + Timeline (current role) | **Received from Artur (Jul 2026).** Orange wordmark, cropped from `FITZSportsbook R&B (1).png`; `fitzdares-full.png` keeps the "SBC Racing Sportsbook of the Year 2020" strapline (usable as social proof in Recognition). |
 
 > All logos are rendered on a **pearl chip** so colour/contrast reads on any ground. Present **monochrome-friendly**; production may recreate as clean SVG.
+
+### Readability fix (Jul 2026)
+The original site's SG, Unibet, and Kindred PNGs use **white glyphs** (designed for the old dark header) — invisible on light grounds. Fixed set lives in **`/assets/logos/`**: white/near-white pixels recolored to ink `#16171C` (preserving brand-colour elements — Unibet's green dots, Kindred's multicolour mark), LeoVegas/Storspiller trimmed as-is, Fitzdares cropped to wordmark. **Always use `/assets/logos/`, never the raw `/assets/reused/` logos, in UI.**
 
 ## Product screenshots (`/wp-content/uploads/2020/03/`)
 | File | Product | Chapter | Dimensions |
@@ -30,6 +33,6 @@ Assets pulled from the current site to **reuse and retouch** into the new luxury
 - External skill/tool logos (Sketch, XD, Axure, etc.) — recreate as clean monochrome marks for the **Technologies** chapter rather than hotlinking.
 
 ## Production TODO
-- Obtain **Fitzdares** logo (+ Gibraltar entity treatment if distinct).
+- ~~Obtain **Fitzdares** logo~~ ✓ received Jul 2026. Still open: Gibraltar entity treatment if distinct ("Fitzdares · Gibraltar"?).
 - Source higher-res or re-exported screenshots if available; otherwise upscale/retouch the above.
 - Confirm rights to display each operator logo (standard portfolio use).
