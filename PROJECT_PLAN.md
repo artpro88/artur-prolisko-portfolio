@@ -333,21 +333,21 @@ Career track (Chapter 5):
 
 ### Color Palette
 
-**Primary:**
-- Matte Black: #0A0E27
-- Warm White: #F5F7FA
-- Graphite: #2D3142
+**Luxury jewel-tone palette (revised Jul 2026 — no green/yellow/cyan). Authoritative: `docs/08-visual-design-system.md §2`.**
+
+**Primary (grounds):**
+- Obsidian: #0B0C10 · Onyx: #131419 · Graphite: #1B1D24 (dark)
+- Alabaster: #EDEAE3 · Pearl: #F6F4EF (light)
 
 **Accent:**
-- Emerald: #10B981 (primary accent, luxury)
-- Gold: #D4AF37 (wealth, premium)
-- Platinum: #E8E8E8 (highlight)
-- Soft Cyan: #06B6D4 (secondary)
+- Champagne gold: #C8A24C (primary accent) · deep gold #B8912F (metrics on light)
+- Bordeaux / casino red: #7A2233 (secondary accent)
+- Platinum: #C9CBD1 (metallic neutral)
 
-**Theme model:** Premium **hybrid light/dark — NOT fully dark.** Chapters alternate light and dark grounds as a deliberate compositional rhythm (dark hero → light intro → dark brands → …). A user-facing mode toggle is optional/secondary.
-**Dark chapters:** matte black / deep graphite / soft charcoal ground, warm-white text, emerald/gold/cyan accents.
-**Light chapters:** warm white / platinum ground, matte-black text, emerald/gold accents.
-**Rule:** avoid highly saturated gaming colours — everything refined. (See `SPEC_ADDENDUM.md §1`.)
+**Theme model:** Premium **hybrid light/dark — NOT fully dark.** Chapters alternate grounds as a compositional rhythm (dark hero → light intro → dark brands → …). Toggle optional/secondary.
+**Dark chapters:** obsidian/onyx/graphite ground, warm-white text, champagne + bordeaux accents.
+**Light chapters:** alabaster/pearl ground, obsidian text, gold + bordeaux accents.
+**Rule:** **no green, no yellow, no cyan.** Keep reds deep (bordeaux); everything refined.
 
 ### Typography
 

@@ -89,19 +89,19 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Color Palette
 
-**Hybrid light/dark — NOT a fully dark interface.** Chapters alternate light and dark grounds as a deliberate compositional rhythm. A user-facing mode toggle is optional/secondary. See `SPEC_ADDENDUM.md §1`.
+**Luxury jewel-tone, hybrid light/dark — NOT a fully dark interface.** Chapters alternate light and dark grounds as a deliberate compositional rhythm. Authoritative palette: `docs/08-visual-design-system.md §2`.
 
 **Dark chapters**
-- Ground: #0A0E27 (matte black) / deep graphite / soft charcoal
-- Accent: #10B981 (Emerald), #D4AF37 (Gold), #06B6D4 (Soft cyan)
-- Text: #F5F7FA (Warm White)
+- Ground: #0B0C10 (obsidian) / #131419 (onyx) / #1B1D24 (graphite)
+- Accent: #C8A24C (Champagne gold), #7A2233 (Bordeaux / casino red), #C9CBD1 (Platinum)
+- Text: #F4F2EC (Warm white)
 
 **Light chapters**
-- Ground: #F5F7FA (Warm white) / platinum
-- Accent: #10B981 (Emerald), #D4AF37 (Gold)
-- Text: #0A0E27 (matte black)
+- Ground: #EDEAE3 (Alabaster) / #F6F4EF (Pearl)
+- Accent: #B8912F (Deep gold), #7A2233 (Bordeaux)
+- Text: #16171C
 
-Rule: avoid highly saturated gaming colours; keep everything refined. See `tailwind.config.ts` for full palette.
+Rule: **no green, no yellow, no cyan** — jewel-toned luxury only; keep reds deep (bordeaux). See `tailwind.config.ts` for full palette.
 
 ### Components
 

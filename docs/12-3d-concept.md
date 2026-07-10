@@ -10,9 +10,13 @@ The 3D is a **persistent, single-scene experience** that evolves across all 15 c
 
 ## 1. Concept: one object family, twelve states
 
-A single family of luminous **"tokens"** — an abstract hybrid of a **premium casino chip and a cut crystal** (rounded cylinder with faceted, glass-metal edges) — carries the entire narrative. There is never a scene "cut": the same objects **transform** between named states as the visitor scrolls, so the experience feels like one continuous, physically-connected world.
+A single family of luminous **"tokens"** — a **premium casino chip / cut-crystal** (rounded cylinder with faceted, glass-metal edges) — carries the entire narrative. There is never a scene "cut": the same objects **transform** between named states as the visitor scrolls, so the experience feels like one continuous, physically-connected world.
 
-**Why this object:** it reads as *gaming* (chip) and *luxury* (crystal/glass) simultaneously, without cliché. It can multiply (brands), line up (timeline), ignite (achievements), flatten (work cards), and lattice (leadership) — one form, many meanings.
+**Why this object:** it reads as *casino* (chip) and *luxury* (crystal/glass) at once. It can multiply (brands), line up (timeline), ignite (achievements), flatten (work cards), and lattice (leadership) — one form, many meanings.
+
+> **Revised Jul 2026 (Artur):** the scene should **tell the sportsbook/casino/live-casino story concretely — not read as generic abstract shapes.** Two additions:
+> 1. **Casino & sportsbook motifs are welcome** (used with luxury restraint): a **roulette-style segmented ring**, stacked **chips**, playing-**card** planes, and a faint **live-odds ticker**. These *are* the hero scene (see the concept mockup's canvas), rendered in champagne/bordeaux/platinum — never neon or kitsch.
+> 2. **Real product screenshots as textured planes.** In Brands / Featured Work / Timeline, Artur's actual retouched product shots (betslip, freebets, cash out, search — see `asset-inventory.md`) float as subtly-lit planes within the scene, so the 3D reinforces *real work*, not decoration.
 
 ---
 
@@ -27,7 +31,9 @@ A single family of luminous **"tokens"** — an abstract hybrid of a **premium c
  │    └── ambient    (very low)
  ├── TokenSystem  (InstancedMesh of N tokens — the hero object family)
  │    ├── material: MeshPhysicalMaterial (metal base + transmission/glass edge)
- │    └── emissive controller (emerald/gold on "ignite")
+ │    └── emissive controller (champagne/bordeaux on "ignite")
+ ├── ProductPlanes (real screenshots as lit, framed planes — Brands/Work/Timeline)
+ ├── CasinoMotifs (roulette ring · chips · card planes · odds ticker — hero/live-casino beats)
  ├── ParticleField (subtle, optional — depth dust, very low density)
  └── PostFX (optional, cheap): subtle bloom on emissive only + vignette
 ```
@@ -46,16 +52,17 @@ A single family of luminous **"tokens"** — an abstract hybrid of a **premium c
 | 3 | Brands | Wider | Token **multiplies → slow orbit** of ~7 mono tokens | Neutral, monochrome, restrained |
 | 4 | My Journey | Push in then release | Orbit **compresses to one**, then releases forward | Warmer, intimate |
 | 5 | Timeline | Side-scroll dolly | Tokens form a **receding spine** along a path | Cool, ordered; active token brightens |
-| 6 | Achievements | Rise | Select tokens **ignite** (emerald/gold) & lift | Emissive bloom on hero metrics |
+| 6 | Achievements | Rise | Select tokens/chips **ignite** (champagne/bordeaux) & lift | Emissive bloom on hero metrics |
 | 7 | Featured Work | Flatten | Tokens **flatten into card-planes** behind UI | Recedes; low contrast so cards lead |
 | 8 | Leadership | Orbit up | Tokens **organise into a lattice** (grid/graph) | Structured, even light |
 | 9 | Philosophy | Center, still | Lattice **simplifies to essential geometry** | Minimal, high-contrast single form |
 | 10 | Skills | Gentle | Lattice **nodes label** (soft) | Calm |
 | 11 | Technologies | Gentle | Sparse grid, at rest | Calm, light ground |
-| 12 | Testimonials | Soft | Few tokens, warm | Warmest, quiet |
-| 13 | Recognition | Steady | Minimal, stable | Even |
-| 14 | Personal | Soft, close | Calmest, fewest elements | Warm |
-| 15 | Contact | Settle to center | **Resolves to one** stable, inviting token | Warm key, gentle glow — "open door" |
+| 12 | Recognition | Steady | Minimal, stable | Even |
+| 13 | About | Soft, close | Calmest, fewest elements | Warm |
+| 14 | Contact | Settle to center | **Resolves to one** stable, inviting chip | Warm key, gentle glow — "open door" |
+
+> State table now maps to the **14-chapter** narrative (Testimonials removed; Personal → About).
 
 Interpolation between states is **eased and continuous** — a visitor stopped mid-scroll sees a valid in-between (e.g., tokens halfway from orbit to spine).
 
@@ -64,7 +71,7 @@ Interpolation between states is **eased and continuous** — a visitor stopped m
 ## 4. Materials
 
 - **Base:** `MeshPhysicalMaterial` — brushed-metal body (`metalness` ~0.9, `roughness` ~0.35) with a **glass/transmission edge** bevel (`transmission` ~0.6, `ior` ~1.4, `thickness`) for the crystal read.
-- **Emissive (ignite):** emerald `#10B981` or gold `#D4AF37` emissive ramped 0→1 on Achievements/interactive moments; feeds the (cheap, emissive-only) bloom.
+- **Emissive (ignite):** champagne `#C8A24C` or bordeaux `#7A2233` emissive ramped 0→1 on Achievements/interactive moments; feeds the (cheap, emissive-only) bloom.
 - **Environment reflections:** dimmed studio HDRI via Drei `<Environment>` for luxury specular without a busy background.
 - **Edge highlight:** thin platinum fresnel for premium rim definition.
 
@@ -123,5 +130,6 @@ type SceneState = {
 
 - The scene **always yields negative space** to headlines — tokens sit opposite the text, never behind dense copy.
 - Emissive/ignite is **rare** (Achievements + key interactions only) so it stays special.
-- No spinning logos, no confetti, no literal roulette/dice — **abstract luxury only.**
-- If in doubt, **fewer tokens, better material.**
+- **Refined casino motifs are encouraged** (roulette ring, chips, cards, live-odds ticker) — but keep them **luxury, not kitsch**: no cartoon dice, no neon casino signage, no spinning brand logos, no confetti.
+- Real product screenshots must be **retouched into the palette** (colour-graded, framed, soft platinum edge) — never dropped in raw with their old yellow/white backgrounds.
+- If in doubt, **fewer elements, better material.**

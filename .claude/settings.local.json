@@ -25,7 +25,10 @@
       "Skill(artifact-design)",
       "Skill(artifact-design:*)",
       "Bash(git commit -q -m 'Phase 1: strategy & design foundation \\(deliverables #4-12\\) *)",
-      "Bash(git commit -q -m 'Correct Gibraltar framing: Head of Product at Fitzdares, relocated \\(not founder\\) *)"
+      "Bash(git commit -q -m 'Correct Gibraltar framing: Head of Product at Fitzdares, relocated \\(not founder\\) *)",
+      "Bash(curl -sIL \"https://pokacity.com/wp-content/uploads/2019/10/SG.png\")",
+      "Bash(cd /Users/ArturProlisko/Claude *)",
+      "Bash(git commit -q -m 'Revise concept + specs per Artur feedback \\(4 changes\\) *)"
     ]
   }
 }

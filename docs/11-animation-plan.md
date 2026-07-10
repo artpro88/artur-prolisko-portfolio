@@ -42,25 +42,26 @@ Every chapter change = a ground switch (dark↔light). Transition = **cross-diss
 - Paragraph reveals **line-by-line** on scrub; optional stat trio counts up.
 
 ### 3 · Brands (dark)
-- Logos reveal via **mask-up** (clip-path) staggered 70ms as the grid enters.
-- Subtle parallax between logo rows.
-- **Hover/tap:** logo → 100% white/ink, impact line slides up beneath (200ms).
-- 3D tokens orbit slowly behind; orbit speed subtly tied to scroll velocity.
+- Brand cards reveal via staggered translateY+opacity (70ms) as the grid enters.
+- **Each card shows everything at rest** — real logo (on pearl chip), role, years, impact line. **No hover-reveal** (mobile has no hover); hover only nudges elevation. See design system §5a.
+- 3D casino tokens (chips) orbit slowly behind; orbit speed subtly tied to scroll velocity.
 
 ### 4 · My Journey (light)
 - Origin visual parallaxes within its frame; pull-quote scales in (0.96→1, opacity).
-- 3D tokens compress toward a point then release forward on exit.
+- 3D chips compress toward a point then release forward on exit.
 
-### 5 · Career Timeline (dark) — **signature scrubbed sequence**
-- ScrollTrigger **pins** the chapter; vertical scroll scrubs a **horizontal track** (desktop).
-- Each node: as it reaches center it scales 1→1.08 + brightens; summary/milestones fade in; connecting line **draws** (stroke-dashoffset) between nodes.
-- 3D "spine" of tokens advances one token per node, locked to the same scrub progress.
-- Mobile: un-pinned vertical stack; cards reveal on enter (no horizontal scrub).
+### 5 · Career Timeline (dark) — **signature scroll-fill sequence (rebuilt Jul 2026)**
+- **Reverse chronological — latest role first** (Fitzdares → … → Unibet 2011).
+- **Each role is its own full-height section** with the real company logo (+ brand treatment), role, dates, summary, and milestone bullets — **all visible by default** (no hover).
+- A **vertical line on the left fills with a champagne→bordeaux gradient as the user scrolls** through the positions (scroll-progress-driven `fill.height = progress`); each role's node ignites champagne when it becomes active (IntersectionObserver ≥ 0.5).
+- Inactive role content sits at ~35% opacity and eases to full as it centers (a "focus" effect), so the active chapter is always clear.
+- 3D: casino tokens/chips advance along a receding spine, one per role, in step with which section is active.
+- Mobile: same vertical structure (already vertical); rail + fill remain; logos on pearl chips so any logo colour reads. No horizontal scrub, no hover.
 
 ### 6 · Achievements (light)
 - Metric tiles stagger in (translateY + opacity), 90ms.
-- **Numbers count up** from 0 on enter (respects reduced-motion → show final).
-- Two hero metrics get gold glow pulse (once); 3D tokens ignite emerald/gold and rise.
+- **Numbers count up** from 0 on enter (respects reduced-motion → show final). Labels + context are **always visible** (not hover).
+- Two hero metrics get gold glow pulse (once); secondary metrics use bordeaux; 3D chips ignite champagne/bordeaux and rise.
 
 ### 7 · Featured Projects (dark)
 - Cards reveal staggered; cover images have inner parallax on scroll.
@@ -98,16 +99,16 @@ Every chapter change = a ground switch (dark↔light). Transition = **cross-diss
 
 | Element | Interaction |
 |---------|-------------|
-| Primary button | Hover: emerald-400 + glow + 2px lift; active: 1px press |
-| Ghost button | Hover: 6% accent fill |
+| Primary button | Hover: brighten + gold glow + 2px lift; active: 1px press |
+| Ghost button | Hover: 6% champagne fill |
 | Text link | Underline draws L→R (0→100%, 200ms) |
 | Nav | Collapses to glass pill on first scroll; links get underline-from-center |
 | Chapter rail node | Hover: title tooltip; active: expand + accent |
-| Card | Hover: lift + elev-2 |
-| Logo | Hover: mono→full + impact line |
+| Card | Hover: lift + elev-2 (enhancement only — all info already visible) |
+| Logo | Real logo on pearl chip, shown at rest (no hover-reveal) |
 | Cursor (desktop, optional) | Subtle custom cursor that scales over interactive targets — *tasteful, or omit* |
 | Scroll cue | Single pulse loop; hides after first scroll |
-| Focus (keyboard) | Emerald ring, both grounds |
+| Focus (keyboard) | Champagne ring, both grounds |
 
 ---
 

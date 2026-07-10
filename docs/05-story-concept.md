@@ -38,7 +38,7 @@ One object family carries the whole story so the scene never "resets" — it **e
 | Brands | The form multiplies into a slow orbit of monochrome tokens | Trusted at scale |
 | My Journey | Tokens compress back toward one, then release forward | Origin → momentum |
 | Timeline | Tokens arrange along a receding path/spine | A career, ordered |
-| Achievements | Select tokens ignite (emerald/gold) and rise | Impact, highlighted |
+| Achievements | Select chips ignite (champagne/bordeaux) and rise | Impact, highlighted |
 | Featured Projects | Tokens become "cards" / planes holding work | Craft, made tangible |
 | Product Leadership | Tokens organise into a structured lattice | Systems & teams |
 | Design Philosophy | Lattice simplifies to essential geometry | Taste = subtraction |

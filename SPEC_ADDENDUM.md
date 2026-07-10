@@ -20,10 +20,7 @@ This addendum captures everything the two newly attached briefs added or changed
 - Light sections use warm white / platinum grounds; dark sections use matte black / deep graphite.
 - A user-facing light/dark toggle is **optional and secondary** — the primary experience is the choreographed hybrid, not a mode switch.
 
-**Expanded palette (adds to existing):**
-- Matte black, warm white, **soft charcoal**, **deep graphite** (primaries)
-- Emerald, gold, soft cyan, platinum, **glass reflections**, subtle neon (accents)
-- Rule: **avoid highly saturated gaming colours** — everything refined.
+**Palette — superseded Jul 2026.** See `docs/08-visual-design-system.md §2` for the authoritative palette. Summary: the accent system moved **from emerald/cyan/gold to a jewel-toned luxury set — obsidian, champagne gold, deep bordeaux (casino red), platinum.** **No green, no yellow, no cyan.** Grounds: matte obsidian / onyx / graphite (dark) and alabaster / pearl (light). Rule: avoid saturated gaming colours; keep reds deep (bordeaux).
 
 ---
 

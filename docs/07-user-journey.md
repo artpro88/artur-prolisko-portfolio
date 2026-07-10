@@ -26,11 +26,11 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 
 ### Chapter 3 · Brands `#brands` — Dark **(priority moment)**
 - **Goal:** Prove trust at scale — "Tier 1 only."
-- **Content:** 7 monochrome logos (Fitzdares, SG Digital/Scientific Gaming, Kindred, Unibet, LeoVegas, Storspiller, Photojet). Hover/tap reveals role + one-line impact.
-- **Layout:** Slow horizontal marquee OR grid that assembles on scroll; large spacing.
-- **3D:** Hero form multiplies into a slow orbit of monochrome tokens behind/around logos.
-- **Motion:** Scroll-triggered logo reveals (mask-up), subtle parallax; hover lifts a logo to full white + shows impact line.
-- **Exit:** Tokens compress → transition to Journey.
+- **Content:** Brand cards for Fitzdares, SG Digital/Scientific Games, Kindred, Unibet, LeoVegas, Storspiller. **Each card shows the real logo (on a pearl chip) + role + years + one-line impact — all visible by default. No hover-reveal** (mobile has no hover). Fitzdares → letter-spaced wordmark (no logo asset).
+- **Layout:** Premium card grid that assembles on scroll; generous spacing.
+- **3D:** Hero chip multiplies into a slow orbit of casino tokens behind the cards.
+- **Motion:** Scroll-triggered card reveals (staggered); hover only nudges elevation (enhancement, never gating info).
+- **Exit:** Chips compress → transition to Journey.
 
 ### Chapter 4 · My Journey `#journey` — Light
 - **Goal:** Humanise; plant the "range that compounds" idea.
@@ -40,19 +40,20 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 - **Motion:** Parallax on the visual; pull-quote scales in.
 - **Exit:** Momentum carries into the timeline.
 
-### Chapter 5 · Career Timeline `#timeline` — Dark **(key interactive)**
-- **Goal:** Show the climb: craft → systems → product → business.
-- **Content:** 7 roles (2011→present) on an interactive track, ending on **Head of Product, Fitzdares (2023–now)** — whose latest milestone is the **2025 relocation to Gibraltar** to set up Fitzdares' operation under a Gibraltarian licence; each node: year, role, org, 1–2 line summary, milestone bullets. Altitude encoded by position/label (craft → systems → product → business).
-- **Layout:** Horizontal scroll-linked track on desktop (moves as you scroll vertically); vertical stacked cards on mobile.
-- **3D:** Tokens arrange along a receding spine/path that mirrors the timeline direction.
-- **Motion:** Active node scales & brightens as it enters center; connecting line draws; 3D spine advances in lockstep (GSAP ScrollTrigger scrub).
-- **Exit:** Latest role (Fitzdares) → hands off to Achievements.
+### Chapter 5 · Career Timeline `#timeline` — Dark **(signature sequence — rebuilt Jul 2026)**
+- **Goal:** Show the climb, most recent first — and make it feel like a *real* timeline, not a generic AI list.
+- **Structure:** **Reverse chronological — latest role first.** **Each of the 7 roles is its own full-height section** (Fitzdares 2023–now → SG Snr UX Lead → SG UI/UX Architect → LeoVegas 2018 → Kindred UX Architect → Kindred/Unibet UX Lead → Unibet CRM 2011). Fitzdares' section carries the **2025 Gibraltar relocation** as a milestone bullet.
+- **Content per role (all visible, no hover):** the **real company logo** on a pearl chip (+ optional brand tint), year range, role title, 1–2 line summary, milestone bullets, and an altitude tag (craft → systems → product → business).
+- **The line fills as you scroll:** a vertical rail on the left **fills top→down with a champagne→bordeaux gradient** tracking scroll progress through the positions; each role's node ignites champagne when it becomes the active section. Inactive role content rests at ~35% opacity and resolves to full as it centers.
+- **Layout:** Same vertical structure on desktop and mobile (no fragile horizontal scrub); logos on pearl chips so any logo colour reads on the dark ground.
+- **3D:** Casino chips advance along a receding spine, one per role, synced to the active section.
+- **Exit:** Oldest role (Unibet 2011) → hands off to Achievements.
 
 ### Chapter 6 · Major Achievements `#achievements` — Light (igniting accents)
 - **Goal:** Make impact undeniable and *visual*.
 - **Content:** Metric tiles: **250% ROI** · **3 launches** (Canada 2023 · UK replatform 2023 · Fitzdares Gibraltar 2025) · **Gibraltar setup** · **UKGC migration** · **GGR growth**. Each with one-line context. No paragraphs.
 - **Layout:** Asymmetric grid of large stat tiles; the two biggest metrics dominate.
-- **3D:** Select tokens ignite (emerald/gold) and rise above the field.
+- **3D:** Select chips ignite (champagne/bordeaux) and rise above the field.
 - **Motion:** Numbers count up on enter; tiles stagger in; accent glow on the two hero metrics.
 - **Exit:** Into Featured Projects.
 

@@ -47,13 +47,13 @@ This is a **single-page, scroll-driven narrative** — not a multi-page site. Al
 ### Primary nav (persistent, minimal)
 A slim top bar that **fades to a translucent chip on scroll**. Contents:
 - **Left:** Monogram "AP" (returns to hero).
-- **Center (desktop only):** 4 anchor links — the *narrative act* jumps, not all 15 chapters: **Work · Journey · Leadership · Contact.**
-- **Right:** Theme-rhythm indicator + "Contact" button.
+- **Center (desktop only):** 4 anchor links — the *narrative act* jumps, not all 14 chapters: **Work · Journey · Impact · Contact.**
+- **Right:** "Contact" button.
 
-> We deliberately do **not** expose all 15 anchors in the nav — that would break the "story, not menu" feeling. Four wayfinding jumps are enough.
+> We deliberately do **not** expose all 14 anchors in the nav — that would break the "story, not menu" feeling. Four wayfinding jumps are enough.
 
 ### Scroll progress / chapter rail (right edge, desktop)
-A vertical progress rail with 15 nodes; the active chapter node expands to show its title on hover. Doubles as a "you are here" device and a jump menu. Hidden on mobile (replaced by progress bar under the nav).
+A vertical progress rail with 14 nodes; the active node is champagne. Doubles as a "you are here" device and a jump menu. **Desktop only** — hidden on mobile (replaced by a progress bar under the nav), since it relies on hover for labels.
 
 ### Mobile nav
 - Hamburger → full-screen overlay listing the 4 act jumps + Contact + CV.
@@ -154,6 +154,8 @@ type Recognition = {
 ## 5. Canonical content (from CV — source of truth)
 
 ### Timeline entries (confirmed by Artur, Jul 2026)
+
+> **Display: reverse chronological (latest first), one full-height section per role, with a left rail that fills as you scroll.** See `07-user-journey.md · Ch.5` and `11-animation-plan.md · §5`. Listed below oldest→newest for reference; the UI renders newest→oldest.
 1. **2011–2013** · CRM, Kindred Group (Unibet) · *business/craft*
 2. **2013–2016** · UX Interface & Production Manager Lead, Kindred/Unibet · *craft*
 3. **2016–2018** · UX Architect, Kindred Group · *systems*
@@ -207,6 +209,7 @@ Each `/work/[slug]` gets its own title/description/OG for shareable case studies
 
 ## 7. Accessibility IA
 
-- Semantic landmark per chapter: `<section aria-labelledby="…">` with a real (optionally visually-hidden) heading, so the 15 chapters form a coherent screen-reader outline **even though the visual design is sparse**.
+- Semantic landmark per chapter: `<section aria-labelledby="…">` with a real (optionally visually-hidden) heading, so the 14 chapters form a coherent screen-reader outline **even though the visual design is sparse**.
 - Scroll-snap must not trap keyboard users: full keyboard nav, skip-link to `#contact`, and a "reduce motion" path that disables snap + 3D scroll-sync (respects `prefers-reduced-motion`).
 - The chapter rail nodes are real `<a>` anchors with labels.
+- **No hover-only content (mandatory).** Because touch devices have no hover, all primary information — brand role/impact, timeline detail, metrics, contact — is **visible by default**; hover/tap only enhances. See `08-visual-design-system.md §5a`. This is an accessibility requirement, not just a mobile nicety.

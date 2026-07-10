@@ -18,46 +18,49 @@ The system is built for a **hybrid light/dark** experience — chapters alternat
 
 ---
 
-## 2. Color tokens
+## 2. Color tokens — Luxury (obsidian · champagne · bordeaux · platinum)
+
+> **Revised Jul 2026 (Artur):** the yellow/blue of the old site AND the emerald-green/cyan of the first concept are **dropped.** The palette is now a jewel-toned luxury system — **matte obsidian, champagne gold, deep bordeaux (casino red), and platinum.** No green, no yellow, no saturated "gaming" colour.
 
 ### Neutrals (grounds & surfaces)
 | Token | Hex | Use |
 |-------|-----|-----|
-| `--ink-900` | `#0A0E27` | Matte black — dark ground |
-| `--ink-800` | `#12172E` | Dark surface / raised |
-| `--graphite-700` | `#1E2438` | Deep graphite — dark cards |
-| `--charcoal-600` | `#2D3142` | Soft charcoal — borders/dividers (dark) |
-| `--platinum-200` | `#E8EAF0` | Platinum — light cards/dividers |
-| `--paper-100` | `#F5F7FA` | Warm white — light ground |
-| `--paper-50` | `#FBFCFE` | Lightest surface |
+| `--obsidian` | `#0B0C10` | Matte black — primary dark ground |
+| `--onyx` | `#131419` | Dark surface |
+| `--graphite` | `#1B1D24` | Dark cards |
+| `--charcoal` | `#2A2E3A` | Borders/dividers, rail track (dark) |
+| `--alabaster` | `#EDEAE3` | Warm stone — light ground |
+| `--pearl` | `#F6F4EF` | Lightest surface / logo chips |
+| `--platinum` | `#C9CBD1` | Cool metallic neutral / highlight |
 
 ### Text
 | Token | On dark | On light |
 |-------|---------|----------|
-| `--text-primary` | `#F5F7FA` | `#0A0E27` |
-| `--text-secondary` | `#A8AEC2` | `#4A5068` |
-| `--text-muted` | `#6B7186` | `#8B92A9` |
+| `--text-primary` | `#F4F2EC` (warm white) | `#16171C` |
+| `--text-secondary` | `#B7B4AC` | `#4A4C55` |
+| `--text-muted` | `#7C7A73` | `#8A8880` |
 
-### Accents (luxury gaming — used sparingly)
+### Accents (used sparingly)
 | Token | Hex | Meaning / use |
 |-------|-----|---------------|
-| `--emerald-500` | `#10B981` | Primary accent — interactive, "ignite," success/growth |
-| `--emerald-400` | `#34D399` | Emerald hover/glow |
-| `--gold-500` | `#D4AF37` | Premium highlight — hero metrics, recognition |
-| `--gold-400` | `#E5C158` | Gold hover/glow |
-| `--cyan-400` | `#22D3EE` | Soft cyan — secondary/data viz, subtle neon |
-| `--platinum-hi` | `#DCE1EA` | Glass reflection highlight |
+| `--champagne` | `#C8A24C` | **Primary accent** — interactive, highlights, timeline fill, eyebrows |
+| `--champ-hi` | `#E4C878` | Champagne highlight / glow / hover |
+| `--gold-soft` | `#B8912F` | Deep gold — metrics on light grounds |
+| `--bordeaux` | `#7A2233` | **Secondary accent** — casino red; "ignite," roulette, secondary tags |
+| `--bordeaux-hi` | `#9C3247` | Bordeaux highlight/hover |
+| `--platinum` | `#C9CBD1` | Metallic neutral / glass reflection |
 
 ### Accent usage rule
-- **One primary accent per chapter.** Emerald is default interactive; gold is reserved for **hero metrics + recognition**; cyan only for data/odds visualisations.
-- **Never** more than two accents visible in one viewport.
-- Avoid saturated "casino" reds/greens — everything muted toward luxury.
+- **Champagne is the default interactive/highlight accent**; **bordeaux** is the secondary (casino red) reserved for accents, "ignite" moments, roulette/live-casino motifs. **Platinum** is a metallic neutral.
+- **Never** more than two accents visible in one viewport; gold + bordeaux is the signature pairing.
+- Keep reds **deep** (bordeaux/oxblood), never bright pillar-box red. Everything muted toward luxury.
 
 ### Gradients & effects (restrained)
-- `--glow-emerald`: radial `rgba(16,185,129,.35)` → transparent (3D ignite, focus rings).
-- `--glow-gold`: radial `rgba(212,175,55,.30)` → transparent (hero metrics).
-- `--glass-dark`: `rgba(18,23,46,.55)` + `backdrop-blur(20px)` + 1px `rgba(255,255,255,.06)` inset.
-- `--glass-light`: `rgba(255,255,255,.55)` + `backdrop-blur(20px)` + 1px `rgba(10,14,39,.05)` inset.
+- `--grad-accent`: `linear-gradient(100deg, var(--champ-hi), var(--bordeaux-hi))` (hero headline, timeline fill).
+- `--glow-gold`: radial `rgba(200,162,76,.30)` → transparent (metrics, active timeline node).
+- `--glow-bordeaux`: radial `rgba(122,34,51,.28)` → transparent (live-casino / ignite).
+- `--glass-dark`: `rgba(19,20,25,.55)` + `backdrop-blur(20px)` + 1px `rgba(255,255,255,.06)` inset.
+- `--glass-light`: `rgba(246,244,239,.6)` + `backdrop-blur(20px)` + 1px `rgba(22,23,28,.05)` inset.
 - No mesh gradients, no noise, no drop-shadow stacks.
 
 ---
@@ -116,34 +119,50 @@ The system is built for a **hybrid light/dark** experience — chapters alternat
 ## 5. Components
 
 ### Buttons
-- **Primary:** emerald fill, `--text` on-emerald `#04150E`, radius-md, 44–52px tall; hover = emerald-400 + subtle glow + 2px lift.
-- **Secondary (ghost):** 1px border (`charcoal-600` on dark / `platinum-200` on light), transparent fill; hover = fill 6% accent.
+- **Primary:** champagne→gold-soft gradient fill, text `#1A1405`, radius-md, 44–52px tall; hover = brighten + gold glow + 2px lift.
+- **Secondary (ghost):** 1px border (`--charcoal` on dark / `--platinum` on light), transparent fill; hover = fill 6% champagne.
 - **Text link:** underline draws left→right on hover (0→100% width, 200ms).
-- Focus: 2px emerald ring + 2px offset (both grounds).
+- Focus: 2px champagne ring + 2px offset (both grounds).
 
 ### Cards (work / metric / credential)
-- Surface = graphite-700 (dark) / paper-50 (light); radius-lg; elev-1.
+- Surface = `--graphite` (dark) / `--pearl` (light); radius-lg; elev-1.
 - Optional glass variant for overlays.
-- Hover: elev-2 + lift + cover-image parallax (work cards).
+- Hover = **enhancement only** (elev-2 + lift + cover parallax). **Never** gate primary content behind hover — see §5a.
 
 ### Nav
 - Top bar → translucent glass pill on scroll (`--glass-*`).
 - Monogram "AP" mark left; 4 act-links center (desktop); Contact button right.
-- Right-edge chapter rail: 15 nodes, active expands to label.
+- Right-edge chapter rail: 14 nodes, active = champagne; label on hover (desktop) / omitted on touch.
 
 ### Chapter rail node
-- 6px dot default; active = 10px + accent + title label; hover = title tooltip.
+- 6px dot default; active = champagne + scale 1.5; title tooltip on hover (desktop only).
 
 ### Metric tile (Achievements)
-- Mono label (uppercase) + `--fs-metric` number (count-up) + one-line context.
-- Hero metrics get `--glow-gold`; others emerald on hover.
+- Mono label (uppercase, always visible) + metric number (count-up) + one-line context (always visible).
+- Hero metrics get `--glow-gold`; secondary metrics use `--bordeaux`.
 
-### Logo lockup (Brands)
-- Monochrome by default (single-tone), 40–60% opacity at rest → 100% white/ink on hover, with impact line reveal.
+### Logo lockup (Brands & Timeline)
+- **Real company logo** placed on a `--pearl` "chip" (rounded, padded) so any logo colour reads on any ground. Fitzdares (no asset) → letter-spaced wordmark.
+- **All brand info — role, years, impact — is visible by default.** No hover-reveal (see §5a).
 
 ### Iconography
 - **Line icons, 1.5px stroke, rounded joins, 24px grid.** Set: Lucide (open-source, consistent) — customised stroke to match. Icons are quiet/utility only (nav, scroll cue, contact, external-link). **No filled/colored icon illustrations.**
 - 3D objects — not icons — carry the visual storytelling.
+
+## 5a. Mobile-first rule — no hover-only content (mandatory)
+
+> **Artur, Jul 2026:** important information must be **visible by default**, because touch devices have no hover.
+
+- **Never** place primary content (a role, impact line, project title, metric, contact detail) behind `:hover`, a tooltip, or a flip. Hover/tap may only **enhance** what is already shown (a lift, a glow, a parallax nudge, "view case study").
+- Anything that would have been a hover-reveal becomes **always-on** on the card.
+- Applies especially to **Brands** and the **Timeline** — role, company, years, and impact are printed on the card at rest.
+- Touch targets ≥ 44×44px; the right-edge chapter rail is decorative on mobile (replaced by a progress bar).
+
+## 5b. Imagery direction (storytelling)
+
+- **Use Artur's real product screenshots** — betslip, freebets/boosts, cash out, search/in-play (SG Digital / Fitzdares sportsbook) — retouched into the luxury frame: colour-graded toward the palette, placed in dark device/card frames, generous margins. These carry the sportsbook/casino/live-casino story far better than abstract shapes.
+- Reuse the current site's assets (see `asset-inventory.md`) but **polish**: crop the old yellow/white backgrounds into framed cards, unify to the palette, add soft platinum edge + shadow.
+- Motion and 3D should reference **sportsbook & casino motifs** (roulette, chips, cards, live-odds tickers) — not generic geometry (see `12-3d-concept.md`).
 
 ---
 
@@ -161,7 +180,7 @@ The system is built for a **hybrid light/dark** experience — chapters alternat
 ## 7. 3D principles (system-level)
 
 - **One continuous scene, one object family** (chip/crystal/glass tokens) — evolves, never resets.
-- **Materials:** physically-based; brushed-metal + smoked-glass + subtle emissive edges. Emerald/gold emissive only on "ignite."
+- **Materials:** physically-based; brushed-metal + smoked-glass + subtle emissive edges. Champagne/bordeaux emissive only on "ignite."
 - **Lighting:** single warm key + cool rim; environment reflections for luxury; lighting shifts warmer/cooler with light/dark grounds.
 - **Restraint:** low object count, high material quality. Never fills the frame; always yields to content.
 - **Performance:** capped DPR, instanced tokens, lazy-init after hero paint, mobile fallback. Full spec in `12-3d-concept.md`.
@@ -173,12 +192,12 @@ The system is built for a **hybrid light/dark** experience — chapters alternat
 ```css
 @theme {
   /* neutrals */
-  --color-ink-900:#0A0E27; --color-ink-800:#12172E;
-  --color-graphite-700:#1E2438; --color-charcoal-600:#2D3142;
-  --color-platinum-200:#E8EAF0; --color-paper-100:#F5F7FA; --color-paper-50:#FBFCFE;
+  --color-obsidian:#0B0C10; --color-onyx:#131419;
+  --color-graphite:#1B1D24; --color-charcoal:#2A2E3A;
+  --color-alabaster:#EDEAE3; --color-pearl:#F6F4EF; --color-platinum:#C9CBD1;
   /* accents */
-  --color-emerald-500:#10B981; --color-emerald-400:#34D399;
-  --color-gold-500:#D4AF37; --color-gold-400:#E5C158; --color-cyan-400:#22D3EE;
+  --color-champagne:#C8A24C; --color-champ-hi:#E4C878; --color-gold-soft:#B8912F;
+  --color-bordeaux:#7A2233; --color-bordeaux-hi:#9C3247;
   /* radius */
   --radius-sm:8px; --radius-md:14px; --radius-lg:24px; --radius-pill:999px;
   /* type */
