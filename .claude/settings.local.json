@@ -21,7 +21,10 @@
       "mcp__visualize__show_widget",
       "Bash(pandoc \"/Users/ArturProlisko/Downloads/Artur Prolisko Portfolio Redesign - requirements \\(Draft\\).docx\" -t markdown)",
       "Bash(pandoc \"/Users/ArturProlisko/Downloads/Design Direction.docx\" -t markdown)",
-      "Bash(git commit -q -m 'Reconcile specs with requirements Draft & Design Direction briefs *)"
+      "Bash(git commit -q -m 'Reconcile specs with requirements Draft & Design Direction briefs *)",
+      "Skill(artifact-design)",
+      "Skill(artifact-design:*)",
+      "Bash(git commit -q -m 'Phase 1: strategy & design foundation \\(deliverables #4-12\\) *)"
     ]
   }
 }

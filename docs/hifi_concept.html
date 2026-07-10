@@ -1,0 +1,284 @@
+<title>Artur Prolisko — Hi-Fi Concept</title>
+<style>
+  :root{
+    --ink-900:#0A0E27; --ink-800:#12172E; --graphite-700:#1E2438; --charcoal-600:#2D3142;
+    --platinum-200:#E8EAF0; --paper-100:#F5F7FA; --paper-50:#FBFCFE;
+    --emerald:#10B981; --emerald-400:#34D399; --gold:#D4AF37; --gold-400:#E5C158; --cyan:#22D3EE;
+    --f-display:"Neue Haas Grotesk Display Pro","General Sans","Helvetica Neue",ui-sans-serif,system-ui,sans-serif;
+    --f-body:"Inter",ui-sans-serif,system-ui,-apple-system,sans-serif;
+    --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",monospace;
+    --maxw:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--f-body);background:var(--ink-900);color:#F5F7FA;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+  .snap{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){.snap{scroll-snap-type:none}}
+  section{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;position:relative;padding:clamp(64px,10vh,140px) clamp(24px,6vw,96px);overflow:hidden}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
+
+  /* grounds */
+  .dark{background:var(--ink-900);color:#F5F7FA}
+  .dark.alt{background:radial-gradient(120% 90% at 80% 20%,#141a35 0%,var(--ink-900) 60%)}
+  .light{background:var(--paper-100);color:var(--ink-900)}
+  .light.alt{background:linear-gradient(180deg,var(--paper-50),var(--platinum-200))}
+
+  /* type */
+  .eyebrow{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;opacity:.6}
+  .dark .eyebrow{color:var(--emerald-400)}
+  .light .eyebrow{color:var(--emerald)}
+  h1,h2,h3{font-family:var(--f-display);font-weight:500;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
+  h1{font-size:clamp(2.6rem,7vw,6rem)}
+  h2{font-size:clamp(2rem,4.6vw,3.6rem);line-height:1.05}
+  .lead{font-size:clamp(1.05rem,1.7vw,1.45rem);max-width:34ch;opacity:.82;font-weight:350;margin-top:1.4rem}
+  .muted{opacity:.6}
+
+  /* hero */
+  #hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center}
+  #hero h1 span{display:block}
+  #hero .accent{color:transparent;background:linear-gradient(100deg,var(--emerald-400),var(--cyan));-webkit-background-clip:text;background-clip:text}
+  .cue{margin-top:2.6rem;display:inline-flex;align-items:center;gap:.6rem;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.55}
+  .cue .dot{width:26px;height:42px;border:1.5px solid currentColor;border-radius:999px;position:relative;opacity:.6}
+  .cue .dot::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:7px;background:currentColor;border-radius:2px;transform:translateX(-50%);animation:drop 1.8s var(--e,ease) infinite}
+  @keyframes drop{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}80%{opacity:0;transform:translate(-50%,14px)}}
+  canvas#scene{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+
+  /* chapter rail */
+  .rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:11px}
+  .rail a{width:7px;height:7px;border-radius:999px;background:currentColor;opacity:.28;transition:.3s;color:#fff}
+  .rail a:hover,.rail a.on{opacity:1;transform:scale(1.5)}
+  .rail a.on{background:var(--emerald)}
+  @media (max-width:760px){.rail{display:none}}
+
+  /* topbar */
+  .top{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(20px,5vw,44px);mix-blend-mode:difference;color:#fff}
+  .mono{font-family:var(--f-mono);letter-spacing:.06em}
+  .top .mark{font-family:var(--f-display);font-weight:600;letter-spacing:-.02em;font-size:1.1rem}
+  .top nav{display:flex;gap:26px;font-size:.82rem}
+  .top nav a{opacity:.75}.top nav a:hover{opacity:1}
+  @media (max-width:760px){.top nav{display:none}}
+
+  /* brands */
+  .brands{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:3rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden}
+  @media (max-width:760px){.brands{grid-template-columns:repeat(2,1fr)}}
+  .brand{background:var(--graphite-700);padding:2rem 1.4rem;min-height:132px;display:flex;flex-direction:column;justify-content:space-between;transition:.35s}
+  .brand:hover{background:#232a44}
+  .brand .name{font-family:var(--f-display);font-size:1.35rem;font-weight:500;letter-spacing:-.01em}
+  .brand .meta{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;opacity:.5;margin-top:.5rem}
+  .brand .impact{font-size:.82rem;opacity:0;transform:translateY(6px);transition:.35s;color:var(--emerald-400)}
+  .brand:hover .impact{opacity:.9;transform:none}
+
+  /* timeline */
+  .track{display:flex;gap:1.2rem;margin-top:2.6rem;overflow-x:auto;padding-bottom:1.4rem;scroll-snap-type:x proximity}
+  .track::-webkit-scrollbar{height:6px}.track::-webkit-scrollbar-thumb{background:var(--charcoal-600);border-radius:9px}
+  .node{scroll-snap-align:start;min-width:240px;flex:0 0 240px;border-left:2px solid var(--charcoal-600);padding:0 0 0 1.1rem;position:relative}
+  .node::before{content:"";position:absolute;left:-6px;top:4px;width:10px;height:10px;border-radius:999px;background:var(--charcoal-600)}
+  .node.key::before{background:var(--emerald);box-shadow:0 0 0 4px rgba(16,185,129,.18)}
+  .node .yr{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;color:var(--emerald-400)}
+  .node .role{font-family:var(--f-display);font-size:1.12rem;font-weight:500;margin:.35rem 0 .1rem}
+  .node .org{font-size:.8rem;opacity:.6;margin-bottom:.5rem}
+  .node p{font-size:.82rem;opacity:.7}
+  .alt-badge{display:inline-block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .5rem;border-radius:999px;margin-top:.6rem}
+  .b-craft{background:rgba(34,211,238,.14);color:var(--cyan)}
+  .b-systems{background:rgba(16,185,129,.14);color:var(--emerald-400)}
+  .b-product{background:rgba(212,175,55,.16);color:var(--gold-400)}
+  .b-business{background:rgba(229,193,88,.2);color:var(--gold-400)}
+
+  /* achievements */
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:1.1rem;margin-top:2.8rem}
+  .tile{grid-column:span 2;background:var(--paper-50);border:1px solid var(--platinum-200);border-radius:20px;padding:1.7rem}
+  .tile.hero-metric{grid-column:span 3;background:linear-gradient(160deg,#fff,#fbf6e6)}
+  @media (max-width:760px){.tiles{grid-template-columns:1fr 1fr}.tile,.tile.hero-metric{grid-column:span 1}}
+  .metric{font-family:var(--f-display);font-weight:500;font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+  .tile.hero-metric .metric{color:#9a7b16}
+  .tile .lab{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:.9rem}
+  .tile .ctx{font-size:.86rem;opacity:.7;margin-top:.5rem}
+
+  /* contact */
+  #contact .wrap{text-align:center}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--emerald);color:#04150E;font-weight:600;padding:.9rem 1.5rem;border-radius:14px;margin-top:2rem;transition:.3s;text-decoration:none}
+  .btn:hover{background:var(--emerald-400);transform:translateY(-2px);box-shadow:0 12px 30px rgba(16,185,129,.3)}
+  .links{display:flex;gap:1.6rem;justify-content:center;margin-top:1.8rem;font-family:var(--f-mono);font-size:.76rem;letter-spacing:.08em;opacity:.7;flex-wrap:wrap}
+  .links a{text-decoration:none;color:inherit;border-bottom:1px solid transparent}
+  .links a:hover{border-color:currentColor}
+
+  .note{position:fixed;left:14px;bottom:12px;z-index:60;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.06em;opacity:.4;max-width:230px;mix-blend-mode:difference;color:#fff}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--e,cubic-bezier(.22,1,.36,1)),transform .7s var(--e,cubic-bezier(.22,1,.36,1))}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.cue .dot::after{animation:none}}
+</style>
+
+<header class="top">
+  <div class="mark">AP</div>
+  <nav class="mono">
+    <a href="#brands">Work</a><a href="#timeline">Journey</a><a href="#leadership">Leadership</a><a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<nav class="rail" aria-label="Chapters">
+  <a href="#hero" class="on" title="Hero"></a><a href="#intro" title="Introduction"></a>
+  <a href="#brands" title="Brands"></a><a href="#journey" title="My Journey"></a>
+  <a href="#timeline" title="Timeline"></a><a href="#achievements" title="Achievements"></a>
+  <a href="#leadership" title="Leadership"></a><a href="#contact" title="Contact"></a>
+</nav>
+
+<div class="note">Hi-fi concept · static stand-in for the persistent 3D scene · light/dark = the chapter clock</div>
+
+<main class="snap" id="scroller">
+
+  <!-- 1 · HERO (dark) -->
+  <section id="hero" class="dark alt">
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div>
+        <p class="eyebrow reveal">Product &amp; Design Leadership · iGaming</p>
+        <h1 class="reveal" style="margin-top:1.2rem">
+          <span>Senior Product</span>
+          <span>Design Leader for</span>
+          <span class="accent">iGaming &amp; Sportsbook.</span>
+        </h1>
+        <p class="lead reveal">Fourteen years turning platform complexity into effortless products — for Tier 1 sportsbook, casino &amp; live casino.</p>
+        <div class="cue reveal">Scroll<span class="dot"></span></div>
+      </div>
+      <div aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 2 · INTRODUCTION (light) -->
+  <section id="intro" class="light">
+    <div class="wrap">
+      <p class="eyebrow reveal">Introduction</p>
+      <h2 class="reveal" style="margin-top:1rem;max-width:18ch">I build the products behind Tier 1 operators — and the systems that let them scale.</h2>
+      <p class="lead reveal" style="max-width:52ch;opacity:.72">From the betslip to whole-market launches: research, design systems, product strategy, platform migration, and the P&amp;L impact that follows. Craft that compounds into leadership.</p>
+      <div class="track" style="gap:2.4rem;overflow:visible;margin-top:2.4rem">
+        <div class="reveal"><div class="metric" style="font-size:2.6rem">14+</div><div class="lab mono" style="opacity:.5">Years · Tier 1</div></div>
+        <div class="reveal"><div class="metric" style="font-size:2.6rem">3</div><div class="lab mono" style="opacity:.5">Continents · EU / CA / US</div></div>
+        <div class="reveal"><div class="metric" style="font-size:2.6rem">7</div><div class="lab mono" style="opacity:.5">Operators &amp; suppliers</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · BRANDS (dark) -->
+  <section id="brands" class="dark">
+    <div class="wrap">
+      <p class="eyebrow reveal">Brands I've worked with</p>
+      <h2 class="reveal" style="margin-top:.8rem">Trusted with the products<br>behind the industry.</h2>
+      <div class="brands reveal">
+        <div class="brand"><div class="name">Fitzdares</div><div><div class="meta">Head of Product · 2023–now</div><div class="impact">Launched Canada · UK replatform</div></div></div>
+        <div class="brand"><div class="name">SG Digital</div><div><div class="meta">Snr UX Lead · 2018–23</div><div class="impact">B2B design system · betslip</div></div></div>
+        <div class="brand"><div class="name">Kindred</div><div><div class="meta">UX Architect · 2016–18</div><div class="impact">15 brands · 30+ sites</div></div></div>
+        <div class="brand"><div class="name">Unibet</div><div><div class="meta">CRM → UX Lead · 2011–16</div><div class="impact">#1 emerging-market growth ’12</div></div></div>
+        <div class="brand"><div class="name">LeoVegas</div><div><div class="meta">UX/UI Designer</div><div class="impact">Mobile-first casino</div></div></div>
+        <div class="brand"><div class="name">Storspiller</div><div><div class="meta">Product design</div><div class="impact">Nordic operator</div></div></div>
+        <div class="brand"><div class="name">Scientific&nbsp;Games</div><div><div class="meta">Supplier platform</div><div class="impact">Retail · native · web</div></div></div>
+        <div class="brand" style="background:var(--ink-800)"><div class="name muted" style="font-size:.9rem;opacity:.4">+ hover any card<br>for role &amp; impact</div><div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · TIMELINE (dark alt) -->
+  <section id="timeline" class="dark alt">
+    <div class="wrap">
+      <p class="eyebrow reveal">Career timeline · 2011 → now</p>
+      <h2 class="reveal" style="margin-top:.8rem">Craft → systems → product → business.</h2>
+      <div class="track reveal">
+        <div class="node"><div class="yr">2011–13</div><div class="role">CRM Manager</div><div class="org">Kindred / Unibet</div><p>Biggest growth across 10 emerging markets (2012).</p><span class="alt-badge b-craft">Craft</span></div>
+        <div class="node"><div class="yr">2013–16</div><div class="role">UX Delivery Lead</div><div class="org">Kindred / Unibet</div><p>Owned CMS features, roll-outs, migrations, maintenance.</p><span class="alt-badge b-craft">Craft</span></div>
+        <div class="node"><div class="yr">2016–18</div><div class="role">UX Architect</div><div class="org">Kindred Group</div><p>Scalable UX across 15 brands, 30+ sites.</p><span class="alt-badge b-systems">Systems</span></div>
+        <div class="node key"><div class="yr">2018–21</div><div class="role">UI Designer / UX Architect</div><div class="org">SG Digital</div><p>Built design systems &amp; theming; redesigned the betslip end-to-end.</p><span class="alt-badge b-systems">Systems</span></div>
+        <div class="node key"><div class="yr">2021–23</div><div class="role">Senior UX Lead</div><div class="org">SG Digital</div><p>Owned design systems across web, native &amp; retail; cut time-to-theme.</p><span class="alt-badge b-product">Product</span></div>
+        <div class="node key"><div class="yr">2023–now</div><div class="role">Head of Product</div><div class="org">Fitzdares</div><p>Roadmap, launches, migrations, board alignment, IT &amp; ops.</p><span class="alt-badge b-business">Business</span></div>
+      </div>
+      <p class="muted mono" style="font-size:.66rem;letter-spacing:.1em;margin-top:1.2rem;opacity:.4">Origin markers (1996 first app · 2008–11 BA IT, IATI) live in “My Journey.” Dates per CV — LeoVegas year to confirm.</p>
+    </div>
+  </section>
+
+  <!-- 6 · ACHIEVEMENTS (light) -->
+  <section id="achievements" class="light alt">
+    <div class="wrap">
+      <p class="eyebrow reveal">Major achievements</p>
+      <h2 class="reveal" style="margin-top:.8rem">Impact you can measure.</h2>
+      <div class="tiles">
+        <div class="tile hero-metric reveal"><div class="lab">ROI · 19 change requests</div><div class="metric">250%</div><div class="ctx">Return delivered on prioritised product change at Fitzdares — with GGR growth alongside.</div></div>
+        <div class="tile hero-metric reveal"><div class="lab">Market launches · 2023</div><div class="metric">2</div><div class="ctx">Sportsbook &amp; Casino launched in Canada; UK sportsbook &amp; casino replatformed.</div></div>
+        <div class="tile reveal"><div class="lab">Platform migration</div><div class="metric" style="font-size:2.4rem;color:var(--emerald)">UKGC</div><div class="ctx">UK business migrated to a new tech provider under UKGC compliance.</div></div>
+        <div class="tile reveal"><div class="lab">Canada relaunch</div><div class="metric" style="font-size:2.4rem;color:var(--emerald)">2024</div><div class="ctx">Player-data migration &amp; relaunch on a new platform.</div></div>
+        <div class="tile reveal"><div class="lab">Infrastructure</div><div class="metric" style="font-size:2.4rem;color:var(--emerald)">Cloud</div><div class="ctx">Office data &amp; finance migrated off legacy drives to the cloud.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · LEADERSHIP (light) -->
+  <section id="leadership" class="light">
+    <div class="wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center">
+      <div>
+        <p class="eyebrow reveal">Product leadership</p>
+        <h2 class="reveal" style="margin-top:.8rem">I run product, not just design it.</h2>
+        <p class="lead reveal" style="max-width:46ch;opacity:.72">Roadmap ownership, board &amp; C-level alignment, cross-functional teams across design, engineering, product and operations — plus IT infrastructure and third-party integrations.</p>
+      </div>
+      <ul class="reveal" style="list-style:none;display:flex;flex-direction:column;gap:.9rem">
+        <li style="padding:1rem 1.2rem;border:1px solid var(--platinum-200);border-radius:14px;background:var(--paper-50)"><strong>Strategy</strong> · roadmap aligned to commercial value</li>
+        <li style="padding:1rem 1.2rem;border:1px solid var(--platinum-200);border-radius:14px;background:var(--paper-50)"><strong>Delivery</strong> · scope, UAT, roll-out, training</li>
+        <li style="padding:1rem 1.2rem;border:1px solid var(--platinum-200);border-radius:14px;background:var(--paper-50)"><strong>Teams</strong> · design · engineering · ops</li>
+        <li style="padding:1rem 1.2rem;border:1px solid var(--platinum-200);border-radius:14px;background:var(--paper-50)"><strong>Systems</strong> · design systems · platform architecture</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 15 · CONTACT (dark) -->
+  <section id="contact" class="dark alt">
+    <div class="wrap">
+      <p class="eyebrow reveal">Contact</p>
+      <h2 class="reveal" style="margin-top:.8rem">Let's build something<br>at Tier 1 standard.</h2>
+      <a class="btn reveal" href="mailto:pokacity@gmail.com">Start a conversation →</a>
+      <div class="links reveal">
+        <a href="mailto:pokacity@gmail.com">pokacity@gmail.com</a>
+        <a href="#">LinkedIn</a><a href="#">Download CV</a><a href="#hero">Back to top ↑</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var scroller=document.getElementById('scroller');
+  // reveal on enter
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{root:scroller,threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+  // rail active state
+  var rail=document.querySelectorAll('.rail a');
+  var secs=[...document.querySelectorAll('section')];
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var id=e.target.id;rail.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+id)})}})},{root:scroller,threshold:.5});
+  secs.forEach(function(s){io2.observe(s)});
+
+  // ambient token canvas — restrained stand-in for the persistent 3D scene
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var c=document.getElementById('scene'),x=c.getContext('2d'),W,H,dpr=Math.min(devicePixelRatio||1,2);
+  function size(){W=c.width=innerWidth*dpr;H=c.height=innerHeight*dpr}
+  size();addEventListener('resize',size);
+  var t=0, cx, cy, R;
+  function draw(){
+    x.clearRect(0,0,W,H);
+    cx=W*0.72; cy=H*0.5; R=Math.min(W,H)*0.17;
+    // soft glow
+    var g=x.createRadialGradient(cx,cy,0,cx,cy,R*3);
+    g.addColorStop(0,'rgba(16,185,129,.16)');g.addColorStop(1,'rgba(10,14,39,0)');
+    x.fillStyle=g;x.beginPath();x.arc(cx,cy,R*3,0,7);x.fill();
+    // faceted token: rotating polygon rings
+    var rings=3;
+    for(var r=0;r<rings;r++){
+      var rr=R*(1-r*0.24), sides=6, rot=t*(0.15+r*0.05)+r*0.4;
+      x.beginPath();
+      for(var i=0;i<=sides;i++){var a=rot+i/sides*Math.PI*2;var px=cx+Math.cos(a)*rr, py=cy+Math.sin(a)*rr*0.92;i?x.lineTo(px,py):x.moveTo(px,py)}
+      x.closePath();
+      x.strokeStyle=r===0?'rgba(52,211,153,.75)':'rgba(220,225,234,'+(0.18-r*0.05)+')';
+      x.lineWidth=(r===0?2:1)*dpr;x.stroke();
+    }
+    // orbiting tokens (brands hint)
+    for(var k=0;k<7;k++){var a=t*0.25+k/7*Math.PI*2;var ox=cx+Math.cos(a)*R*2.1, oy=cy+Math.sin(a)*R*0.9;
+      x.beginPath();x.arc(ox,oy,3*dpr,0,7);x.fillStyle='rgba(212,175,55,'+(0.25+0.2*Math.sin(t+k))+')';x.fill();}
+    t+=0.006; if(!reduce) requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
