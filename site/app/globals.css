@@ -310,6 +310,34 @@ h1, h2, h3 {
   .rail { display: none; }
 }
 
+/* ── Ground cross-dissolve (GroundFX active) ──
+   The body carries the ground colour and GSAP dissolves it per chapter;
+   sections go transparent. Their gradient accents survive as rgba
+   overlays that work over any body ground. Without JS / with reduced
+   motion, .has-groundfx is absent and sections keep their own grounds. */
+html.has-groundfx .chapter,
+html.has-groundfx .tl-role {
+  background: transparent;
+}
+html.has-groundfx .ground-dark-alt::before,
+html.has-groundfx .ground-light-alt::before,
+html.has-groundfx .tl-role:nth-child(even)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+html.has-groundfx .ground-dark-alt::before {
+  background: radial-gradient(130% 100% at 78% 18%, rgba(38, 40, 54, 0.55) 0%, transparent 62%);
+}
+html.has-groundfx .ground-light-alt::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(22, 23, 28, 0.04));
+}
+html.has-groundfx .tl-role:nth-child(even)::before {
+  background: radial-gradient(120% 90% at 85% 30%, rgba(32, 34, 46, 0.5), transparent 60%);
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

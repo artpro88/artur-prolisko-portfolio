@@ -1,4 +1,5 @@
 import SmoothScroll from "@/components/SmoothScroll";
+import GroundFX from "@/components/GroundFX";
 import RevealObserver from "@/components/RevealObserver";
 import TopBar from "@/components/TopBar";
 import Rail from "@/components/Rail";
@@ -26,6 +27,7 @@ export default function Home() {
       <TopBar />
       <Rail />
       <RevealObserver />
+      <GroundFX />
       <main>
         <Hero />
         <Intro />
