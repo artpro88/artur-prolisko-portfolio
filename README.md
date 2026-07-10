@@ -150,25 +150,24 @@ Rule: avoid highly saturated gaming colours; keep everything refined. See `tailw
 - [ ] Analytics setup
 - [ ] Monitoring
 
-## Key Sections (15-Chapter Narrative)
+## Key Sections (14-Chapter Narrative)
 
-Each chapter is a "scene" that flows into the next; light/dark grounds alternate. See `SPEC_ADDENDUM.md §2` for the full reconciliation.
+Each chapter is a "scene" that flows into the next; light/dark grounds alternate. See `SPEC_ADDENDUM.md §2` and `docs/06-sitemap-ia.md` for full detail. *(Testimonials cut per Artur; Personal Side reframed as About.)*
 
 1. **Hero** — Statement headline, persistent 3D object, scroll cue.
 2. **Introduction** — Short positioning chapter (distinct from hero).
 3. **Brands I've Worked With** — Highest-priority visual moment; animated logos.
 4. **My Journey** — Origin narrative (first Windows app at 12yo → foundation).
-5. **Career Timeline** — Interactive, CV-driven, 1996–2026.
-6. **Major Achievements** — Presented visually, not buried in prose.
+5. **Career Timeline** — Interactive, CV-driven, 2011→now (ends on Founder, Gibraltar 2025).
+6. **Major Achievements** — Visual; hero metrics **250% ROI + 3 launches**.
 7. **Featured Projects** — 3–5 case studies (Betslip, Design System, launches).
 8. **Product Leadership** — Team impact, strategic vision, operational excellence.
 9. **Design Philosophy** — Core principles & approach.
 10. **Skills** — Core competencies.
 11. **Technologies** — Tools & stack (split from Skills).
-12. **Testimonials** — *If content available; otherwise cut.*
-13. **Awards / Recognition** — Certifications (BCS, Maxymiser, UX Fundamentals) + recognition.
-14. **Personal Side** — Humanising chapter (*needs content from Artur*).
-15. **Contact** — Multi-channel CTA: Email, LinkedIn, calendar, form.
+12. **Awards / Recognition** — Certifications (BCS, Maxymiser, UX Fundamentals) + recognition.
+13. **About** — First-person, drawn from CV; resolves the arc into "founder in Gibraltar."
+14. **Contact** — Multi-channel CTA: Email, LinkedIn, calendar, form.
 
 ## Content Data
 

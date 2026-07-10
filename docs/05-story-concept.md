@@ -43,7 +43,7 @@ One object family carries the whole story so the scene never "resets" — it **e
 | Product Leadership | Tokens organise into a structured lattice | Systems & teams |
 | Design Philosophy | Lattice simplifies to essential geometry | Taste = subtraction |
 | Skills / Technologies | Lattice nodes label softly | Capability map |
-| Awards / Personal | Warm, calmer light; fewer elements | The human behind it |
+| Recognition / About | Warm, calmer light; fewer elements | The human & founder behind it |
 | Contact | Everything resolves to a single, stable, inviting form | Arrival; an open door |
 
 ---
@@ -79,7 +79,7 @@ Each chapter = one message, one feeling, one visual focus. Copy is deliberately 
 - **Ground:** Dark. **(Key interactive element.)**
 
 ### 6 · Major Achievements — *Impact*
-- **Message:** 250% ROI. Two market launches. A platform migration. GGR growth.
+- **Message:** 250% ROI. Three market launches. A platform migration. GGR growth.
 - **Feeling:** Undeniable.
 - **Ground:** Light, with igniting accents.
 
@@ -108,34 +108,29 @@ Each chapter = one message, one feeling, one visual focus. Copy is deliberately 
 - **Feeling:** Modern, hands-on.
 - **Ground:** Light (continues Ch.10 as a paired capability spread) or Dark — see design system.
 
-### 12 · Testimonials — *Others' words* *(conditional — see note)*
-- **Message:** What leaders who worked with him say.
-- **Feeling:** Social proof.
-- **Ground:** Dark.
-
-### 13 · Awards / Recognition — *Validation*
+### 12 · Awards / Recognition — *Validation*
 - **Message:** Certifications and recognition (BCS Requirements Engineering, Maxymiser, UX Fundamentals).
 - **Feeling:** Rigor.
 - **Ground:** Light.
 
-### 14 · Personal Side — *The human* *(needs content — see note)*
-- **Message:** Who Artur is away from the platform.
-- **Feeling:** Relatability; likability.
+### 13 · About — *The human & the founder* *(content drawn from CV)*
+- **Message:** From a receipt printer in Estonia to founding a platform in Gibraltar — one instinct, scaled.
+- **Feeling:** Relatability; the arc resolves into "founder."
 - **Ground:** Light/warm.
 
-### 15 · Contact — *The open door*
+### 14 · Contact — *The open door*
 - **Message:** Let's build something at Tier 1 standard.
 - **Feeling:** Invitation, not a hard sell.
 - **Ground:** Dark, resolving.
 
 ---
 
-## Conditional chapters (flagged for Artur)
+## Resolved chapter decisions (Artur, Jul 2026)
 
-- **Ch. 12 Testimonials** — Requires 2–4 quotes + attribution + permission. **If unavailable at build time, this chapter is cut** and the narrative closes 14 → 15 cleanly (the arc does not depend on it).
-- **Ch. 14 Personal Side** — Requires content (interests, photography, causes, a portrait). **If Artur prefers a purely professional site, this chapter is cut** and Awards (13) flows into Contact (15).
+- **Testimonials — CUT.** No dedicated testimonials chapter. Narrative is now **14 chapters**; Recognition (12) → About (13) → Contact (14) closes cleanly. Social proof is carried by the Brands roster and named launches instead.
+- **About (formerly "Personal Side") — KEPT, content from CV.** First-person chapter rephrased from the CV summary + origin story, resolving the arc into "founder in Gibraltar." Copy drafted in `07-user-journey.md` and the hi-fi concept.
 
-Both are designed as **self-contained modules** so removal has zero structural cost.
+> **Founder update:** the story now ends on a genuine turn — *operator leadership → founding a platform under a Gibraltar licence (2025).* This strengthens the final act: the widening lens resolves not into "a great hire" but "a founder."
 
 ---
 

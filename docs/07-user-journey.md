@@ -42,7 +42,7 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 
 ### Chapter 5 · Career Timeline `#timeline` — Dark **(key interactive)**
 - **Goal:** Show the climb: craft → systems → product → business.
-- **Content:** 7 roles (2011→present) on an interactive track; each node: year, role, org, 1–2 line summary, milestone bullets. Altitude encoded by position/label.
+- **Content:** 8 roles (2011→present) on an interactive track, ending on **Founder — Gibraltar venture (2025–now)**; each node: year, role, org, 1–2 line summary, milestone bullets. Altitude encoded by position/label (craft → systems → product → business → founder).
 - **Layout:** Horizontal scroll-linked track on desktop (moves as you scroll vertically); vertical stacked cards on mobile.
 - **3D:** Tokens arrange along a receding spine/path that mirrors the timeline direction.
 - **Motion:** Active node scales & brightens as it enters center; connecting line draws; 3D spine advances in lockstep (GSAP ScrollTrigger scrub).
@@ -50,7 +50,7 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 
 ### Chapter 6 · Major Achievements `#achievements` — Light (igniting accents)
 - **Goal:** Make impact undeniable and *visual*.
-- **Content:** Metric tiles: **250% ROI** · **2 launches** · **GGR growth** · **cloud migration** · **10-market growth**. Each with one-line context. No paragraphs.
+- **Content:** Metric tiles: **250% ROI** · **3 launches** (Canada 2023 · UK replatform 2023 · Gibraltar platform 2025) · **Founder / Gibraltar** · **UKGC migration** · **GGR growth**. Each with one-line context. No paragraphs.
 - **Layout:** Asymmetric grid of large stat tiles; the two biggest metrics dominate.
 - **3D:** Select tokens ignite (emerald/gold) and rise above the field.
 - **Motion:** Numbers count up on enter; tiles stagger in; accent glow on the two hero metrics.
@@ -94,33 +94,27 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 - **Layout:** Monochrome tool marks in a calm grid; continues Ch.10's light ground as one capability "spread."
 - **3D:** Minimal; scene rests before the human act.
 - **Motion:** Gentle reveal; hover tint.
-- **Exit:** Into Act IV (Testimonials/Recognition).
+- **Exit:** Into Act IV (Recognition).
 
-### Chapter 12 · Testimonials `#testimonials` — Dark *(conditional)*
-- **Goal:** Third-party validation.
-- **Content:** 2–4 quotes with name, title, company. *If no content: chapter removed.*
-- **Layout:** One large quote at a time (carousel) or a quiet stacked pair.
-- **3D:** Warm, calmer light; sparse tokens.
-- **Motion:** Quote cross-fades; attribution slides.
-- **Exit:** Into Recognition.
+> **Testimonials chapter — CUT** (Artur, Jul 2026). Narrative is 14 chapters. Social proof carried by Brands + named launches.
 
-### Chapter 13 · Awards / Recognition `#recognition` — Light
+### Chapter 12 · Awards / Recognition `#recognition` — Light
 - **Goal:** Add rigor/credibility.
 - **Content:** Certifications — **BCS Requirements Engineering (QA, 2015) · Maxymiser Technical Training (2015) · UX Fundamentals (QA Ltd)** — plus any awards/recognition. Credential IDs where available.
 - **Layout:** Clean credential rows/badges; issuer + year.
 - **3D:** Minimal, steady.
 - **Motion:** Rows reveal on scroll.
-- **Exit:** Into Personal (or Contact if Personal is cut).
+- **Exit:** Into About.
 
-### Chapter 14 · Personal Side `#personal` — Light/warm *(conditional/needs content)*
-- **Goal:** Likability; the human behind the platform.
-- **Content:** TBD by Artur — interests, photography, causes, a portrait. *If not provided: chapter removed.*
-- **Layout:** Warm editorial; portrait + short first-person lines.
+### Chapter 13 · About `#about` — Light/warm *(content from CV)*
+- **Goal:** Humanise and resolve the arc into "founder."
+- **Content (drafted from CV):** first-person — first Windows app at 12 in Estonia (SelfHome, UI + front/back end + printed receipts); the instinct *"make complex systems feel effortless"*; IATI IT degree; 14 years across Tier 1 operators (EU/CA/US); **2025 move to Gibraltar to found a new business & platform under a Gibraltarian licence.**
+- **Layout:** Warm editorial; two-column statement + narrative; optional portrait (if Artur supplies one).
 - **3D:** Warmest light of the story; scene at its calmest.
 - **Motion:** Soft, unhurried reveals.
 - **Exit:** Into Contact.
 
-### Chapter 15 · Contact `#contact` — Dark (resolving)
+### Chapter 14 · Contact `#contact` — Dark (resolving)
 - **Goal:** Convert interest into a conversation.
 - **Content:** Invitation line — *"Let's build something at Tier 1 standard."* · email (`pokacity@gmail.com`) · LinkedIn · optional calendar link · CV download. Light contact form optional.
 - **Layout:** Centered, spacious; the 3D form resolves to a single stable, inviting shape behind.

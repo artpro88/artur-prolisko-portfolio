@@ -22,12 +22,18 @@ Agency-style strategy & design foundation, produced in order per the brief's
 **Reconciliation:** `../SPEC_ADDENDUM.md` (authoritative on conflicts).
 **Roadmap:** `../PROJECT_PLAN.md`.
 
-## Open items for Artur (before build sign-off)
-1. **Testimonials (Ch.12)** — provide 2–4 quotes + permission, or we cut the chapter.
-2. **Personal Side (Ch.14)** — provide content (interests/portrait), or we cut it.
-3. **Date check** — LeoVegas year (CV dates the Jan–Jul 2018 UX/UI Designer role; old site said 2017); BA IT confirmed 2008–2011 (old site showed 2004).
-4. **Domain** — keep `pokacity.com` or migrate.
-5. **Hero-level achievements** — confirm the two "hero metrics" are 250% ROI + 2 launches.
+## Decisions resolved (Artur, Jul 2026)
+1. ✅ **Testimonials** — CUT. Narrative is now **14 chapters**.
+2. ✅ **Personal Side → About** — KEPT, content rephrased from CV; resolves arc into "founder."
+3. ✅ **LeoVegas** — confirmed **UX/UI Designer, Jan–Jul 2018**.
+4. ✅ **Domain** — keep **pokacity.com**.
+5. ✅ **Hero metrics** — **250% ROI + 3 launches** (Canada 2023, UK replatform 2023, Gibraltar 2025).
+6. ✅ **New current role** — **Founder, new iGaming venture, Gibraltar (Aug 2025–present)** under a Gibraltarian licence.
+
+## Remaining to confirm
+- **Gibraltar venture** — company/brand name + exact title (Founder / Founder & CEO / Founder & Head of Product?) for the timeline + Brands + meta.
+- Whether Fitzdares (2023–2025) ended cleanly or overlaps the Gibraltar start.
+- Optional portrait image for the About chapter.
 
 ## The hi-fi concept
 `hifi_concept.html` is a live, scrollable stand-in demonstrating: the hybrid

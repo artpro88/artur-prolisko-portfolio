@@ -8,7 +8,7 @@
 
 ## 1. Positioning Statement
 
-> **Artur Prolisko is a product and design leader who has spent 14+ years building the sportsbook, casino, and live-casino experiences behind Tier 1 iGaming operators across Europe, Canada, and the USA — turning platform complexity into products that launch markets and move revenue.**
+> **Artur Prolisko is a product and design leader — now a founder — who has spent 14+ years building the sportsbook, casino, and live-casino experiences behind Tier 1 iGaming operators across Europe, Canada, and the USA. In 2025 he moved to Gibraltar to build his own: a new business and platform under a Gibraltarian licence, turning platform complexity into products that launch markets and move revenue.**
 
 He is not "a designer who manages" nor "a manager who used to design." He is the rare operator who owns the whole arc: **research → design system → product strategy → platform migration → market launch → P&L impact.** The site must make a visitor feel that range within the first two chapters.
 
@@ -39,13 +39,14 @@ Senior Product Design Leader · UX Strategist · Product Thinker · Digital Inno
 
 At twelve, Artur shipped his first Windows application — a VHS-rental system that printed receipts and reports. Thirty years later he launches regulated sportsbook and casino platforms for entire countries. The connective tissue across that arc is a single instinct: **make complex systems feel effortless for the people using them.**
 
-That instinct scaled through four altitudes:
+That instinct scaled through five altitudes:
 1. **Craft** — pixels, prototypes, the betslip.
 2. **Systems** — design systems that theme entire product families and cut technical debt.
 3. **Product** — roadmaps, UAT, launches, replatforming.
 4. **Business** — GGR, ROI, migrations, board-level strategy.
+5. **Founder** — as of 2025, building his own business and platform under a Gibraltar licence.
 
-The narrative isn't "career history." It's **the widening of a single point of view** — from one screen, to one system, to one product, to one market.
+The narrative isn't "career history." It's **the widening of a single point of view** — from one screen, to one system, to one product, to one market, to his own company. The arc resolves not on "a great hire" but on **"a founder."**
 
 ---
 
@@ -57,7 +58,7 @@ Every chapter should ladder up to one of these four pillars.
 Developer roots → UX craft → design systems → product leadership. Each layer didn't replace the last; it built on it. *Proof: 1996 first app; betslip redesign; B2B design system; Head of Product.*
 
 ### Pillar 2 — Impact you can measure
-Not "improved UX" — **250% ROI across 19 change requests, two market launches, GGR growth, cloud migration.** *Proof: Fitzdares achievements, Kindred emerging-markets growth.*
+Not "improved UX" — **250% ROI across 19 change requests, three market launches, GGR growth, cloud migration.** *Proof: Fitzdares achievements, Kindred emerging-markets growth, Gibraltar platform launch.*
 
 ### Pillar 3 — Built for the hardest arena
 Tier 1 operators, multi-jurisdiction compliance (UKGC), live platform migrations with real players and real money. *Proof: UK replatform, Canada launch & relaunch, UK tech-provider migration.*

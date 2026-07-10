@@ -83,22 +83,22 @@ Transform pokacity.com from a static 2019 site into an award-worthy, immersive p
 
 ### PHASE 3: Feature Development (Weeks 6-9)
 
-**Deliverables (15-chapter narrative — see `SPEC_ADDENDUM.md §2`):**
+**Deliverables (14-chapter narrative — see `SPEC_ADDENDUM.md §2` & `docs/06-sitemap-ia.md`):**
 - [ ] 1. Hero (headline, persistent 3D object, scroll cue)
 - [ ] 2. Introduction (positioning chapter)
 - [ ] 3. Brands I've Worked With (animated logos — highest priority)
 - [ ] 4. My Journey (origin, 1996 12yo developer)
-- [ ] 5. Career Timeline (interactive, data-driven, 1996-2026)
-- [ ] 6. Major Achievements (visual presentation)
+- [ ] 5. Career Timeline (interactive; 2011→now, ends on Founder/Gibraltar 2025)
+- [ ] 6. Major Achievements (visual; 250% ROI + 3 launches)
 - [ ] 7. Featured Projects (case studies)
 - [ ] 8. Product Leadership (team impact, scope)
 - [ ] 9. Design Philosophy
 - [ ] 10. Skills
 - [ ] 11. Technologies (tools/stack)
-- [ ] 12. Testimonials (*if content available; else cut*)
-- [ ] 13. Awards / Recognition (certifications + recognition)
-- [ ] 14. Personal Side (*needs content from Artur*)
-- [ ] 15. Contact (multi-channel CTA)
+- [ ] 12. Awards / Recognition (certifications + recognition)
+- [ ] 13. About (first-person, from CV; resolves arc into founder)
+- [ ] 14. Contact (multi-channel CTA)
+- [ ] ~~Testimonials~~ — CUT per Artur
 
 **Issues:**
 ```
@@ -107,17 +107,16 @@ Transform pokacity.com from a static 2019 site into an award-worthy, immersive p
 - Section: 3. Brand Logo Showcase (animated)
 - Section: 4. My Journey (origin)
 - Section: 5. Career Timeline (Component)
-- Section: 5. Career Timeline (Data Structure)
-- Section: 6. Major Achievements (visual)
+- Section: 5. Career Timeline (Data Structure — incl. Gibraltar 2025)
+- Section: 6. Major Achievements (visual — 3 launches)
 - Section: 7. Featured Projects Gallery
 - Section: 8. Product Leadership
 - Section: 9. Design Philosophy
 - Section: 10. Skills
 - Section: 11. Technologies
-- Section: 12. Testimonials (conditional)
-- Section: 13. Awards / Recognition (certifications)
-- Section: 14. Personal Side
-- Section: 15. Contact Section
+- Section: 12. Awards / Recognition (certifications)
+- Section: 13. About (from CV)
+- Section: 14. Contact Section
 - Component: Scroll Indicator
 - Component: Chapter Transitions (light/dark alternation)
 - Animation: Persistent 3D Scene Scroll Sync (GSAP ScrollTrigger)
@@ -286,33 +285,37 @@ Analytics: Plausible (privacy-first)
 
 ## CONTENT STRUCTURE
 
-### Timeline Data (from CV)
+### Timeline Data (confirmed by Artur, Jul 2026 — CV is source of truth)
 
 ```
-1996 - First Windows app (12 years old) - "SelfHome"
-2004 - Education: IATI University, Estonia (BA in IT)
-2005 - Airport Coordinator & Supervisor (Tallinn Airport)
-2011 - CRM Manager, Unibet Group LTD
-2013 - UX Delivery Lead, Unibet Group LTD
-2016 - UX Architect, Kindred Group LTD
-2017 - UX/UI Designer, LeoVegas AB
-2018 - UI Designer / UX Architect, SG Digital (2018-2021)
-2021 - Senior UX Lead, SG Digital (2021-2023)
-2023 - Head of Product, Fitzdares (2023-Present)
+Origin markers (shown in "My Journey" / "About", not the main track):
+1996      - First Windows app (12 years old) - "SelfHome" (Estonia)
+2008-2011 - Education: IATI, Estonia (BA in Information Technology)
+
+Career track (Chapter 5):
+2011-2013 - CRM, Kindred Group (Unibet)
+2013-2016 - UX Delivery / Interface & Production Manager Lead, Kindred/Unibet
+2016-2018 - UX Architect, Kindred Group
+2018      - UX/UI Designer, LeoVegas (Jan–Jul 2018)  ✅ confirmed
+2018-2021 - UI Designer / UX Architect, SG Digital (Scientific Gaming)
+2021-2023 - Senior UX Lead, SG Digital
+2023-2025 - Head of Product, Fitzdares
+2025-now  - Founder, new iGaming venture (Gibraltar licence)  ⚠ name/title TBC
 ```
 
-### Major Achievements (to Feature)
+### Major Achievements (to Feature) — hero metrics: 250% ROI + 3 launches
 
 ```
-✓ Launched Sportsbook & Casino in Canada (2023)
-✓ Replatformed Sportsbook & Casino in UK (2023)
-✓ Re-launching Sportsbook & Casino in Canada (2024)
-✓ Migrated UK business to new tech provider
-✓ 250% ROI on 19 change requests
+✓ 250% ROI on 19 change requests (Fitzdares)
+✓ 3 market launches: Canada Sportsbook & Casino (2023),
+    UK replatform (2023), new platform under Gibraltar licence (2025)
+✓ Founded a new iGaming business & platform, Gibraltar (2025)
+✓ Canada relaunch on new platform (2024)
+✓ Migrated UK business to new tech provider (UKGC compliance)
 ✓ Infrastructure upgrades (cloud migration)
 ✓ Design System implementation (B2B)
-✓ Cross-functional team leadership
-✓ 14+ years in iGaming Tier 1 operators
+✓ Kindred: #1 growth across 10 emerging markets (2012)
+✓ 14+ years in iGaming Tier 1 operators (EU / CA / US)
 ```
 
 ### Featured Work (Case Studies)

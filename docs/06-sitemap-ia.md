@@ -23,10 +23,10 @@ This is a **single-page, scroll-driven narrative** — not a multi-page site. Al
 ├── #philosophy           9. Design Philosophy     │
 ├── #skills               10. Skills               │
 ├── #technologies         11. Technologies         │
-├── #testimonials         12. Testimonials (cond.) │
-├── #recognition          13. Awards / Recognition │
-├── #personal             14. Personal Side (cond.)│
-└── #contact              15. Contact              │
+├── #recognition          12. Awards / Recognition │
+├── #about                13. About                │
+└── #contact              14. Contact              │
+                          (Testimonials — CUT per Artur)
                                                    │
 /work/[slug]              Case-study detail pages ◀┘ (progressive disclosure)
 ├── /work/betslip-redesign
@@ -73,7 +73,7 @@ The 15 chapters group into **four narrative acts** (mirrors the nav's 4 jumps):
 | **I — Who** | 1 Hero, 2 Intro, 3 Brands | *(top)* | Establish credibility & scale |
 | **II — Journey** | 4 My Journey, 5 Timeline, 6 Achievements | `#journey` | The climb + proof of impact |
 | **III — Depth** | 7 Work, 8 Leadership, 9 Philosophy, 10 Skills, 11 Tech | `#work` / `#leadership` | Substance, scope, POV, capability |
-| **IV — Human & Close** | 12 Testimonials, 13 Recognition, 14 Personal, 15 Contact | `#contact` | Trust, humanity, invitation |
+| **IV — Human & Close** | 12 Recognition, 13 About, 14 Contact | `#contact` | Credibility, humanity, invitation |
 
 ---
 
@@ -153,23 +153,27 @@ type Recognition = {
 
 ## 5. Canonical content (from CV — source of truth)
 
-### Timeline entries (verify dates marked ⚠)
+### Timeline entries (confirmed by Artur, Jul 2026)
 1. **2011–2013** · CRM, Kindred Group (Unibet) · *business/craft*
 2. **2013–2016** · UX Interface & Production Manager Lead, Kindred/Unibet · *craft*
 3. **2016–2018** · UX Architect, Kindred Group · *systems*
-4. **2018 (Jan–Jul)** · UX/UI Designer — ⚠ *website says LeoVegas 2017; CV dates Jan–Jul 2018. Confirm org & year.*
+4. **2018 (Jan–Jul)** · UX/UI Designer, **LeoVegas** · *systems* — ✅ confirmed (Jan–Jul 2018)
 5. **2018–2021** · UI Designer / UX Architect, SG Digital (Scientific Gaming) · *systems*
 6. **2021–2023** · Senior UX Lead, SG Digital · *product/systems*
-7. **2023–present** · Head of Product, Fitzdares · *business/product*
+7. **2023–2025** · Head of Product, Fitzdares · *business/product*
+8. **2025–present** · **Founder — new iGaming venture (Gibraltar licence)** · *business/founder* — ⚠ *venture name & exact title to confirm*
+
+> **Positioning shift:** As of Aug 2025 Artur is a **founder**, not an operator employee — setting up a new business and platform under a Gibraltarian licence. The narrative now arcs *operator leadership → founder*. Confirm whether Fitzdares (2023–2025) ended cleanly or overlaps.
 
 Plus origin markers (pre-career, shown in Ch.4 My Journey, not the main timeline):
 - **1996** · First Windows app "SelfHome" (age 12)
 - **2005** · Apron Coordinator/Supervisor, Tallinn Airport
 - **2008–2011** · BA Information Technology, IATI (Estonia) — ⚠ *website showed "2004"; CV says 2008–2011. Use CV.*
 
-### Featured achievements (Ch.6)
+### Featured achievements (Ch.6) — hero metrics: **250% ROI** + **3 launches**
 - **250%** ROI across **19** change requests (Fitzdares)
-- **2** market launches — Sportsbook & Casino, Canada (2023) + UK replatform (2023)
+- **3** market launches — Sportsbook & Casino, Canada (2023) + UK replatform (2023) + **new platform under Gibraltar licence (2025)**
+- Founded a new iGaming business & platform, Gibraltar (2025)
 - Canada relaunch on new platform (2024); UK tech-provider migration (UKGC)
 - GGR growth; cloud infrastructure migration
 - Kindred: biggest growth among 10 emerging markets (2012)
