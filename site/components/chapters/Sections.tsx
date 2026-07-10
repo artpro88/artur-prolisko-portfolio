@@ -1,4 +1,5 @@
 import { leadership, skills, technologies, recognition } from "@/data/content";
+import CountUp from "@/components/CountUp";
 
 export function Intro() {
   const stats = [
@@ -21,7 +22,9 @@ export function Intro() {
         <div className="reveal mt-10 flex flex-wrap gap-10">
           {stats.map(([n, l]) => (
             <div key={l}>
-              <div className="metric-n text-[2.6rem] text-gold-soft">{n}</div>
+              <div className="metric-n text-[2.6rem] text-gold-soft">
+                <CountUp value={n} />
+              </div>
               <div className="mono-label">{l}</div>
             </div>
           ))}

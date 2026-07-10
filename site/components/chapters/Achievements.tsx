@@ -1,4 +1,5 @@
 import { achievements } from "@/data/content";
+import CountUp from "@/components/CountUp";
 
 /** Chapter 6 — Major Achievements. Labels + context always visible (docs/08 §5a). */
 export default function Achievements() {
@@ -25,7 +26,7 @@ export default function Achievements() {
                     : "text-[2.1rem] text-bordeaux"
                 }`}
               >
-                {a.metric}
+                <CountUp value={a.metric} />
               </div>
               <div className="mt-2 text-[0.86rem] opacity-70">{a.context}</div>
             </div>
