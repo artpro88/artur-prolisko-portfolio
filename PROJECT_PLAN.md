@@ -83,34 +83,44 @@ Transform pokacity.com from a static 2019 site into an award-worthy, immersive p
 
 ### PHASE 3: Feature Development (Weeks 6-9)
 
-**Deliverables:**
-- [ ] Hero section (headline, CTA, 3D object)
-- [ ] Brand showcase (animated logo grid)
-- [ ] Origin story section (1996-12yo developer)
-- [ ] Career timeline (data-driven, 1996-2026)
-- [ ] Leadership section (team impact, scope)
-- [ ] Product impact section (metrics display)
-- [ ] Design philosophy section
-- [ ] Featured work gallery (case studies)
-- [ ] Achievements section (highlights)
-- [ ] Contact section (multi-channel CTA)
+**Deliverables (15-chapter narrative — see `SPEC_ADDENDUM.md §2`):**
+- [ ] 1. Hero (headline, persistent 3D object, scroll cue)
+- [ ] 2. Introduction (positioning chapter)
+- [ ] 3. Brands I've Worked With (animated logos — highest priority)
+- [ ] 4. My Journey (origin, 1996 12yo developer)
+- [ ] 5. Career Timeline (interactive, data-driven, 1996-2026)
+- [ ] 6. Major Achievements (visual presentation)
+- [ ] 7. Featured Projects (case studies)
+- [ ] 8. Product Leadership (team impact, scope)
+- [ ] 9. Design Philosophy
+- [ ] 10. Skills
+- [ ] 11. Technologies (tools/stack)
+- [ ] 12. Testimonials (*if content available; else cut*)
+- [ ] 13. Awards / Recognition (certifications + recognition)
+- [ ] 14. Personal Side (*needs content from Artur*)
+- [ ] 15. Contact (multi-channel CTA)
 
 **Issues:**
 ```
-- Section: Hero with 3D Object
-- Section: Brand Logo Showcase
-- Section: Origin Story
-- Section: Career Timeline (Component)
-- Section: Career Timeline (Data Structure)
-- Section: Leadership & Team Impact
-- Section: Product Impact Metrics
-- Section: Design Philosophy
-- Section: Featured Work Gallery
-- Section: Achievement Highlights
-- Section: Contact Section
+- Section: 1. Hero with 3D Object
+- Section: 2. Introduction
+- Section: 3. Brand Logo Showcase (animated)
+- Section: 4. My Journey (origin)
+- Section: 5. Career Timeline (Component)
+- Section: 5. Career Timeline (Data Structure)
+- Section: 6. Major Achievements (visual)
+- Section: 7. Featured Projects Gallery
+- Section: 8. Product Leadership
+- Section: 9. Design Philosophy
+- Section: 10. Skills
+- Section: 11. Technologies
+- Section: 12. Testimonials (conditional)
+- Section: 13. Awards / Recognition (certifications)
+- Section: 14. Personal Side
+- Section: 15. Contact Section
 - Component: Scroll Indicator
-- Component: Section Transitions
-- Animation: 3D Object Parallax
+- Component: Chapter Transitions (light/dark alternation)
+- Animation: Persistent 3D Scene Scroll Sync (GSAP ScrollTrigger)
 - Animation: Scroll-Triggered Reveals
 ```
 
@@ -214,9 +224,9 @@ Transform pokacity.com from a static 2019 site into an award-worthy, immersive p
 Framework: Next.js 14+ (App Router)
 Language: TypeScript
 Styling: Tailwind CSS v4
-Animation: Framer Motion
+Animation: GSAP + ScrollTrigger (scroll choreography) + Framer Motion (component motion)
 Scroll: Lenis.js
-3D Graphics: Three.js + React Three Fiber
+3D Graphics: Three.js + React Three Fiber + Drei (+ Spline, optional)
 ```
 
 ### Directory Structure
@@ -330,9 +340,10 @@ Analytics: Plausible (privacy-first)
 - Platinum: #E8E8E8 (highlight)
 - Soft Cyan: #06B6D4 (secondary)
 
-**Dark Mode:** Black background, white/cyan text  
-**Light Mode:** White background, dark/emerald text  
-**Default:** Dark mode (luxury aesthetic)
+**Theme model:** Premium **hybrid light/dark — NOT fully dark.** Chapters alternate light and dark grounds as a deliberate compositional rhythm (dark hero → light intro → dark brands → …). A user-facing mode toggle is optional/secondary.
+**Dark chapters:** matte black / deep graphite / soft charcoal ground, warm-white text, emerald/gold/cyan accents.
+**Light chapters:** warm white / platinum ground, matte-black text, emerald/gold accents.
+**Rule:** avoid highly saturated gaming colours — everything refined. (See `SPEC_ADDENDUM.md §1`.)
 
 ### Typography
 

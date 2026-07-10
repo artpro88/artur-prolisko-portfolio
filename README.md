@@ -73,8 +73,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### Frontend
 - **Framework**: Next.js 14+ (React 18+, TypeScript)
 - **Styling**: Tailwind CSS v4 with custom design tokens
-- **Animation**: Framer Motion, Lenis.js (smooth scroll)
-- **3D Graphics**: Three.js + React Three Fiber
+- **Animation**: GSAP + ScrollTrigger (scroll choreography), Framer Motion (component motion), Lenis.js (smooth scroll)
+- **3D Graphics**: Three.js + React Three Fiber + Drei; Spline (optional, per-moment only)
 
 ### Backend/CMS
 - **Content**: Contentful or Sanity (optional)
@@ -89,17 +89,19 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Color Palette
 
-**Dark Mode (Default)**
-- Primary: #0A0E27 (Deep Navy)
-- Accent: #10B981 (Emerald)
+**Hybrid light/dark — NOT a fully dark interface.** Chapters alternate light and dark grounds as a deliberate compositional rhythm. A user-facing mode toggle is optional/secondary. See `SPEC_ADDENDUM.md §1`.
+
+**Dark chapters**
+- Ground: #0A0E27 (matte black) / deep graphite / soft charcoal
+- Accent: #10B981 (Emerald), #D4AF37 (Gold), #06B6D4 (Soft cyan)
 - Text: #F5F7FA (Warm White)
 
-**Light Mode**
-- Primary: #F5F7FA (Warm White)
-- Accent: #10B981 (Emerald)
-- Text: #0A0E27 (Deep Navy)
+**Light chapters**
+- Ground: #F5F7FA (Warm white) / platinum
+- Accent: #10B981 (Emerald), #D4AF37 (Gold)
+- Text: #0A0E27 (matte black)
 
-See `tailwind.config.ts` for full palette.
+Rule: avoid highly saturated gaming colours; keep everything refined. See `tailwind.config.ts` for full palette.
 
 ### Components
 
@@ -148,37 +150,25 @@ See `tailwind.config.ts` for full palette.
 - [ ] Analytics setup
 - [ ] Monitoring
 
-## Key Sections
+## Key Sections (15-Chapter Narrative)
 
-### 1. Hero (120vh)
-Large, confident statement introducing Artur's expertise with animated 3D object and scroll cue.
+Each chapter is a "scene" that flows into the next; light/dark grounds alternate. See `SPEC_ADDENDUM.md §2` for the full reconciliation.
 
-### 2. Brands (100vh)
-Premium showcase of 6+ company logos with interactive highlights.
-
-### 3. Origin Story (100vh)
-Early career narrative: First Windows app at 12 years old → foundation for success.
-
-### 4. Career Timeline (140vh)
-Visual timeline from 1996 to 2026 with major milestones and role progression.
-
-### 5. Leadership Era (120vh)
-Focus on 2021-present: Team leadership, strategic vision, operational excellence.
-
-### 6. Product Impact (120vh)
-Business metrics: Market launches (Canada, UK), scaling achievements, revenue impact (250% ROI).
-
-### 7. Design Philosophy (100vh)
-Core principles and approach to problem-solving in iGaming products.
-
-### 8. Featured Work (Varying)
-3-5 case studies: Betslip redesign, Design System, Sportsbook platform, market launches.
-
-### 9. Achievements (100vh)
-Key wins, recognitions, and metrics highlighting impact.
-
-### 10. Contact (60vh)
-Multi-channel CTA: Email, LinkedIn, calendar link, contact form.
+1. **Hero** — Statement headline, persistent 3D object, scroll cue.
+2. **Introduction** — Short positioning chapter (distinct from hero).
+3. **Brands I've Worked With** — Highest-priority visual moment; animated logos.
+4. **My Journey** — Origin narrative (first Windows app at 12yo → foundation).
+5. **Career Timeline** — Interactive, CV-driven, 1996–2026.
+6. **Major Achievements** — Presented visually, not buried in prose.
+7. **Featured Projects** — 3–5 case studies (Betslip, Design System, launches).
+8. **Product Leadership** — Team impact, strategic vision, operational excellence.
+9. **Design Philosophy** — Core principles & approach.
+10. **Skills** — Core competencies.
+11. **Technologies** — Tools & stack (split from Skills).
+12. **Testimonials** — *If content available; otherwise cut.*
+13. **Awards / Recognition** — Certifications (BCS, Maxymiser, UX Fundamentals) + recognition.
+14. **Personal Side** — Humanising chapter (*needs content from Artur*).
+15. **Contact** — Multi-channel CTA: Email, LinkedIn, calendar, form.
 
 ## Content Data
 
