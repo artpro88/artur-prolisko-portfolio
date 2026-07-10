@@ -1,4 +1,5 @@
 import SmoothScroll from "@/components/SmoothScroll";
+import SceneLayer from "@/components/SceneLayer";
 import GroundFX from "@/components/GroundFX";
 import RevealObserver from "@/components/RevealObserver";
 import TopBar from "@/components/TopBar";
@@ -28,6 +29,9 @@ export default function Home() {
       <Rail />
       <RevealObserver />
       <GroundFX />
+      <SceneLayer />
+      <div className="vignette" aria-hidden="true" />
+      <div className="grain" aria-hidden="true" />
       <main>
         <Hero />
         <Intro />

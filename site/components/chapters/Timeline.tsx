@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { roles } from "@/data/timeline";
+import { sceneState } from "@/components/scene/store";
 
 /**
  * Chapter 5 — Career Timeline (docs/07 Ch.5, rebuilt Jul 2026).
@@ -36,6 +37,10 @@ export default function Timeline() {
       (entries) => {
         for (const e of entries) {
           e.target.classList.toggle("on", e.isIntersecting);
+          if (e.isIntersecting) {
+            // feed the 3D spine which role leads (docs/12 timeline state)
+            sceneState.roleIndex = Number((e.target as HTMLElement).dataset.idx ?? 0);
+          }
         }
       },
       { threshold: 0.5 },
@@ -55,8 +60,13 @@ export default function Timeline() {
         <div ref={fillRef} className="tl-fill" />
       </div>
 
-      {roles.map((role) => (
-        <section key={role.slug} className="tl-role" aria-label={`${role.title}, ${role.org}`}>
+      {roles.map((role, idx) => (
+        <section
+          key={role.slug}
+          className="tl-role"
+          data-idx={idx}
+          aria-label={`${role.title}, ${role.org}`}
+        >
           <div className="tl-node" />
           <div className="tl-inner">
             <div className="w-[190px] max-w-full">
