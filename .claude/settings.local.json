@@ -32,7 +32,9 @@
       "Bash(find /Users/ArturProlisko/Claude /private/tmp/claude-502 /Users/ArturProlisko/Downloads -iname \"*fitz*\" -mmin -240 2>/dev/null; ls -lat /Users/ArturProlisko/Downloads 2>/dev/null | head -10)",
       "Bash(python3 -c \"import PIL; print\\(PIL.__version__\\)\")",
       "Bash(python3 -)",
-      "Bash(git commit -q -m 'Logo readability fixes + Fable 5 Phase 1 review pass *)"
+      "Bash(git commit -q -m 'Logo readability fixes + Fable 5 Phase 1 review pass *)",
+      "Bash(npm --version)",
+      "Bash(npx --yes create-next-app@latest site --ts --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --use-npm --turbopack --yes)"
     ]
   }
 }
