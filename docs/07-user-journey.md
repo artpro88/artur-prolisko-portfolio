@@ -42,7 +42,7 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 
 ### Chapter 5 · Career Timeline `#timeline` — Dark **(key interactive)**
 - **Goal:** Show the climb: craft → systems → product → business.
-- **Content:** 8 roles (2011→present) on an interactive track, ending on **Founder — Gibraltar venture (2025–now)**; each node: year, role, org, 1–2 line summary, milestone bullets. Altitude encoded by position/label (craft → systems → product → business → founder).
+- **Content:** 7 roles (2011→present) on an interactive track, ending on **Head of Product, Fitzdares (2023–now)** — whose latest milestone is the **2025 relocation to Gibraltar** to set up Fitzdares' operation under a Gibraltarian licence; each node: year, role, org, 1–2 line summary, milestone bullets. Altitude encoded by position/label (craft → systems → product → business).
 - **Layout:** Horizontal scroll-linked track on desktop (moves as you scroll vertically); vertical stacked cards on mobile.
 - **3D:** Tokens arrange along a receding spine/path that mirrors the timeline direction.
 - **Motion:** Active node scales & brightens as it enters center; connecting line draws; 3D spine advances in lockstep (GSAP ScrollTrigger scrub).
@@ -50,7 +50,7 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 
 ### Chapter 6 · Major Achievements `#achievements` — Light (igniting accents)
 - **Goal:** Make impact undeniable and *visual*.
-- **Content:** Metric tiles: **250% ROI** · **3 launches** (Canada 2023 · UK replatform 2023 · Gibraltar platform 2025) · **Founder / Gibraltar** · **UKGC migration** · **GGR growth**. Each with one-line context. No paragraphs.
+- **Content:** Metric tiles: **250% ROI** · **3 launches** (Canada 2023 · UK replatform 2023 · Fitzdares Gibraltar 2025) · **Gibraltar setup** · **UKGC migration** · **GGR growth**. Each with one-line context. No paragraphs.
 - **Layout:** Asymmetric grid of large stat tiles; the two biggest metrics dominate.
 - **3D:** Select tokens ignite (emerald/gold) and rise above the field.
 - **Motion:** Numbers count up on enter; tiles stagger in; accent glow on the two hero metrics.
@@ -107,8 +107,8 @@ Chapter-by-chapter walkthrough of the scroll experience. Each entry defines: **g
 - **Exit:** Into About.
 
 ### Chapter 13 · About `#about` — Light/warm *(content from CV)*
-- **Goal:** Humanise and resolve the arc into "founder."
-- **Content (drafted from CV):** first-person — first Windows app at 12 in Estonia (SelfHome, UI + front/back end + printed receipts); the instinct *"make complex systems feel effortless"*; IATI IT degree; 14 years across Tier 1 operators (EU/CA/US); **2025 move to Gibraltar to found a new business & platform under a Gibraltarian licence.**
+- **Goal:** Humanise; show range that compounds.
+- **Content (drafted from CV):** first-person — first Windows app at 12 in Estonia (SelfHome, UI + front/back end + printed receipts); the instinct *"make complex systems feel effortless"*; IATI IT degree; 14 years across Tier 1 operators (EU/CA/US); **2025 relocation by Fitzdares to Gibraltar to set up its operation under a Gibraltarian licence.**
 - **Layout:** Warm editorial; two-column statement + narrative; optional portrait (if Artur supplies one).
 - **3D:** Warmest light of the story; scene at its calmest.
 - **Motion:** Soft, unhurried reveals.

@@ -8,7 +8,7 @@
 
 ## 1. Positioning Statement
 
-> **Artur Prolisko is a product and design leader — now a founder — who has spent 14+ years building the sportsbook, casino, and live-casino experiences behind Tier 1 iGaming operators across Europe, Canada, and the USA. In 2025 he moved to Gibraltar to build his own: a new business and platform under a Gibraltarian licence, turning platform complexity into products that launch markets and move revenue.**
+> **Artur Prolisko is a product and design leader who has spent 14+ years building the sportsbook, casino, and live-casino experiences behind Tier 1 iGaming operators across Europe, Canada, and the USA. As Head of Product at Fitzdares he now leads from Gibraltar — where he was relocated in 2025 to set up the operation under a Gibraltarian licence — turning platform complexity into products that launch markets and move revenue.**
 
 He is not "a designer who manages" nor "a manager who used to design." He is the rare operator who owns the whole arc: **research → design system → product strategy → platform migration → market launch → P&L impact.** The site must make a visitor feel that range within the first two chapters.
 
@@ -39,14 +39,13 @@ Senior Product Design Leader · UX Strategist · Product Thinker · Digital Inno
 
 At twelve, Artur shipped his first Windows application — a VHS-rental system that printed receipts and reports. Thirty years later he launches regulated sportsbook and casino platforms for entire countries. The connective tissue across that arc is a single instinct: **make complex systems feel effortless for the people using them.**
 
-That instinct scaled through five altitudes:
+That instinct scaled through four altitudes:
 1. **Craft** — pixels, prototypes, the betslip.
 2. **Systems** — design systems that theme entire product families and cut technical debt.
 3. **Product** — roadmaps, UAT, launches, replatforming.
-4. **Business** — GGR, ROI, migrations, board-level strategy.
-5. **Founder** — as of 2025, building his own business and platform under a Gibraltar licence.
+4. **Business** — GGR, ROI, migrations, board-level strategy, standing up a Tier 1 operation in a new jurisdiction (Gibraltar, 2025).
 
-The narrative isn't "career history." It's **the widening of a single point of view** — from one screen, to one system, to one product, to one market, to his own company. The arc resolves not on "a great hire" but on **"a founder."**
+The narrative isn't "career history." It's **the widening of a single point of view** — from one screen, to one system, to one product, to one market, to a whole operation in a new jurisdiction.
 
 ---
 

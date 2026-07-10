@@ -24,16 +24,15 @@ Agency-style strategy & design foundation, produced in order per the brief's
 
 ## Decisions resolved (Artur, Jul 2026)
 1. ✅ **Testimonials** — CUT. Narrative is now **14 chapters**.
-2. ✅ **Personal Side → About** — KEPT, content rephrased from CV; resolves arc into "founder."
+2. ✅ **Personal Side → About** — KEPT, content rephrased from CV (first-person; the human behind the work).
 3. ✅ **LeoVegas** — confirmed **UX/UI Designer, Jan–Jul 2018**.
 4. ✅ **Domain** — keep **pokacity.com**.
-5. ✅ **Hero metrics** — **250% ROI + 3 launches** (Canada 2023, UK replatform 2023, Gibraltar 2025).
-6. ✅ **New current role** — **Founder, new iGaming venture, Gibraltar (Aug 2025–present)** under a Gibraltarian licence.
+5. ✅ **Hero metrics** — **250% ROI + 3 launches** (Canada 2023, UK replatform 2023, Fitzdares Gibraltar platform 2025).
+6. ✅ **Current role** — **Head of Product, Fitzdares (2023–present)** — continuous. In 2025 **relocated by Fitzdares to Gibraltar** to set up its operation under a Gibraltarian licence. **Not a founder / not a new company** — a relocation + mandate within the same role.
 
 ## Remaining to confirm
-- **Gibraltar venture** — company/brand name + exact title (Founder / Founder & CEO / Founder & Head of Product?) for the timeline + Brands + meta.
-- Whether Fitzdares (2023–2025) ended cleanly or overlaps the Gibraltar start.
 - Optional portrait image for the About chapter.
+- Whether the Fitzdares Gibraltar entity can be named/shown distinctly, or is just "Fitzdares · Gibraltar."
 
 ## The hi-fi concept
 `hifi_concept.html` is a live, scrollable stand-in demonstrating: the hybrid

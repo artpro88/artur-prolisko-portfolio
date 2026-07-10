@@ -88,7 +88,7 @@ Transform pokacity.com from a static 2019 site into an award-worthy, immersive p
 - [ ] 2. Introduction (positioning chapter)
 - [ ] 3. Brands I've Worked With (animated logos — highest priority)
 - [ ] 4. My Journey (origin, 1996 12yo developer)
-- [ ] 5. Career Timeline (interactive; 2011→now, ends on Founder/Gibraltar 2025)
+- [ ] 5. Career Timeline (interactive; 2011→now, ends on Head of Product/Fitzdares; Gibraltar milestone 2025)
 - [ ] 6. Major Achievements (visual; 250% ROI + 3 launches)
 - [ ] 7. Featured Projects (case studies)
 - [ ] 8. Product Leadership (team impact, scope)
@@ -96,7 +96,7 @@ Transform pokacity.com from a static 2019 site into an award-worthy, immersive p
 - [ ] 10. Skills
 - [ ] 11. Technologies (tools/stack)
 - [ ] 12. Awards / Recognition (certifications + recognition)
-- [ ] 13. About (first-person, from CV; resolves arc into founder)
+- [ ] 13. About (first-person, from CV; the human behind the work)
 - [ ] 14. Contact (multi-channel CTA)
 - [ ] ~~Testimonials~~ — CUT per Artur
 
@@ -107,7 +107,7 @@ Transform pokacity.com from a static 2019 site into an award-worthy, immersive p
 - Section: 3. Brand Logo Showcase (animated)
 - Section: 4. My Journey (origin)
 - Section: 5. Career Timeline (Component)
-- Section: 5. Career Timeline (Data Structure — incl. Gibraltar 2025)
+- Section: 5. Career Timeline (Data Structure — Fitzdares incl. Gibraltar 2025 milestone)
 - Section: 6. Major Achievements (visual — 3 launches)
 - Section: 7. Featured Projects Gallery
 - Section: 8. Product Leadership
@@ -299,8 +299,9 @@ Career track (Chapter 5):
 2018      - UX/UI Designer, LeoVegas (Jan–Jul 2018)  ✅ confirmed
 2018-2021 - UI Designer / UX Architect, SG Digital (Scientific Gaming)
 2021-2023 - Senior UX Lead, SG Digital
-2023-2025 - Head of Product, Fitzdares
-2025-now  - Founder, new iGaming venture (Gibraltar licence)  ⚠ name/title TBC
+2023-now  - Head of Product, Fitzdares
+              └ 2025 milestone: relocated to Gibraltar to set up Fitzdares'
+                operation under a Gibraltarian licence (same role, same company)
 ```
 
 ### Major Achievements (to Feature) — hero metrics: 250% ROI + 3 launches
@@ -308,8 +309,8 @@ Career track (Chapter 5):
 ```
 ✓ 250% ROI on 19 change requests (Fitzdares)
 ✓ 3 market launches: Canada Sportsbook & Casino (2023),
-    UK replatform (2023), new platform under Gibraltar licence (2025)
-✓ Founded a new iGaming business & platform, Gibraltar (2025)
+    UK replatform (2023), Fitzdares' new platform under Gibraltar licence (2025)
+✓ Relocated by Fitzdares to set up its Gibraltar operation (2025)
 ✓ Canada relaunch on new platform (2024)
 ✓ Migrated UK business to new tech provider (UKGC compliance)
 ✓ Infrastructure upgrades (cloud migration)

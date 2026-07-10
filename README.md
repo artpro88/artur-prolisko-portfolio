@@ -158,7 +158,7 @@ Each chapter is a "scene" that flows into the next; light/dark grounds alternate
 2. **Introduction** — Short positioning chapter (distinct from hero).
 3. **Brands I've Worked With** — Highest-priority visual moment; animated logos.
 4. **My Journey** — Origin narrative (first Windows app at 12yo → foundation).
-5. **Career Timeline** — Interactive, CV-driven, 2011→now (ends on Founder, Gibraltar 2025).
+5. **Career Timeline** — Interactive, CV-driven, 2011→now (ends on Head of Product, Fitzdares; Gibraltar relocation 2025).
 6. **Major Achievements** — Visual; hero metrics **250% ROI + 3 launches**.
 7. **Featured Projects** — 3–5 case studies (Betslip, Design System, launches).
 8. **Product Leadership** — Team impact, strategic vision, operational excellence.
@@ -166,7 +166,7 @@ Each chapter is a "scene" that flows into the next; light/dark grounds alternate
 10. **Skills** — Core competencies.
 11. **Technologies** — Tools & stack (split from Skills).
 12. **Awards / Recognition** — Certifications (BCS, Maxymiser, UX Fundamentals) + recognition.
-13. **About** — First-person, drawn from CV; resolves the arc into "founder in Gibraltar."
+13. **About** — First-person, drawn from CV; the human behind the work, closing on the Gibraltar chapter at Fitzdares.
 14. **Contact** — Multi-channel CTA: Email, LinkedIn, calendar, form.
 
 ## Content Data

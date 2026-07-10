@@ -160,10 +160,10 @@ type Recognition = {
 4. **2018 (Jan–Jul)** · UX/UI Designer, **LeoVegas** · *systems* — ✅ confirmed (Jan–Jul 2018)
 5. **2018–2021** · UI Designer / UX Architect, SG Digital (Scientific Gaming) · *systems*
 6. **2021–2023** · Senior UX Lead, SG Digital · *product/systems*
-7. **2023–2025** · Head of Product, Fitzdares · *business/product*
-8. **2025–present** · **Founder — new iGaming venture (Gibraltar licence)** · *business/founder* — ⚠ *venture name & exact title to confirm*
+7. **2023–present** · Head of Product, **Fitzdares** · *business/product*
+   - **2025 milestone:** relocated by Fitzdares to **Gibraltar** to set up its operation there — standing up a new platform under a **Gibraltarian licence.** (Same role, same company — a relocation + mandate, not a new job.)
 
-> **Positioning shift:** As of Aug 2025 Artur is a **founder**, not an operator employee — setting up a new business and platform under a Gibraltarian licence. The narrative now arcs *operator leadership → founder*. Confirm whether Fitzdares (2023–2025) ended cleanly or overlaps.
+> **Note:** Artur is **not** a founder. He remains Head of Product at Fitzdares; the Gibraltar move is a milestone within that continuous role (2023–present). Do not frame as a new venture.
 
 Plus origin markers (pre-career, shown in Ch.4 My Journey, not the main timeline):
 - **1996** · First Windows app "SelfHome" (age 12)
@@ -172,8 +172,8 @@ Plus origin markers (pre-career, shown in Ch.4 My Journey, not the main timeline
 
 ### Featured achievements (Ch.6) — hero metrics: **250% ROI** + **3 launches**
 - **250%** ROI across **19** change requests (Fitzdares)
-- **3** market launches — Sportsbook & Casino, Canada (2023) + UK replatform (2023) + **new platform under Gibraltar licence (2025)**
-- Founded a new iGaming business & platform, Gibraltar (2025)
+- **3** market launches — Sportsbook & Casino, Canada (2023) + UK replatform (2023) + **Fitzdares' new platform under a Gibraltar licence (2025)**
+- Relocated by Fitzdares to set up its Gibraltar operation (2025)
 - Canada relaunch on new platform (2024); UK tech-provider migration (UKGC)
 - GGR growth; cloud infrastructure migration
 - Kindred: biggest growth among 10 emerging markets (2012)

@@ -43,7 +43,7 @@ One object family carries the whole story so the scene never "resets" — it **e
 | Product Leadership | Tokens organise into a structured lattice | Systems & teams |
 | Design Philosophy | Lattice simplifies to essential geometry | Taste = subtraction |
 | Skills / Technologies | Lattice nodes label softly | Capability map |
-| Recognition / About | Warm, calmer light; fewer elements | The human & founder behind it |
+| Recognition / About | Warm, calmer light; fewer elements | The human behind the work |
 | Contact | Everything resolves to a single, stable, inviting form | Arrival; an open door |
 
 ---
@@ -113,9 +113,9 @@ Each chapter = one message, one feeling, one visual focus. Copy is deliberately 
 - **Feeling:** Rigor.
 - **Ground:** Light.
 
-### 13 · About — *The human & the founder* *(content drawn from CV)*
-- **Message:** From a receipt printer in Estonia to founding a platform in Gibraltar — one instinct, scaled.
-- **Feeling:** Relatability; the arc resolves into "founder."
+### 13 · About — *The human behind the work* *(content drawn from CV)*
+- **Message:** From a receipt printer in Estonia to standing up a Tier 1 platform in Gibraltar — one instinct, scaled across fourteen years.
+- **Feeling:** Relatability; range that compounds.
 - **Ground:** Light/warm.
 
 ### 14 · Contact — *The open door*
@@ -128,9 +128,9 @@ Each chapter = one message, one feeling, one visual focus. Copy is deliberately 
 ## Resolved chapter decisions (Artur, Jul 2026)
 
 - **Testimonials — CUT.** No dedicated testimonials chapter. Narrative is now **14 chapters**; Recognition (12) → About (13) → Contact (14) closes cleanly. Social proof is carried by the Brands roster and named launches instead.
-- **About (formerly "Personal Side") — KEPT, content from CV.** First-person chapter rephrased from the CV summary + origin story, resolving the arc into "founder in Gibraltar." Copy drafted in `07-user-journey.md` and the hi-fi concept.
+- **About (formerly "Personal Side") — KEPT, content from CV.** First-person chapter rephrased from the CV summary + origin story. Copy drafted in `07-user-journey.md` and the hi-fi concept.
 
-> **Founder update:** the story now ends on a genuine turn — *operator leadership → founding a platform under a Gibraltar licence (2025).* This strengthens the final act: the widening lens resolves not into "a great hire" but "a founder."
+> **Gibraltar (2025):** Fitzdares relocated Artur to Gibraltar to stand up its operation there under a Gibraltarian licence — a milestone **within** his continuous Head of Product role, **not** a new venture. The final act reads *"still leading, now setting up a Tier 1 operation in a new jurisdiction"* — range and trust, not a job change.
 
 ---
 
