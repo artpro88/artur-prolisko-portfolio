@@ -52,12 +52,12 @@ export const brands: Brand[] = [
   },
 ];
 
-/** Featured work — real product screenshots (docs/asset-inventory.md). */
+/** Featured work — code-drawn 3D product vignettes (components/work). */
 export interface WorkItem {
   tag: string;
   title: string;
   desc: string;
-  image: string;
+  kind: "betslip" | "freebets" | "cashout" | "search";
 }
 
 export const work: WorkItem[] = [
@@ -65,25 +65,25 @@ export const work: WorkItem[] = [
     tag: "Sportsbook · Betslip",
     title: "Betslip, rebuilt end-to-end",
     desc: "Singles, multiples, teasers & bet builder — a full betslip solution redesigned for clarity and speed.",
-    image: "/work/betslip.jpg",
+    kind: "betslip",
   },
   {
     tag: "Sportsbook · Promotions",
     title: "Freebets & boosts",
     desc: "Apply freebets and boosters across all bet types, with clear confirmation flows.",
-    image: "/work/freebets.jpg",
+    kind: "freebets",
   },
   {
     tag: "Sportsbook · Trading",
     title: "Cash out",
     desc: "Automated & partial cash-out flows — designed for real-time decisions.",
-    image: "/work/cashout.jpg",
+    kind: "cashout",
   },
   {
     tag: "Sportsbook · Discovery",
     title: "Global search & in-play",
     desc: "Events, leagues, players & markets — unified search with live odds.",
-    image: "/work/search.jpg",
+    kind: "search",
   },
 ];
 
@@ -151,5 +151,4 @@ export const recognition = [
   { title: "BCS Certificate in Requirements Engineering", org: "QA", year: "2015" },
   { title: "Maxymiser Technical Training", org: "maxBADGES-12707655", year: "2015" },
   { title: "UX Fundamentals", org: "QA Ltd", year: "" },
-  { title: "SBC Racing Sportsbook of the Year — Fitzdares", org: "SBC Awards", year: "2020" },
 ];

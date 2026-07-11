@@ -307,6 +307,259 @@ h1, h2, h3 {
   background: var(--color-champagne);
 }
 
+/* ── Product vignettes (Work chapter) — code-drawn 3D UI compositions ── */
+.viz-stage {
+  position: relative;
+  height: 300px;
+  perspective: 1100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.viz-obj {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.viz-float {
+  position: relative;
+  transform-style: preserve-3d;
+  animation: viz-float 7s ease-in-out infinite alternate;
+}
+@keyframes viz-float {
+  from { transform: translateY(-7px) rotateZ(-0.4deg); }
+  to { transform: translateY(7px) rotateZ(0.4deg); }
+}
+
+.viz-panel {
+  background: linear-gradient(180deg, #1a1c24, #10121a);
+  border: 1px solid rgba(201, 203, 209, 0.14);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 34px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  font-size: 0.72rem;
+  color: var(--color-warm-white);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.viz-front { position: relative; transform: translateZ(46px); z-index: 2; }
+.viz-back {
+  position: absolute;
+  right: 58%;
+  top: -8%;
+  transform: translateZ(-44px) rotateY(9deg);
+  opacity: 0.55;
+  filter: blur(0.4px);
+}
+.viz-under {
+  position: absolute;
+  left: 30%;
+  bottom: -18%;
+  transform: translateZ(-24px) rotateY(-7deg);
+  opacity: 0.8;
+}
+
+.viz-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-jbmono), ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-champ-hi);
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(201, 203, 209, 0.1);
+}
+.viz-count {
+  background: var(--color-champagne);
+  color: #1a1405;
+  border-radius: 999px;
+  min-width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.58rem;
+  font-weight: 700;
+}
+.viz-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.92;
+}
+.viz-row b { color: var(--color-champ-hi); font-weight: 600; white-space: nowrap; }
+.viz-dim { opacity: 0.55; font-size: 0.66rem; }
+.viz-stake { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.viz-stake-box {
+  border: 1px solid rgba(201, 203, 209, 0.22);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-variant-numeric: tabular-nums;
+}
+.viz-cta {
+  background: linear-gradient(100deg, var(--color-champagne), var(--color-gold-soft));
+  color: #1a1405;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-shadow: 0 10px 26px rgba(200, 162, 76, 0.3);
+}
+.viz-live {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-bordeaux-hi);
+  margin-right: 5px;
+  animation: viz-pulse 1.6s ease infinite;
+}
+@keyframes viz-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(156, 50, 71, 0.55); }
+  60% { box-shadow: 0 0 0 5px rgba(156, 50, 71, 0); }
+}
+
+/* cashout partial slider */
+.viz-slider {
+  position: relative;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(201, 203, 209, 0.16);
+}
+.viz-slider i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-champagne), var(--color-champ-hi));
+}
+.viz-slider u {
+  position: absolute;
+  left: 62%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--color-pearl);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* freebet vouchers */
+.viz-voucher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px dashed rgba(228, 200, 120, 0.5);
+  background:
+    radial-gradient(120% 160% at 0% 0%, rgba(200, 162, 76, 0.16), transparent 55%),
+    linear-gradient(180deg, #1a1c24, #10121a);
+  box-shadow: 0 34px 70px rgba(0, 0, 0, 0.55);
+  font-size: 0.72rem;
+}
+.viz-voucher-amt {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-champ-hi);
+  letter-spacing: -0.02em;
+}
+.viz-voucher-t { font-weight: 600; }
+.viz-applied {
+  margin-left: auto;
+  font-family: var(--font-jbmono), ui-monospace, monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-champ-hi);
+  border: 1px solid rgba(228, 200, 120, 0.45);
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+.viz-toggle {
+  width: 30px;
+  height: 17px;
+  border-radius: 999px;
+  background: var(--color-champagne);
+  position: relative;
+}
+.viz-toggle::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+  background: #1a1405;
+}
+
+/* search */
+.viz-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(201, 203, 209, 0.22);
+  border-radius: 10px;
+  padding: 7px 10px;
+  color: var(--color-warm-white);
+}
+.viz-search svg { opacity: 0.5; }
+.viz-caret {
+  width: 1.5px;
+  height: 12px;
+  background: var(--color-champ-hi);
+  animation: viz-caret 1.1s steps(2) infinite;
+}
+@keyframes viz-caret { 50% { opacity: 0; } }
+.viz-odds { display: flex; gap: 4px; }
+.viz-odds b {
+  border: 1px solid rgba(228, 200, 120, 0.35);
+  border-radius: 6px;
+  padding: 2px 5px;
+  font-size: 0.6rem;
+  color: var(--color-champ-hi);
+  font-weight: 600;
+}
+.viz-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.viz-chips span {
+  font-family: var(--font-jbmono), ui-monospace, monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(201, 203, 209, 0.2);
+  border-radius: 999px;
+  padding: 3px 9px;
+  opacity: 0.75;
+}
+
+/* floating satellite pills */
+.viz-pill {
+  position: absolute;
+  font-family: var(--font-jbmono), ui-monospace, monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  background: linear-gradient(100deg, var(--color-champagne), var(--color-gold-soft));
+  color: #1a1405;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 6px 12px;
+  box-shadow: 0 14px 34px rgba(200, 162, 76, 0.35);
+  transform: translateZ(80px);
+}
+.viz-sat-a { top: -6%; right: 4%; }
+.viz-sat-b { bottom: -4%; right: -6%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .viz-float, .viz-live, .viz-caret { animation: none; }
+}
+
 /* ── Scroll cue ── */
 .cue-dot {
   width: 24px;
