@@ -385,9 +385,10 @@ function SilkRibbon() {
 
   useFrame(({ clock }, delta) => {
     const t = clock.elapsedTime;
+    // quiet presence — the silk is texture behind the copy, never a rival
     const vis = actorVis({
-      hero: 0.42, intro: 0.15, brands: 0.2, journey: 0.12, timeline: 0.15,
-      achievements: 0.3, work: 1, contact: 0.3,
+      hero: 0.24, intro: 0.1, brands: 0.14, journey: 0.08, timeline: 0.1,
+      achievements: 0.2, work: 0.7, contact: 0.2,
     });
     // the silk answers the scroll: velocity swells the waves and the glow
     const vel = Math.min(1, Math.abs(window.__lenis?.velocity ?? 0) / 80);
@@ -404,13 +405,13 @@ function SilkRibbon() {
     geo.computeVertexNormals();
 
     if (mat.current) {
-      mat.current.opacity = THREE.MathUtils.damp(mat.current.opacity, vis * 0.85, DAMP, delta);
+      mat.current.opacity = THREE.MathUtils.damp(mat.current.opacity, vis * 0.6, DAMP, delta);
       mat.current.emissiveIntensity = THREE.MathUtils.damp(
-        mat.current.emissiveIntensity, 0.28 + vel * 0.5, DAMP, delta,
+        mat.current.emissiveIntensity, 0.1 + vel * 0.35, DAMP, delta,
       );
     }
     if (pulseMat.current)
-      pulseMat.current.opacity = THREE.MathUtils.damp(pulseMat.current.opacity, vis, DAMP, delta);
+      pulseMat.current.opacity = THREE.MathUtils.damp(pulseMat.current.opacity, vis * 0.8, DAMP, delta);
     if (pulse.current) {
       const px = -8.5 + ((t * 0.045) % 1) * 17;
       const w = silkWave(px, t, amp);
@@ -420,15 +421,16 @@ function SilkRibbon() {
   });
 
   return (
-    <group ref={group} position={[0.4, -0.5, -2.8]} rotation={[-0.32, 0.12, -0.14]}>
+    // deep antique satin, pushed further back — tone-on-tone, not neon
+    <group ref={group} position={[0.4, -0.7, -3.3]} rotation={[-0.32, 0.12, -0.14]}>
       <mesh geometry={geo}>
         <meshStandardMaterial
           ref={mat}
-          color={CHAMPAGNE}
-          emissive={CHAMPAGNE}
-          emissiveIntensity={0.28}
-          metalness={0.85}
-          roughness={0.28}
+          color="#8F7233"
+          emissive="#8F7233"
+          emissiveIntensity={0.1}
+          metalness={0.9}
+          roughness={0.32}
           side={THREE.DoubleSide}
           transparent
           opacity={0}
@@ -437,14 +439,14 @@ function SilkRibbon() {
       {/* a thinner sister strand riding the same wave, offset — layered silk */}
       <mesh geometry={geo} position={[0, 0.85, -0.5]} scale={[1, 0.28, 1]}>
         <meshStandardMaterial
-          color={CHAMP_HI}
+          color={CHAMPAGNE}
           emissive={CHAMPAGNE}
-          emissiveIntensity={0.2}
-          metalness={0.85}
-          roughness={0.3}
+          emissiveIntensity={0.08}
+          metalness={0.9}
+          roughness={0.34}
           side={THREE.DoubleSide}
           transparent
-          opacity={0.35}
+          opacity={0.16}
         />
       </mesh>
       <sprite ref={pulse} scale={[0.6, 0.6, 1]}>

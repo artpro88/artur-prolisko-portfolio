@@ -25,6 +25,29 @@ export default function GroundFX() {
 
     const sections = document.querySelectorAll<HTMLElement>("main section[id], .tl-role");
     const triggers: ScrollTrigger[] = [];
+    const tweens: gsap.core.Tween[] = [];
+
+    // parallax drift: each chapter's content glides slightly slower than
+    // the page during every snap transition — depth on every scroll, both
+    // directions, forever (scrubbed, so it also replays on the way back up)
+    document.querySelectorAll<HTMLElement>("main .chapter > .wrap").forEach((wrap) => {
+      tweens.push(
+        gsap.fromTo(
+          wrap,
+          { y: 44 },
+          {
+            y: -44,
+            ease: "none",
+            scrollTrigger: {
+              trigger: wrap.parentElement,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        ),
+      );
+    });
 
     sections.forEach((el) => {
       const light =
@@ -49,6 +72,10 @@ export default function GroundFX() {
 
     return () => {
       triggers.forEach((t) => t.kill());
+      tweens.forEach((t) => {
+        t.scrollTrigger?.kill();
+        t.kill();
+      });
       document.documentElement.classList.remove("has-groundfx");
       document.body.style.backgroundColor = "";
     };

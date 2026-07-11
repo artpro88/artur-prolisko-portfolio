@@ -22,21 +22,29 @@ export default function CountUp({ value, className }: { value: string; className
     const suffix = match[2];
     let raf = 0;
 
+    // replays on every visit: rolls up on entry, silently re-arms once
+    // the metric has fully left the viewport
     const io = new IntersectionObserver(
       (entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return;
-        io.disconnect();
-        const t0 = performance.now();
-        const dur = 1200;
-        const tick = (now: number) => {
-          const p = Math.min(1, (now - t0) / dur);
-          const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
-          el.textContent = `${Math.round(target * eased)}${suffix}`;
-          if (p < 1) raf = requestAnimationFrame(tick);
-        };
-        raf = requestAnimationFrame(tick);
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            cancelAnimationFrame(raf);
+            const t0 = performance.now();
+            const dur = 1200;
+            const tick = (now: number) => {
+              const p = Math.min(1, (now - t0) / dur);
+              const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+              el.textContent = `${Math.round(target * eased)}${suffix}`;
+              if (p < 1) raf = requestAnimationFrame(tick);
+            };
+            raf = requestAnimationFrame(tick);
+          } else if (e.intersectionRatio === 0) {
+            cancelAnimationFrame(raf);
+            el.textContent = `0${suffix}`;
+          }
+        }
       },
-      { threshold: 0.6 },
+      { threshold: [0, 0.6] },
     );
     io.observe(el);
 
