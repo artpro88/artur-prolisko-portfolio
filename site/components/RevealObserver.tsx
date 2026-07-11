@@ -3,23 +3,37 @@
 import { useEffect } from "react";
 
 /** Split a chapter headline into word masks: each word rises out of its
- *  own overflow-hidden slot — the modern masked-line reveal. */
+ *  own overflow-hidden slot — the modern masked-line reveal. Structure-
+ *  preserving: styled child elements (e.g. a dimmed second sentence)
+ *  keep their markup; only their text nodes are masked. */
 function splitHeadline(el: HTMLElement) {
   if (el.dataset.split) return;
   el.dataset.split = "1";
   el.dataset.rv = "m"; // mask mode: the element fades, its words travel
-  const words = (el.textContent ?? "").trim().split(/\s+/);
-  el.textContent = "";
-  words.forEach((w, i) => {
-    const mask = document.createElement("span");
-    mask.className = "rv-wm";
-    const inner = document.createElement("i");
-    inner.textContent = w;
-    inner.style.setProperty("--wd", String(i));
-    mask.appendChild(inner);
-    el.appendChild(mask);
-    if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
-  });
+  let wi = 0;
+  const process = (node: Node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const frag = document.createDocumentFragment();
+      for (const tok of (node.textContent ?? "").split(/(\s+)/)) {
+        if (!tok) continue;
+        if (/^\s+$/.test(tok)) {
+          frag.appendChild(document.createTextNode(" "));
+          continue;
+        }
+        const mask = document.createElement("span");
+        mask.className = "rv-wm";
+        const inner = document.createElement("i");
+        inner.textContent = tok;
+        inner.style.setProperty("--wd", String(wi++));
+        mask.appendChild(inner);
+        frag.appendChild(mask);
+      }
+      node.parentNode?.replaceChild(frag, node);
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      [...node.childNodes].forEach(process);
+    }
+  };
+  [...el.childNodes].forEach(process);
 }
 
 /** Directional pose per element: eyebrows/headings sweep from the left,
