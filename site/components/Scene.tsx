@@ -117,6 +117,21 @@ function makeGlowTexture(): THREE.CanvasTexture {
   return new THREE.CanvasTexture(c);
 }
 
+/** One set of chip geometries shared by all 8 chips (24→3 geometries). */
+let chipGeos: {
+  body: THREE.CylinderGeometry;
+  rim: THREE.TorusGeometry;
+  spot: THREE.BoxGeometry;
+} | null = null;
+function getChipGeos() {
+  chipGeos ??= {
+    body: new THREE.CylinderGeometry(0.42, 0.42, 0.11, 48),
+    rim: new THREE.TorusGeometry(0.36, 0.018, 8, 48),
+    spot: new THREE.BoxGeometry(0.1, 0.112, 0.06),
+  };
+  return chipGeos;
+}
+
 /**
  * A casino chip with real presence: clearcoat ceramic body, polished gold
  * rim, pearl edge-spots — reads as jewellery under the studio env map.
@@ -155,8 +170,9 @@ function makeChip(): {
     transparent: true,
   });
 
-  const bodyMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.11, 64), body);
-  const rimTop = new THREE.Mesh(new THREE.TorusGeometry(0.36, 0.018, 12, 64), rim);
+  const geos = getChipGeos();
+  const bodyMesh = new THREE.Mesh(geos.body, body);
+  const rimTop = new THREE.Mesh(geos.rim, rim);
   rimTop.rotation.x = Math.PI / 2;
   rimTop.position.y = 0.056;
   const rimBottom = rimTop.clone();
@@ -164,10 +180,9 @@ function makeChip(): {
   group.add(bodyMesh, rimTop, rimBottom);
 
   // six pearl edge spots, like a real chip
-  const spotGeo = new THREE.BoxGeometry(0.1, 0.112, 0.06);
   for (let k = 0; k < 6; k++) {
     const a = (k / 6) * Math.PI * 2;
-    const spot = new THREE.Mesh(spotGeo, spots);
+    const spot = new THREE.Mesh(geos.spot, spots);
     spot.position.set(Math.cos(a) * 0.41, 0, Math.sin(a) * 0.41);
     spot.rotation.y = -a;
     group.add(spot);
@@ -263,6 +278,39 @@ function HeroDressing() {
     if (m && !mats.current.includes(m)) mats.current.push(m);
   };
 
+  // ring segments share ONE geometry and TWO materials (was 36+36) —
+  // standard (not physical) metal: same look under the env map, cheaper
+  // shader program, and a fraction of the boot cost
+  const segGeo = useMemo(() => new THREE.TorusGeometry(2.2, 0.05, 10, 12, arc * 0.82), [arc]);
+  const champMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: CHAMP_HI,
+        emissive: new THREE.Color(CHAMPAGNE),
+        emissiveIntensity: 0.18,
+        metalness: 1,
+        roughness: 0.16,
+        transparent: true,
+      }),
+    [],
+  );
+  const bordMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: BORDEAUX,
+        emissive: new THREE.Color(BORDEAUX),
+        emissiveIntensity: 0.12,
+        metalness: 1,
+        roughness: 0.16,
+        transparent: true,
+      }),
+    [],
+  );
+  useEffect(() => {
+    reg(champMat);
+    reg(bordMat);
+  }, [champMat, bordMat]);
+
   return (
     <group ref={group}>
       {/* soft champagne halo behind the composition — alpha-safe bloom */}
@@ -279,19 +327,12 @@ function HeroDressing() {
       </sprite>
       <group ref={ring}>
         {segments.map((i) => (
-          <mesh key={i} rotation={[0, 0, i * arc]}>
-            <torusGeometry args={[2.2, 0.05, 12, 12, arc * 0.82]} />
-            <meshPhysicalMaterial
-              ref={reg}
-              color={i % 2 ? BORDEAUX : CHAMP_HI}
-              emissive={i % 2 ? BORDEAUX : CHAMPAGNE}
-              emissiveIntensity={i % 2 ? 0.12 : 0.18}
-              metalness={1}
-              roughness={0.16}
-              clearcoat={0.6}
-              transparent
-            />
-          </mesh>
+          <mesh
+            key={i}
+            rotation={[0, 0, i * arc]}
+            geometry={segGeo}
+            material={i % 2 ? bordMat : champMat}
+          />
         ))}
         <mesh>
           <torusGeometry args={[1.7, 0.012, 8, 90]} />
@@ -379,15 +420,15 @@ export default function Scene() {
     // Chromium composites behind the body's overflow-x clip layer, hiding
     // the canvas entirely. z:auto paints in DOM order: above the body
     // ground, below the sections' z-2 content.
-    <div className="pointer-events-none fixed inset-0" aria-hidden="true">
+    <div className="scene-fade pointer-events-none fixed inset-0" aria-hidden="true">
       <Canvas
-        dpr={[1, 1.75]}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 7], fov: 40 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         eventSource={typeof document !== "undefined" ? document.body : undefined}
       >
         <ambientLight intensity={0.12} />
-        <Environment resolution={256} frames={1}>
+        <Environment resolution={64} frames={1}>
           {/* procedural studio: warm key softbox, cool fill, champagne kicker, bordeaux floor bounce */}
           <Lightformer intensity={2.2} position={[0, 3, 4]} rotation-x={-0.6} scale={[7, 3, 1]} color="#ffe9c4" />
           <Lightformer intensity={1.1} position={[-5, 0, 2]} rotation-y={0.9} scale={[4, 6, 1]} color="#f6f4ef" />

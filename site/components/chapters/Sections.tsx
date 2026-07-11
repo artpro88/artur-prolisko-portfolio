@@ -15,7 +15,9 @@ export function Intro() {
         <h2 className="h-chapter reveal mt-4 max-w-[20ch]">
           I build the products behind Tier 1 operators — and the systems that let them scale.
         </h2>
-        <p className="lead reveal mt-6 max-w-[56ch] !opacity-70">
+        {/* no !opacity utility — !important beats .reveal's 0↔1 states,
+            leaving the element stuck at 0.7 (and failing WCAG contrast) */}
+        <p className="lead reveal mt-6 max-w-[56ch]">
           From the betslip to whole-market launches: research, design systems, product strategy,
           platform migration, and the P&amp;L impact that follows.
         </p>
