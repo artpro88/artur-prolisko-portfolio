@@ -6,11 +6,14 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 // Three.js loads after first paint, code-split (docs/12 §7 lazy init).
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
-// Scene runs on desktop-class viewports for users without reduced motion.
-// Phones keep the filmic CSS layer (grain/vignette/reveals) but skip the
+// Scene runs for users without reduced motion on anything that isn't a
+// phone: a fine pointer (mouse/trackpad) qualifies at ANY window width —
+// gating on width alone erased the scene in split-screen desktop windows.
+// Phones (coarse pointer + narrow) keep the filmic CSS layer but skip the
 // WebGL canvas: it sits behind full-width text there anyway, and three.js
 // boot is the single biggest main-thread cost on mobile (docs/12 §7).
-const QUERY = "(min-width: 768px) and (prefers-reduced-motion: no-preference)";
+const QUERY =
+  "((pointer: fine) or (min-width: 768px)) and (prefers-reduced-motion: no-preference)";
 
 const subscribe = (cb: () => void) => {
   const mq = window.matchMedia(QUERY);
