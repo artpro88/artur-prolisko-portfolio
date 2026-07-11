@@ -114,29 +114,55 @@ h1, h2, h3 {
   background-clip: text;
 }
 
-/* ── Reveal choreography ──
-   Directional variants are auto-assigned by RevealObserver (data-rv):
-   headlines & eyebrows sweep in from the left, grid children alternate
-   left/right, everything else rises. Hidden state = the EXIT transition
-   (quick soft dissolve while a chapter leaves); .in = the entrance
-   (long, eased, staggered). Replays on every visit. */
+/* ── Chapter choreography ──
+   The whole cast of a chapter stays hidden until the snap lands, then
+   performs in one timed cascade (delays set by RevealObserver).
+   Variants (data-rv): "l"/"r" sweep from the sides, default rises,
+   "m" = masked headline whose words rise word-by-word. Hidden state =
+   the EXIT transition (quick soft dissolve); .in = the entrance. */
 .reveal {
   opacity: 0;
-  transform: translateY(48px);
-  filter: blur(12px);
-  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.35s ease;
+  transform: translateY(64px);
+  filter: blur(14px);
+  transition: opacity 0.45s ease, transform 0.45s ease, filter 0.4s ease;
 }
-.reveal[data-rv="l"] { transform: translateX(-72px); }
-.reveal[data-rv="r"] { transform: translateX(72px); }
+.reveal[data-rv="l"] { transform: translateX(-110px); }
+.reveal[data-rv="r"] { transform: translateX(110px); }
 .reveal.in {
   opacity: 1;
   transform: none;
   filter: blur(0);
   transition:
-    opacity 1.05s var(--ease-out-expo),
-    transform 1.05s var(--ease-out-expo),
-    filter 0.9s var(--ease-out-expo);
+    opacity 1.15s var(--ease-out-expo),
+    transform 1.15s var(--ease-out-expo),
+    filter 1s var(--ease-out-expo);
 }
+
+/* masked headline: the h2 itself only fades — its words do the moving */
+.reveal[data-rv="m"] { transform: none; filter: none; transition: opacity 0.4s ease; }
+.reveal[data-rv="m"].in { transition: opacity 0.3s ease; }
+.rv-wm {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* breathing room so ascenders/descenders survive the clip */
+  padding: 0.08em 0.02em 0.14em;
+  margin: -0.08em -0.02em -0.14em;
+}
+.rv-wm i {
+  display: inline-block;
+  font-style: normal;
+  transform: translateY(118%);
+  transition: transform 0.4s ease;
+}
+.reveal.in .rv-wm i {
+  transform: none;
+  transition: transform 1s var(--ease-out-expo);
+  transition-delay: calc(var(--sd, 0ms) + var(--wd, 0) * 85ms);
+}
+
+/* frozen rendering contexts (capture/prerender): land instantly */
+.rv-instant, .rv-instant .rv-wm i { transition: none !important; transition-delay: 0ms !important; }
 
 /* Above-the-fold entrance: pure CSS so the hero paints at first paint
    (LCP) and never waits for hydration or an observer. Same blur-in look. */

@@ -32,7 +32,8 @@ export default function CountUp({ value, className }: { value: string; className
             const t0 = performance.now();
             const dur = 1200;
             const tick = (now: number) => {
-              const p = Math.min(1, (now - t0) / dur);
+              // rAF timestamps can precede t0 by a frame — clamp both ends
+              const p = Math.min(1, Math.max(0, (now - t0) / dur));
               const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
               el.textContent = `${Math.round(target * eased)}${suffix}`;
               if (p < 1) raf = requestAnimationFrame(tick);
