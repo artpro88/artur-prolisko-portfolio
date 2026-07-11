@@ -521,15 +521,66 @@ function Dust() {
 }
 
 /**
- * Act II / Act V — the match ball: a pearl panel-ball that orbits among
- * the operator chips at Brands, then flies slow arcs behind the product
- * vignettes at Work — the sportsbook side of the story.
+ * Act II / Act V — the match ball, in the site's jewellery language:
+ * a polished ivory orb with three inlaid gold great-circle seams and
+ * gold studs at their crossings — a football reinterpreted as an objet
+ * d'art. Orbits among the operator chips at Brands, flies slow arcs
+ * behind the product vignettes at Work.
  */
+const BALL_R = 0.36;
+function makeBall(): {
+  group: THREE.Group;
+  core: THREE.MeshPhysicalMaterial;
+  gold: THREE.MeshStandardMaterial;
+} {
+  const group = new THREE.Group();
+  // pearl clearcoat core with a whisper of iridescence — the studio
+  // Lightformers give it the lacquered billiard-ball sheen
+  const core = new THREE.MeshPhysicalMaterial({
+    color: PEARL,
+    metalness: 0.05,
+    roughness: 0.16,
+    clearcoat: 1,
+    clearcoatRoughness: 0.08,
+    iridescence: 0.3,
+    iridescenceIOR: 1.3,
+    transparent: true,
+    opacity: 0, // damped in by chapter presence — never flashes at spawn
+  });
+  const gold = new THREE.MeshStandardMaterial({
+    color: CHAMPAGNE,
+    emissive: new THREE.Color(CHAMPAGNE),
+    emissiveIntensity: 0.18,
+    metalness: 1,
+    roughness: 0.18,
+    transparent: true,
+    opacity: 0,
+  });
+  group.add(new THREE.Mesh(new THREE.SphereGeometry(BALL_R, 64, 64), core));
+  // three orthogonal seams, half-embedded in the surface like inlay
+  const seamGeo = new THREE.TorusGeometry(BALL_R + 0.002, 0.008, 8, 96);
+  const seamA = new THREE.Mesh(seamGeo, gold);
+  const seamB = new THREE.Mesh(seamGeo, gold);
+  seamB.rotation.x = Math.PI / 2;
+  const seamC = new THREE.Mesh(seamGeo, gold);
+  seamC.rotation.y = Math.PI / 2;
+  group.add(seamA, seamB, seamC);
+  // gold studs where the seams cross — rivet detail
+  const studGeo = new THREE.SphereGeometry(0.02, 12, 12);
+  const d = BALL_R + 0.002;
+  for (const p of [
+    [d, 0, 0], [-d, 0, 0], [0, d, 0], [0, -d, 0], [0, 0, d], [0, 0, -d],
+  ] as const) {
+    const stud = new THREE.Mesh(studGeo, gold);
+    stud.position.set(p[0], p[1], p[2]);
+    group.add(stud);
+  }
+  return { group, core, gold };
+}
+
 function Football() {
   const group = useRef<THREE.Group>(null);
-  const mat = useRef<THREE.MeshStandardMaterial>(null);
-  const seams = useRef<THREE.MeshStandardMaterial>(null);
-  const geo = useMemo(() => new THREE.IcosahedronGeometry(0.34, 1), []);
+  const ball = useMemo(() => makeBall(), []);
 
   useFrame(({ clock }, delta) => {
     const t = clock.elapsedTime;
@@ -553,32 +604,18 @@ function Football() {
     g.position.x = THREE.MathUtils.damp(g.position.x, tx, DAMP, delta);
     g.position.y = THREE.MathUtils.damp(g.position.y, ty, DAMP, delta);
     g.position.z = THREE.MathUtils.damp(g.position.z, tz, DAMP, delta);
-    g.rotation.x += delta * 0.5;
-    g.rotation.y += delta * 0.35;
-    if (mat.current && seams.current) {
-      const o = THREE.MathUtils.damp(mat.current.opacity, vis, DAMP, delta);
-      mat.current.opacity = o;
-      seams.current.opacity = o * 0.55;
-      g.visible = o > 0.02;
-    }
+    // slow dignified tumble — inlay seams sweep through the key light
+    g.rotation.x += delta * 0.3;
+    g.rotation.y += delta * 0.22;
+    const o = THREE.MathUtils.damp(ball.core.opacity, vis, DAMP, delta);
+    ball.core.opacity = o;
+    ball.gold.opacity = o;
+    g.visible = o > 0.02;
   });
 
   return (
     <group ref={group} visible={false}>
-      <mesh geometry={geo}>
-        <meshStandardMaterial
-          ref={mat}
-          color={PEARL}
-          flatShading
-          metalness={0.15}
-          roughness={0.35}
-          transparent
-          opacity={0}
-        />
-      </mesh>
-      <mesh geometry={geo} scale={1.002}>
-        <meshStandardMaterial ref={seams} color={GRAPHITE} wireframe transparent opacity={0} />
-      </mesh>
+      <primitive object={ball.group} />
     </group>
   );
 }
