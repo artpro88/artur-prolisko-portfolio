@@ -350,24 +350,34 @@ h1, h2, h3 {
 }
 .rail {
   position: fixed;
-  right: 20px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 50;
   display: flex;
   flex-direction: column;
-  gap: 11px;
 }
+/* 24px hit targets (WCAG 2.5.8); the visible 7px dot is a pseudo-element */
 .rail a {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.28;
+  transition: opacity 0.3s;
+}
+.rail a::before {
+  content: "";
   width: 7px;
   height: 7px;
   border-radius: 999px;
   background: #fff;
-  opacity: 0.28;
-  transition: opacity 0.3s, transform 0.3s, background 0.3s;
+  transition: transform 0.3s, background 0.3s;
 }
-.rail a:hover, .rail a.on { opacity: 1; transform: scale(1.5); }
-.rail a.on { background: var(--color-champagne); }
+.rail a:hover, .rail a.on { opacity: 1; }
+.rail a:hover::before, .rail a.on::before { transform: scale(1.5); }
+.rail a.on::before { background: var(--color-champagne); }
 @media (max-width: 760px) {
   .rail { display: none; }
 }
