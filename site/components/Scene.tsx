@@ -33,18 +33,11 @@ const HIDDEN: ChipTarget = { pos: [0, 0, -2], scale: 0.001, opacity: 0, ignite: 
  */
 function chipTarget(chapter: string, i: number, t: number, roleIndex: number): ChipTarget {
   switch (chapter) {
+    // hero & intro stay chip-free — one subject per act (the ring owns
+    // the opening frame); the chips make their entrance at Brands
     case "hero":
-    case "intro": {
-      const dim = chapter === "intro" ? 0.35 : 1;
-      if (i < 3)
-        return {
-          pos: [-2.6 + i * 0.04, -2.1 + i * 0.14, 0.4],
-          scale: 0.85,
-          opacity: dim,
-          ignite: 0,
-        };
+    case "intro":
       return HIDDEN;
-    }
     case "brands": {
       if (i >= 6) return HIDDEN;
       const a = (i / 6) * Math.PI * 2 + t * 0.12;
@@ -258,10 +251,11 @@ function HeroDressing() {
   useFrame(({ clock }, delta) => {
     const vis = heroDressing(sceneState.chapter);
     if (ring.current) {
-      ring.current.rotation.z += delta * 0.05;
+      // barely-moving: grandeur reads at watch-commercial speed
+      ring.current.rotation.z += delta * 0.028;
       // gentle tilt so the metal catches the studio light like a watch face
-      ring.current.rotation.x = Math.sin(clock.elapsedTime * 0.18) * 0.12;
-      ring.current.rotation.y = Math.cos(clock.elapsedTime * 0.14) * 0.1;
+      ring.current.rotation.x = Math.sin(clock.elapsedTime * 0.13) * 0.17;
+      ring.current.rotation.y = Math.cos(clock.elapsedTime * 0.1) * 0.13;
     }
     if (ball.current) {
       const bt = clock.elapsedTime * 0.5;
@@ -365,58 +359,95 @@ function actorVis(map: Partial<Record<string, number>>): number {
   return map[sceneState.chapter] ?? 0;
 }
 
+/** The silk band's wave field — one function so band, strand and pulse
+ *  all agree on where the surface is. */
+function silkWave(x: number, t: number, amp: number): { y: number; z: number } {
+  return {
+    y: (Math.sin(x * 0.5 + t * 0.45) * 0.85 + Math.sin(x * 1.25 - t * 0.3) * 0.32) * amp,
+    z: Math.cos(x * 0.4 + t * 0.34) * 0.55 * amp,
+  };
+}
+
 /**
- * Act I / Act V — the live odds line: a rising market curve with a light
- * pulse racing along it. The sportsbook heartbeat behind the casino wheel
- * on the hero, and the main backdrop of the product-work act.
+ * The silk — a wide band of gold fabric undulating in slow waves, with a
+ * light pulse travelling along it (the live market, abstracted). It
+ * breathes with the user's scroll velocity: move, and the silk swells
+ * and brightens. One sculptural form instead of a bent wire.
  */
-function OddsRibbon() {
+function SilkRibbon() {
   const group = useRef<THREE.Group>(null);
   const mat = useRef<THREE.MeshStandardMaterial>(null);
   const pulse = useRef<THREE.Sprite>(null);
   const pulseMat = useRef<THREE.SpriteMaterial>(null);
   const glowTex = useMemo(() => makeGlowTexture(), []);
-  const curve = useMemo(
-    () =>
-      new THREE.CatmullRomCurve3([
-        new THREE.Vector3(-5.4, -1.7, -2.4),
-        new THREE.Vector3(-3.5, -0.5, -2.6),
-        new THREE.Vector3(-2.0, -1.2, -2.8),
-        new THREE.Vector3(-0.4, 0.1, -3.0),
-        new THREE.Vector3(1.2, -0.4, -3.2),
-        new THREE.Vector3(2.8, 0.9, -3.4),
-        new THREE.Vector3(4.2, 0.5, -3.5),
-        new THREE.Vector3(5.8, 2.0, -3.6),
-      ]),
-    [],
-  );
-  const geo = useMemo(() => new THREE.TubeGeometry(curve, 72, 0.016, 6, false), [curve]);
+  const geo = useMemo(() => new THREE.PlaneGeometry(17, 0.5, 200, 1), []);
+  const base = useMemo(() => Float32Array.from(geo.attributes.position.array), [geo]);
 
   useFrame(({ clock }, delta) => {
-    const vis = actorVis({ hero: 0.55, intro: 0.15, brands: 0.2, work: 0.95, contact: 0.25 });
-    if (mat.current)
-      mat.current.opacity = THREE.MathUtils.damp(mat.current.opacity, vis * 0.75, DAMP, delta);
+    const t = clock.elapsedTime;
+    const vis = actorVis({
+      hero: 0.42, intro: 0.15, brands: 0.2, journey: 0.12, timeline: 0.15,
+      achievements: 0.3, work: 1, contact: 0.3,
+    });
+    // the silk answers the scroll: velocity swells the waves and the glow
+    const vel = Math.min(1, Math.abs(window.__lenis?.velocity ?? 0) / 80);
+    const amp = 1 + vel * 0.9;
+
+    const pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const x = base[i * 3];
+      const w = silkWave(x, t, amp);
+      pos.setY(i, base[i * 3 + 1] + w.y);
+      pos.setZ(i, w.z);
+    }
+    pos.needsUpdate = true;
+    geo.computeVertexNormals();
+
+    if (mat.current) {
+      mat.current.opacity = THREE.MathUtils.damp(mat.current.opacity, vis * 0.85, DAMP, delta);
+      mat.current.emissiveIntensity = THREE.MathUtils.damp(
+        mat.current.emissiveIntensity, 0.28 + vel * 0.5, DAMP, delta,
+      );
+    }
     if (pulseMat.current)
       pulseMat.current.opacity = THREE.MathUtils.damp(pulseMat.current.opacity, vis, DAMP, delta);
-    if (pulse.current) pulse.current.position.copy(curve.getPointAt((clock.elapsedTime * 0.055) % 1));
+    if (pulse.current) {
+      const px = -8.5 + ((t * 0.045) % 1) * 17;
+      const w = silkWave(px, t, amp);
+      pulse.current.position.set(px, w.y, w.z + 0.1);
+    }
     if (group.current) group.current.visible = (mat.current?.opacity ?? 0) > 0.02;
   });
 
   return (
-    <group ref={group}>
+    <group ref={group} position={[0.4, -0.5, -2.8]} rotation={[-0.32, 0.12, -0.14]}>
       <mesh geometry={geo}>
         <meshStandardMaterial
           ref={mat}
           color={CHAMPAGNE}
           emissive={CHAMPAGNE}
-          emissiveIntensity={0.55}
-          metalness={0.8}
-          roughness={0.3}
+          emissiveIntensity={0.28}
+          metalness={0.85}
+          roughness={0.28}
+          side={THREE.DoubleSide}
           transparent
           opacity={0}
         />
       </mesh>
-      <sprite ref={pulse} scale={[0.55, 0.55, 1]}>
+      {/* a thinner sister strand riding the same wave, offset — layered silk */}
+      <mesh geometry={geo} position={[0, 0.85, -0.5]} scale={[1, 0.28, 1]}>
+        <meshStandardMaterial
+          color={CHAMP_HI}
+          emissive={CHAMPAGNE}
+          emissiveIntensity={0.2}
+          metalness={0.85}
+          roughness={0.3}
+          side={THREE.DoubleSide}
+          transparent
+          opacity={0.35}
+        />
+      </mesh>
+      <sprite ref={pulse} scale={[0.6, 0.6, 1]}>
         <spriteMaterial
           ref={pulseMat}
           map={glowTex}
@@ -427,6 +458,61 @@ function OddsRibbon() {
           opacity={0}
         />
       </sprite>
+    </group>
+  );
+}
+
+/** chapters on light grounds — the dust dims there */
+const LIGHT_CHAPTERS = new Set([
+  "intro", "journey", "achievements", "leadership", "skills", "recognition", "about",
+]);
+
+/**
+ * Bokeh dust — a deep field of drifting glow motes. Pure atmosphere:
+ * gives every act depth and air without adding another object.
+ */
+function Dust() {
+  const group = useRef<THREE.Group>(null);
+  const mat = useRef<THREE.PointsMaterial>(null);
+  const glowTex = useMemo(() => makeGlowTexture(), []);
+  const geo = useMemo(() => {
+    const n = 140;
+    const arr = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) {
+      arr[i * 3] = (Math.random() - 0.5) * 16;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 9;
+      arr[i * 3 + 2] = -6 + Math.random() * 6.5;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(arr, 3));
+    return g;
+  }, []);
+
+  useFrame(({ clock }, delta) => {
+    const t = clock.elapsedTime;
+    const target = LIGHT_CHAPTERS.has(sceneState.chapter) ? 0.14 : 0.38;
+    if (group.current) {
+      group.current.rotation.y = t * 0.012;
+      group.current.position.y = Math.sin(t * 0.05) * 0.4;
+    }
+    if (mat.current) mat.current.opacity = THREE.MathUtils.damp(mat.current.opacity, target, 1.5, delta);
+  });
+
+  return (
+    <group ref={group}>
+      <points geometry={geo}>
+        <pointsMaterial
+          ref={mat}
+          map={glowTex}
+          color={CHAMP_HI}
+          size={0.14}
+          sizeAttenuation
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          transparent
+          opacity={0}
+        />
+      </points>
     </group>
   );
 }
@@ -495,56 +581,6 @@ function Football() {
 }
 
 /**
- * Act IV — the trophy: rises into frame at Achievements while the chips
- * ignite around it. Racing silverware — the "sportsbook of the year"
- * moment, and the payoff beat of the story.
- */
-function Trophy() {
-  const group = useRef<THREE.Group>(null);
-  const gold = useMemo(
-    () =>
-      new THREE.MeshPhysicalMaterial({
-        color: CHAMPAGNE,
-        emissive: new THREE.Color(CHAMPAGNE),
-        emissiveIntensity: 0.14,
-        metalness: 1,
-        roughness: 0.18,
-        clearcoat: 0.5,
-        transparent: true,
-        opacity: 0,
-      }),
-    [],
-  );
-  const lathe = useMemo(() => {
-    const pts = [
-      [0.0, 0.0], [0.5, 0.02], [0.5, 0.08], [0.32, 0.12], [0.13, 0.2],
-      [0.1, 0.42], [0.17, 0.5], [0.48, 0.62], [0.6, 0.9], [0.58, 1.12], [0.52, 1.18],
-    ].map(([x, y]) => new THREE.Vector2(x * 0.95, y * 0.95));
-    return new THREE.LatheGeometry(pts, 42);
-  }, []);
-  const handle = useMemo(() => new THREE.TorusGeometry(0.2, 0.028, 8, 24, Math.PI), []);
-
-  useFrame((_, delta) => {
-    const vis = actorVis({ achievements: 1 });
-    const g = group.current;
-    if (!g) return;
-    // rises from below the frame as the act begins, sinks away after
-    g.position.y = THREE.MathUtils.damp(g.position.y, vis > 0.5 ? -1.05 : -2.6, 2, delta);
-    g.rotation.y += delta * 0.28;
-    gold.opacity = THREE.MathUtils.damp(gold.opacity, vis, DAMP, delta);
-    g.visible = gold.opacity > 0.02;
-  });
-
-  return (
-    <group ref={group} position={[0.6, -2.6, -0.4]} visible={false}>
-      <mesh geometry={lathe} material={gold} />
-      <mesh geometry={handle} material={gold} position={[-0.44, 0.62, 0]} rotation={[0, 0, Math.PI / 2]} />
-      <mesh geometry={handle} material={gold} position={[0.44, 0.62, 0]} rotation={[0, 0, -Math.PI / 2]} />
-    </group>
-  );
-}
-
-/**
  * Act VI — the horseshoe: racing luck, opening upward, framing the last
  * chip as the story resolves at Contact. Place your bet.
  */
@@ -591,19 +627,20 @@ function StoryActors() {
   const squeeze = Math.min(1, viewport.width / 8.5);
   return (
     <group scale={squeeze}>
-      <OddsRibbon />
+      <SilkRibbon />
+      <Dust />
       <Football />
-      <Trophy />
       <Horseshoe />
     </group>
   );
 }
 
-/** Anchors the hero dressing right of the copy, responsive (as before). */
+/** Anchors the hero dressing right of the copy, responsive. Slightly
+ *  over-scaled so the ring crops off-frame — macro, not miniature. */
 function HeroAnchor() {
   const { viewport } = useThree();
-  const scale = Math.min(viewport.height * 0.66, viewport.width * 0.52) / 5.2;
-  const x = viewport.width * 0.26;
+  const scale = Math.min(viewport.height * 0.66, viewport.width * 0.52) / 4.5;
+  const x = viewport.width * 0.28;
   return (
     <group position={[x, 0, 0]} scale={scale}>
       <HeroDressing />
