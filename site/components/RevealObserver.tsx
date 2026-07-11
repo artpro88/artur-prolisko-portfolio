@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { SPY_THRESHOLDS, sectionDominant, sectionGone } from "@/components/sectionSpy";
 
 /** Split a chapter headline into word masks: each word rises out of its
  *  own overflow-hidden slot — the modern masked-line reveal. Structure-
@@ -82,7 +83,7 @@ export default function RevealObserver() {
       (entries) => {
         for (const e of entries) {
           const reveals = e.target.querySelectorAll<HTMLElement>(".reveal");
-          if (e.intersectionRatio >= 0.45) {
+          if (sectionDominant(e)) {
             reveals.forEach((el, i) => {
               const d = 100 + Math.min(i, 7) * 110;
               el.style.transitionDelay = `${d}ms`;
@@ -92,7 +93,7 @@ export default function RevealObserver() {
               if (document.hidden) el.classList.add("rv-instant");
               el.classList.add("in");
             });
-          } else if (e.intersectionRatio <= 0.15) {
+          } else if (sectionGone(e)) {
             reveals.forEach((el) => {
               if (!el.classList.contains("in")) return;
               el.style.transitionDelay = "0ms";
@@ -102,7 +103,7 @@ export default function RevealObserver() {
           }
         }
       },
-      { threshold: [0.15, 0.45] },
+      { threshold: SPY_THRESHOLDS },
     );
     document
       .querySelectorAll("main section[id], .tl-role")

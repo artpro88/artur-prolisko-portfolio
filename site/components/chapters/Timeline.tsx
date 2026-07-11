@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { roles } from "@/data/timeline";
 import { sceneState } from "@/components/scene/store";
+import { SPY_THRESHOLDS, sectionDominant, sectionGone } from "@/components/sectionSpy";
 
 /**
  * Chapter 5 — Career Timeline (docs/07 Ch.5, rebuilt Jul 2026).
@@ -36,14 +37,18 @@ export default function Timeline() {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          e.target.classList.toggle("on", e.isIntersecting);
-          if (e.isIntersecting) {
+          // coverage-based: roles taller than the viewport (small screens)
+          // could never reach a 0.5 self-ratio
+          if (sectionDominant(e)) {
+            e.target.classList.add("on");
             // feed the 3D spine which role leads (docs/12 timeline state)
             sceneState.roleIndex = Number((e.target as HTMLElement).dataset.idx ?? 0);
+          } else if (sectionGone(e)) {
+            e.target.classList.remove("on");
           }
         }
       },
-      { threshold: 0.5 },
+      { threshold: SPY_THRESHOLDS },
     );
     wrap.querySelectorAll(".tl-role").forEach((el) => io.observe(el));
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SPY_THRESHOLDS, sectionDominant } from "@/components/sectionSpy";
 
 const CHAPTERS = [
   ["hero", "Hero"],
@@ -27,10 +28,11 @@ export default function Rail() {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) setActive(e.target.id);
+          // coverage-based: tall chapters can't reach a high self-ratio
+          if (sectionDominant(e)) setActive(e.target.id);
         }
       },
-      { threshold: 0.5 },
+      { threshold: SPY_THRESHOLDS },
     );
     CHAPTERS.forEach(([id]) => {
       const el = document.getElementById(id);

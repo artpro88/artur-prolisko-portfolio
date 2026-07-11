@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
 import { sceneState } from "@/components/scene/store";
+import { SPY_THRESHOLDS, sectionDominant } from "@/components/sectionSpy";
 
 const CHAMPAGNE = "#C8A24C";
 const CHAMP_HI = "#E4C878";
@@ -680,18 +681,20 @@ function CameraRig() {
   return null;
 }
 
-/** Tracks which chapter dominates the viewport → sceneState.chapter. */
+/** Tracks which chapter dominates the viewport → sceneState.chapter.
+ *  Coverage-based: tall sections (Work, Brands…) can never reach a high
+ *  ratio of themselves, but they can fill the screen. */
 function useChapterSpy() {
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) {
+          if (sectionDominant(e)) {
             sceneState.chapter = e.target.id || "timeline";
           }
         }
       },
-      { threshold: 0.5 },
+      { threshold: SPY_THRESHOLDS },
     );
     // .tl-role sections carry no id — they all map to the "timeline" state
     document
