@@ -17,9 +17,11 @@ export function viewportCoverage(e: IntersectionObserverEntry): number {
 }
 
 /** The section owns the screen: it fills most of the viewport, or (for
- *  short sections that can't) most of the section is visible. */
+ *  short sections that can't) most of the section is visible. 0.42 so the
+ *  entrance starts in the last stretch of the snap glide — the stage is
+ *  never a long dark void when scrolling quickly. */
 export function sectionDominant(e: IntersectionObserverEntry): boolean {
-  return viewportCoverage(e) >= 0.5 || e.intersectionRatio >= 0.45;
+  return viewportCoverage(e) >= 0.42 || e.intersectionRatio >= 0.42;
 }
 
 /** The section is effectively gone from the screen. */

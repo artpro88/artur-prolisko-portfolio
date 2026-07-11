@@ -85,7 +85,7 @@ export default function RevealObserver() {
           const reveals = e.target.querySelectorAll<HTMLElement>(".reveal");
           if (sectionDominant(e)) {
             reveals.forEach((el, i) => {
-              const d = 100 + Math.min(i, 7) * 110;
+              const d = 60 + Math.min(i, 7) * 110;
               el.style.transitionDelay = `${d}ms`;
               el.style.setProperty("--sd", `${d}ms`);
               // hidden documents (prerender, capture) freeze transitions —
