@@ -360,6 +360,245 @@ function HeroDressing() {
   );
 }
 
+/** Per-chapter presence for a story actor (0 = absent from this act). */
+function actorVis(map: Partial<Record<string, number>>): number {
+  return map[sceneState.chapter] ?? 0;
+}
+
+/**
+ * Act I / Act V — the live odds line: a rising market curve with a light
+ * pulse racing along it. The sportsbook heartbeat behind the casino wheel
+ * on the hero, and the main backdrop of the product-work act.
+ */
+function OddsRibbon() {
+  const group = useRef<THREE.Group>(null);
+  const mat = useRef<THREE.MeshStandardMaterial>(null);
+  const pulse = useRef<THREE.Sprite>(null);
+  const pulseMat = useRef<THREE.SpriteMaterial>(null);
+  const glowTex = useMemo(() => makeGlowTexture(), []);
+  const curve = useMemo(
+    () =>
+      new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-5.4, -1.7, -2.4),
+        new THREE.Vector3(-3.5, -0.5, -2.6),
+        new THREE.Vector3(-2.0, -1.2, -2.8),
+        new THREE.Vector3(-0.4, 0.1, -3.0),
+        new THREE.Vector3(1.2, -0.4, -3.2),
+        new THREE.Vector3(2.8, 0.9, -3.4),
+        new THREE.Vector3(4.2, 0.5, -3.5),
+        new THREE.Vector3(5.8, 2.0, -3.6),
+      ]),
+    [],
+  );
+  const geo = useMemo(() => new THREE.TubeGeometry(curve, 72, 0.016, 6, false), [curve]);
+
+  useFrame(({ clock }, delta) => {
+    const vis = actorVis({ hero: 0.55, intro: 0.15, brands: 0.2, work: 0.95, contact: 0.25 });
+    if (mat.current)
+      mat.current.opacity = THREE.MathUtils.damp(mat.current.opacity, vis * 0.75, DAMP, delta);
+    if (pulseMat.current)
+      pulseMat.current.opacity = THREE.MathUtils.damp(pulseMat.current.opacity, vis, DAMP, delta);
+    if (pulse.current) pulse.current.position.copy(curve.getPointAt((clock.elapsedTime * 0.055) % 1));
+    if (group.current) group.current.visible = (mat.current?.opacity ?? 0) > 0.02;
+  });
+
+  return (
+    <group ref={group}>
+      <mesh geometry={geo}>
+        <meshStandardMaterial
+          ref={mat}
+          color={CHAMPAGNE}
+          emissive={CHAMPAGNE}
+          emissiveIntensity={0.55}
+          metalness={0.8}
+          roughness={0.3}
+          transparent
+          opacity={0}
+        />
+      </mesh>
+      <sprite ref={pulse} scale={[0.55, 0.55, 1]}>
+        <spriteMaterial
+          ref={pulseMat}
+          map={glowTex}
+          color={CHAMP_HI}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+          transparent
+          opacity={0}
+        />
+      </sprite>
+    </group>
+  );
+}
+
+/**
+ * Act II / Act V — the match ball: a pearl panel-ball that orbits among
+ * the operator chips at Brands, then flies slow arcs behind the product
+ * vignettes at Work — the sportsbook side of the story.
+ */
+function Football() {
+  const group = useRef<THREE.Group>(null);
+  const mat = useRef<THREE.MeshStandardMaterial>(null);
+  const seams = useRef<THREE.MeshStandardMaterial>(null);
+  const geo = useMemo(() => new THREE.IcosahedronGeometry(0.34, 1), []);
+
+  useFrame(({ clock }, delta) => {
+    const t = clock.elapsedTime;
+    const vis = actorVis({ brands: 0.95, journey: 0.2, work: 0.6 });
+    const g = group.current;
+    if (!g) return;
+    let tx: number, ty: number, tz: number;
+    if (sceneState.chapter === "work") {
+      // ball in flight: a slow ping-pong arc deep behind the vignettes
+      const f = Math.abs(((t * 0.05) % 2) - 1);
+      tx = -5 + f * 10;
+      ty = -0.9 + Math.sin(f * Math.PI) * 2.4;
+      tz = -3.4;
+    } else {
+      // one more orbiter among the chips — the ball among the tokens
+      const a = t * 0.12 + Math.PI / 2.5;
+      tx = Math.cos(a) * 2.9 + 0.4;
+      ty = Math.sin(a) * 1.6;
+      tz = -0.8;
+    }
+    g.position.x = THREE.MathUtils.damp(g.position.x, tx, DAMP, delta);
+    g.position.y = THREE.MathUtils.damp(g.position.y, ty, DAMP, delta);
+    g.position.z = THREE.MathUtils.damp(g.position.z, tz, DAMP, delta);
+    g.rotation.x += delta * 0.5;
+    g.rotation.y += delta * 0.35;
+    if (mat.current && seams.current) {
+      const o = THREE.MathUtils.damp(mat.current.opacity, vis, DAMP, delta);
+      mat.current.opacity = o;
+      seams.current.opacity = o * 0.55;
+      g.visible = o > 0.02;
+    }
+  });
+
+  return (
+    <group ref={group} visible={false}>
+      <mesh geometry={geo}>
+        <meshStandardMaterial
+          ref={mat}
+          color={PEARL}
+          flatShading
+          metalness={0.15}
+          roughness={0.35}
+          transparent
+          opacity={0}
+        />
+      </mesh>
+      <mesh geometry={geo} scale={1.002}>
+        <meshStandardMaterial ref={seams} color={GRAPHITE} wireframe transparent opacity={0} />
+      </mesh>
+    </group>
+  );
+}
+
+/**
+ * Act IV — the trophy: rises into frame at Achievements while the chips
+ * ignite around it. Racing silverware — the "sportsbook of the year"
+ * moment, and the payoff beat of the story.
+ */
+function Trophy() {
+  const group = useRef<THREE.Group>(null);
+  const gold = useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: CHAMPAGNE,
+        emissive: new THREE.Color(CHAMPAGNE),
+        emissiveIntensity: 0.14,
+        metalness: 1,
+        roughness: 0.18,
+        clearcoat: 0.5,
+        transparent: true,
+        opacity: 0,
+      }),
+    [],
+  );
+  const lathe = useMemo(() => {
+    const pts = [
+      [0.0, 0.0], [0.5, 0.02], [0.5, 0.08], [0.32, 0.12], [0.13, 0.2],
+      [0.1, 0.42], [0.17, 0.5], [0.48, 0.62], [0.6, 0.9], [0.58, 1.12], [0.52, 1.18],
+    ].map(([x, y]) => new THREE.Vector2(x * 0.95, y * 0.95));
+    return new THREE.LatheGeometry(pts, 42);
+  }, []);
+  const handle = useMemo(() => new THREE.TorusGeometry(0.2, 0.028, 8, 24, Math.PI), []);
+
+  useFrame((_, delta) => {
+    const vis = actorVis({ achievements: 1 });
+    const g = group.current;
+    if (!g) return;
+    // rises from below the frame as the act begins, sinks away after
+    g.position.y = THREE.MathUtils.damp(g.position.y, vis > 0.5 ? -1.05 : -2.6, 2, delta);
+    g.rotation.y += delta * 0.28;
+    gold.opacity = THREE.MathUtils.damp(gold.opacity, vis, DAMP, delta);
+    g.visible = gold.opacity > 0.02;
+  });
+
+  return (
+    <group ref={group} position={[0.6, -2.6, -0.4]} visible={false}>
+      <mesh geometry={lathe} material={gold} />
+      <mesh geometry={handle} material={gold} position={[-0.44, 0.62, 0]} rotation={[0, 0, Math.PI / 2]} />
+      <mesh geometry={handle} material={gold} position={[0.44, 0.62, 0]} rotation={[0, 0, -Math.PI / 2]} />
+    </group>
+  );
+}
+
+/**
+ * Act VI — the horseshoe: racing luck, opening upward, framing the last
+ * chip as the story resolves at Contact. Place your bet.
+ */
+function Horseshoe() {
+  const group = useRef<THREE.Group>(null);
+  const mat = useRef<THREE.MeshStandardMaterial>(null);
+  const ARC = Math.PI * 1.45;
+  const geo = useMemo(() => new THREE.TorusGeometry(0.85, 0.085, 12, 48, ARC), [ARC]);
+  // rotate so the arc gap is centred at 12 o'clock — luck held in
+  const baseZ = Math.PI / 2 + (Math.PI * 2 - ARC) / 2;
+
+  useFrame(({ clock }, delta) => {
+    const vis = actorVis({ contact: 1 });
+    const g = group.current;
+    if (!g || !mat.current) return;
+    g.rotation.z = baseZ + Math.sin(clock.elapsedTime * 0.4) * 0.05;
+    const s = THREE.MathUtils.damp(g.scale.x, vis > 0.5 ? 1 : 0.6, 2.4, delta);
+    g.scale.setScalar(Math.max(s, 0.001));
+    mat.current.opacity = THREE.MathUtils.damp(mat.current.opacity, vis, DAMP, delta);
+    g.visible = mat.current.opacity > 0.02;
+  });
+
+  return (
+    <group ref={group} position={[0, -0.28, 0.1]} visible={false}>
+      <mesh geometry={geo}>
+        <meshStandardMaterial
+          ref={mat}
+          color={CHAMPAGNE}
+          emissive={CHAMPAGNE}
+          emissiveIntensity={0.2}
+          metalness={1}
+          roughness={0.22}
+          transparent
+          opacity={0}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+/** The story cast, scaled with the viewport like the chips are. */
+function StoryActors() {
+  const { viewport } = useThree();
+  const squeeze = Math.min(1, viewport.width / 8.5);
+  return (
+    <group scale={squeeze}>
+      <OddsRibbon />
+      <Football />
+      <Trophy />
+      <Horseshoe />
+    </group>
+  );
+}
+
 /** Anchors the hero dressing right of the copy, responsive (as before). */
 function HeroAnchor() {
   const { viewport } = useThree();
@@ -372,14 +611,31 @@ function HeroAnchor() {
   );
 }
 
-/** Cinematic rig: slow breathing drift + pointer parallax, damped. */
+/** Per-chapter dolly marks — the camera pushes in on the payoff beats
+ *  (timeline, achievements, contact) and pulls wide for the ensemble
+ *  acts, like cuts in a title sequence. */
+const CAM_Z: Record<string, number> = {
+  hero: 7,
+  intro: 7.4,
+  brands: 7.7,
+  journey: 7.3,
+  timeline: 6.6,
+  achievements: 6.1,
+  work: 7.5,
+  contact: 6.5,
+};
+
+/** Cinematic rig: slow breathing drift + pointer parallax + chapter dolly. */
 function CameraRig() {
   useFrame(({ camera, pointer, clock }, delta) => {
     const t = clock.elapsedTime;
     const tx = pointer.x * 0.35 + Math.sin(t * 0.22) * 0.1;
     const ty = pointer.y * 0.2 + Math.cos(t * 0.19) * 0.07;
+    const tz = CAM_Z[sceneState.chapter] ?? 7.2;
     camera.position.x = THREE.MathUtils.damp(camera.position.x, tx, 1.6, delta);
     camera.position.y = THREE.MathUtils.damp(camera.position.y, ty, 1.6, delta);
+    // slow lambda: the dolly reads as a deliberate camera move, not a zoom
+    camera.position.z = THREE.MathUtils.damp(camera.position.z, tz, 0.8, delta);
     camera.lookAt(0, 0, 0);
   });
   return null;
@@ -438,6 +694,7 @@ export default function Scene() {
         <CameraRig />
         <HeroAnchor />
         <Tokens />
+        <StoryActors />
       </Canvas>
     </div>
   );
