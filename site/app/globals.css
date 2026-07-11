@@ -114,17 +114,29 @@ h1, h2, h3 {
   background-clip: text;
 }
 
-/* ── Reveal (observer adds .in; blur-in reads cinematic, not slide-in) ── */
+/* ── Reveal choreography ──
+   Directional variants are auto-assigned by RevealObserver (data-rv):
+   headlines & eyebrows sweep in from the left, grid children alternate
+   left/right, everything else rises. Hidden state = the EXIT transition
+   (quick soft dissolve while a chapter leaves); .in = the entrance
+   (long, eased, staggered). Replays on every visit. */
 .reveal {
   opacity: 0;
-  transform: translateY(26px);
-  filter: blur(10px);
+  transform: translateY(48px);
+  filter: blur(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease, filter 0.35s ease;
+}
+.reveal[data-rv="l"] { transform: translateX(-72px); }
+.reveal[data-rv="r"] { transform: translateX(72px); }
+.reveal.in {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
   transition:
-    opacity 1s var(--ease-out-expo),
-    transform 1s var(--ease-out-expo),
+    opacity 1.05s var(--ease-out-expo),
+    transform 1.05s var(--ease-out-expo),
     filter 0.9s var(--ease-out-expo);
 }
-.reveal.in { opacity: 1; transform: none; filter: blur(0); }
 
 /* Above-the-fold entrance: pure CSS so the hero paints at first paint
    (LCP) and never waits for hydration or an observer. Same blur-in look. */
@@ -666,7 +678,13 @@ html.has-groundfx .tl-role:nth-child(even)::before {
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .tl-inner { opacity: 1; transform: none; transition: none; }
+  /* !important so directional [data-rv] variants can't out-specify this */
+  .reveal, .tl-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
   .reveal-now, .focus-now { animation: none; }
   .cue-dot::after { animation: none; }
 }
