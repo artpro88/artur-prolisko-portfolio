@@ -92,19 +92,30 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     if (isDesktop) {
       // A trackpad's momentum tail can keep emitting decaying wheel
       // events well past a fixed "wait this long, then unlock" window —
-      // a firm swipe's tail length isn't predictable. So instead of a
-      // one-shot timer started when the transition completes, EVERY
-      // wheel event seen while busy (including the ones we swallow)
-      // re-arms this same window: busy only clears once there's been a
-      // genuine gap of silence, however long the tail actually runs.
+      // a firm swipe's tail length isn't predictable. So a wheel event
+      // seen while busy (including ones we swallow) re-arms this window:
+      // busy only clears once there's been a genuine gap of silence.
+      // BUT if the user just keeps scrolling — e.g. because it feels
+      // stuck and they try again — every one of those attempts would
+      // re-arm the very lockout that's blocking them, freezing the page
+      // forever (each retry resets the timer before it can fire). So
+      // MAX_LOCK_MS caps the total lockout from a fixed start time,
+      // guaranteeing it always releases regardless of continued input.
       const SETTLE_MS = 350;
+      const MAX_LOCK_MS = 1000;
       let busy = false;
+      let busySince = 0;
       let cooldownTimer = 0;
       const armCooldown = () => {
         window.clearTimeout(cooldownTimer);
+        const remaining = MAX_LOCK_MS - (performance.now() - busySince);
+        if (remaining <= 0) {
+          busy = false;
+          return;
+        }
         cooldownTimer = window.setTimeout(() => {
           busy = false;
-        }, SETTLE_MS);
+        }, Math.min(SETTLE_MS, remaining));
       };
 
       const chapterAt = (scroll: number) =>
@@ -138,6 +149,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         e.preventDefault();
         e.stopImmediatePropagation();
         busy = true;
+        busySince = performance.now();
         const targetTop = points[targetIdx].getBoundingClientRect().top + window.scrollY;
         lenis.scrollTo(targetTop, {
           duration: DURATION,
