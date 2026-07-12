@@ -18,10 +18,20 @@ declare global {
  * drives Lenis, ScrollTrigger listens to Lenis — one RAF for everything.
  *
  * Chapter snap (docs/11 §2): lenis/snap eases to the nearest chapter top
- * once scrolling settles — a soft snap, not a hard trap. The 50% distance
- * threshold makes 100svh chapters always snap while letting taller-than-
- * viewport sections (e.g. mobile grids) rest mid-content so nothing
- * becomes unreachable.
+ * once scrolling settles — a soft snap, not a hard trap.
+ *
+ * lenis/snap's distanceThreshold is a fraction of VIEWPORT HEIGHT, not of
+ * the gap between snap points (checked packages/snap/src/snap.ts). At 50%
+ * that's ~400px on a phone: scroll to within 400px of a section's top,
+ * pause, and it force-snaps back there. Fine for a 100svh chapter — the
+ * whole section is within that radius anyway. Broken for a section taller
+ * than the viewport (mobile reflows most grids to single-column, easily
+ * 2-3x viewport tall): the first/last ~400px of it become a trap where
+ * any pause drags the user back to its top, which reads as "snapping back
+ * to the top of the page". Fix: only make a section a snap point if it
+ * actually fits near one viewport; taller sections get no attractor of
+ * their own and simply scroll through freely until the next real chapter
+ * comes into snapping range. Re-measured on resize (orientation change).
  *
  * Disabled entirely under prefers-reduced-motion (native scroll, no snap).
  */
@@ -45,11 +55,31 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
       debounce: 350,
     });
-    const targets = document.querySelectorAll<HTMLElement>("main section[id], .tl-role");
-    const removeSnaps = snap.addElements(Array.from(targets), { align: "start" });
+
+    let removeSnaps: (() => void) | undefined;
+    const applySnapTargets = () => {
+      removeSnaps?.();
+      const all = document.querySelectorAll<HTMLElement>("main section[id], .tl-role");
+      // 1.15x slack: a section a little taller than the viewport (e.g.
+      // padding) should still snap like any other chapter.
+      const fits = Array.from(all).filter(
+        (el) => el.offsetHeight <= window.innerHeight * 1.15,
+      );
+      removeSnaps = snap.addElements(fits, { align: "start" });
+    };
+    applySnapTargets();
+
+    let resizeRaf = 0;
+    const onResize = () => {
+      cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(applySnapTargets);
+    };
+    window.addEventListener("resize", onResize);
 
     return () => {
-      removeSnaps();
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(resizeRaf);
+      removeSnaps?.();
       snap.destroy();
       gsap.ticker.remove(tick);
       lenis.destroy();
