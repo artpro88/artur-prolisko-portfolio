@@ -1,5 +1,6 @@
 import { leadership, skills, technologies, recognition } from "@/data/content";
 import CountUp from "@/components/CountUp";
+import ContactForm from "@/components/ContactForm";
 
 export function Intro() {
   const stats = [
@@ -202,11 +203,16 @@ export function Contact() {
           <br />
           at Tier 1 standard.
         </h2>
-        <div className="reveal mt-8">
-          <a className="btn-primary" href="mailto:pokacity@gmail.com">
-            Start a conversation →
-          </a>
-        </div>
+        <ContactForm />
+        {/* No-JS fallback: the form composes a mailto via JS, so users
+            without it still get a direct path here. */}
+        <noscript>
+          <div className="mt-8">
+            <a className="btn-primary" href="mailto:pokacity@gmail.com">
+              Start a conversation →
+            </a>
+          </div>
+        </noscript>
         <div
           className="reveal mt-7 flex flex-wrap justify-center gap-6 text-[0.74rem] opacity-70"
           style={{ fontFamily: "var(--font-jbmono), monospace", letterSpacing: "0.06em" }}

@@ -166,6 +166,61 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       };
     }
 
+    // ── Keyboard navigation (additive; independent of the wheel/snap
+    //    logic above and does not modify it) ──────────────────────────
+    // Gives keyboard users chapter-jumping parity with the pointer snap,
+    // which they'd otherwise lack. PageUp/PageDown/Space step one section
+    // (all sections, incl. taller-than-viewport ones, so every chapter is
+    // reachable), Home/End go to the extremes; each eases through Lenis
+    // for the same feel. Arrow keys are deliberately left NATIVE so a
+    // keyboard user can still fine-scroll to read within a tall section.
+    const sectionTops = () => {
+      const y = window.scrollY;
+      return Array.from(
+        document.querySelectorAll<HTMLElement>("main section[id], .tl-role"),
+      ).map((el) => el.getBoundingClientRect().top + y);
+    };
+    const goToY = (y: number) =>
+      lenis.scrollTo(Math.round(y), { duration: DURATION, easing: EASE });
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+
+      const tops = sectionTops();
+      if (tops.length === 0) return;
+      const y = window.scrollY;
+      const EPS = 4;
+      let target: number | undefined;
+
+      switch (e.key) {
+        case "PageDown":
+          target = tops.find((top) => top > y + EPS);
+          break;
+        case "PageUp":
+          target = [...tops].reverse().find((top) => top < y - EPS);
+          break;
+        case " ": // Space pages down, Shift+Space pages up (browser convention)
+          target = e.shiftKey
+            ? [...tops].reverse().find((top) => top < y - EPS)
+            : tops.find((top) => top > y + EPS);
+          break;
+        case "Home":
+          target = tops[0];
+          break;
+        case "End":
+          target = tops[tops.length - 1];
+          break;
+        default:
+          return; // arrows and everything else stay native
+      }
+      if (target === undefined) return; // already at the end in that direction
+      e.preventDefault();
+      goToY(target);
+    };
+    window.addEventListener("keydown", onKeyDown);
+
     let resizeRaf = 0;
     const onResize = () => {
       cancelAnimationFrame(resizeRaf);
@@ -177,6 +232,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     window.addEventListener("resize", onResize);
 
     return () => {
+      window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(resizeRaf);
       teardownMode();

@@ -1,7 +1,35 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
+
+// Person structured data (schema.org) — lets search engines and AI
+// crawlers read the identity/role directly, beyond the free-text <meta>
+// description. Rendered as a raw <script> in the body per the App Router
+// JSON-LD pattern.
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Artur Prolisko",
+  jobTitle: "Head of Product",
+  description:
+    "Senior Product Design Leader with 14+ years across Tier 1 iGaming, sportsbook, casino and live casino operators.",
+  url: "https://pokacity.com",
+  email: "mailto:pokacity@gmail.com",
+  worksFor: { "@type": "Organization", name: "Fitzdares" },
+  address: { "@type": "PostalAddress", addressLocality: "Gibraltar" },
+  sameAs: ["https://www.linkedin.com/in/artur-prolisko-1575b345/"],
+  knowsAbout: [
+    "Product Strategy",
+    "UX Design",
+    "Design Systems",
+    "iGaming",
+    "Sportsbook",
+    "Casino",
+    "Platform Migration",
+  ],
+};
 
 const inter = Inter({
   variable: "--font-inter",
@@ -51,8 +79,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jbMono.variable} antialiased`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
+        />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

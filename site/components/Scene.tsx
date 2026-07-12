@@ -16,6 +16,16 @@ const GRAPHITE = "#1B1D24";
 const CHIP_COUNT = 8;
 const DAMP = 3.2; // lerp lambda — softer = slower settles
 
+// Phones now run the full scene (the >=768px gate was removed so the 3D
+// shows in portrait too), but Three's boot — PMREM env prefilter, shader
+// compile, MSAA buffers at high dpr — is pure main-thread time and tanked
+// mobile TBT. LOW_POWER trims the boot-cost knobs on phones ONLY; desktop
+// is untouched. Evaluated once at client module load (Scene is a
+// client-only dynamic import), which is fine for a boot-time optimisation.
+const LOW_POWER =
+  typeof window !== "undefined" &&
+  window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
+
 type ChipTarget = {
   pos: [number, number, number];
   scale: number;
@@ -479,7 +489,7 @@ function Dust() {
   const mat = useRef<THREE.PointsMaterial>(null);
   const glowTex = useMemo(() => makeGlowTexture(), []);
   const geo = useMemo(() => {
-    const n = 140;
+    const n = LOW_POWER ? 60 : 140;
     const arr = new Float32Array(n * 3);
     for (let i = 0; i < n; i++) {
       arr[i * 3] = (Math.random() - 0.5) * 16;
@@ -824,13 +834,15 @@ export default function Scene() {
     // ground, below the sections' z-2 content.
     <div className="scene-fade pointer-events-none fixed inset-0" aria-hidden="true">
       <Canvas
-        dpr={[1, 1.5]}
+        dpr={LOW_POWER ? 1 : [1, 1.5]}
         camera={{ position: [0, 0, 7], fov: 40 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        gl={{ antialias: !LOW_POWER, alpha: true, powerPreference: "high-performance" }}
         eventSource={typeof document !== "undefined" ? document.body : undefined}
       >
         <ambientLight intensity={0.12} />
-        <Environment resolution={64} frames={1}>
+        {/* PMREM prefilter is the single biggest boot cost; a 16px env on
+            phones still gives soft reflections on the decorative scene */}
+        <Environment resolution={LOW_POWER ? 16 : 64} frames={1}>
           {/* procedural studio: warm key softbox, cool fill, champagne kicker, bordeaux floor bounce */}
           <Lightformer intensity={2.2} position={[0, 3, 4]} rotation-x={-0.6} scale={[7, 3, 1]} color="#ffe9c4" />
           <Lightformer intensity={1.1} position={[-5, 0, 2]} rotation-y={0.9} scale={[4, 6, 1]} color="#f6f4ef" />
