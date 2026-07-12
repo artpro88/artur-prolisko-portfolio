@@ -56,8 +56,11 @@ export default function ContactForm() {
   };
 
   if (status === "sent") {
+    // reveal-now (not reveal): this element mounts AFTER the scroll
+    // observer has already passed the section, so it must animate itself
+    // in and end visible rather than wait for an .in that never comes.
     return (
-      <div className="cform cform-done reveal" role="status">
+      <div className="cform cform-done reveal-now" role="status" aria-live="polite">
         <p className="cform-done-t">Message sent.</p>
         <p className="cform-done-s">
           Thanks — it&apos;s landed in my inbox and I&apos;ll be in touch shortly.
