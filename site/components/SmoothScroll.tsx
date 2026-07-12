@@ -33,6 +33,18 @@ declare global {
  * their own and simply scroll through freely until the next real chapter
  * comes into snapping range. Re-measured on resize (orientation change).
  *
+ * type "proximity" picks whichever snap point is nearest by absolute
+ * distance — inside a short chapter, a small scroll (less than half the
+ * chapter's height) settles closer to the chapter's OWN top than to the
+ * next one, so it snaps backward to where the user started, feeling like
+ * the scroll was ignored. type "lock" instead always commits in the
+ * scroll's direction (next chapter on scroll-down, previous on scroll-up)
+ * regardless of how far the user actually got — a small nudge is enough.
+ * distanceThreshold is raised to 100% (a full viewport) so that commit
+ * reaches across an entire short chapter, but stays capped at one
+ * viewport so it can never leap across an unregistered tall section into
+ * whatever (possibly distant) chapter follows it.
+ *
  * Disabled entirely under prefers-reduced-motion (native scroll, no snap).
  */
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
@@ -49,8 +61,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.lagSmoothing(0);
 
     const snap = new Snap(lenis, {
-      type: "proximity",
-      distanceThreshold: "50%",
+      type: "lock",
+      distanceThreshold: "100%",
       duration: 0.9,
       easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
       debounce: 350,
