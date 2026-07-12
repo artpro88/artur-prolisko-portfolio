@@ -1,5 +1,4 @@
 {
   "buildCommand": "cd site && npm run build",
-  "devCommand": "cd site && npm run dev",
-  "installCommand": "npm install --prefix site"
+  "devCommand": "cd site && npm run dev"
 }
