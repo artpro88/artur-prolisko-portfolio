@@ -521,61 +521,129 @@ function Dust() {
 }
 
 /**
- * Act II / Act V — the match ball, in the site's jewellery language:
- * a polished ivory orb with three inlaid gold great-circle seams and
- * gold studs at their crossings — a football reinterpreted as an objet
- * d'art. Orbits among the operator chips at Brands, flies slow arcs
- * behind the product vignettes at Work.
+ * Act II / Act V — the match ball. Three concentric rings on a sphere
+ * read as a satellite, not a football — so this is the real thing: a
+ * truncated-icosahedron tiling of 12 pentagons + 20 hexagons (the
+ * classic Telstar pattern), baked into a texture so the mesh stays a
+ * perfectly smooth clearcoat sphere. Gold seams stand in for the usual
+ * black stitching — the one luxury twist, everything else is a
+ * recognisable football. Orbits among the operator chips at Brands,
+ * flies slow arcs behind the product vignettes at Work.
  */
 const BALL_R = 0.36;
-function makeBall(): {
-  group: THREE.Group;
-  core: THREE.MeshPhysicalMaterial;
-  gold: THREE.MeshStandardMaterial;
-} {
+
+/** The 12 pentagon + 20 hexagon panel centers of a truncated icosahedron
+ *  — read straight off an icosahedron's own vertices (pentagons) and
+ *  face centroids (hexagons), no hand-typed coordinates. */
+function icosahedronPanelCenters() {
+  const geo = new THREE.IcosahedronGeometry(1, 0);
+  const pos = geo.attributes.position;
+  const hex: THREE.Vector3[] = [];
+  for (let f = 0; f < pos.count / 3; f++) {
+    const a = new THREE.Vector3().fromBufferAttribute(pos, f * 3);
+    const b = new THREE.Vector3().fromBufferAttribute(pos, f * 3 + 1);
+    const c = new THREE.Vector3().fromBufferAttribute(pos, f * 3 + 2);
+    hex.push(a.clone().add(b).add(c).divideScalar(3).normalize());
+  }
+  const pent: THREE.Vector3[] = [];
+  for (let i = 0; i < pos.count; i++) {
+    const v = new THREE.Vector3().fromBufferAttribute(pos, i).normalize();
+    if (!pent.some((p) => p.distanceTo(v) < 1e-4)) pent.push(v);
+  }
+  geo.dispose();
+  return { pent, hex }; // 12, 20 — always
+}
+
+/** Bakes the panel tiling into an equirectangular canvas texture, using
+ *  the exact UV parametrisation THREE.SphereGeometry itself uses, so
+ *  the seams land precisely on the sphere without any texture swim.
+ *  Rendered at 2x and box-downsampled so panel edges are anti-aliased
+ *  instead of staircased — this is a nearest-panel Voronoi classification,
+ *  which is otherwise a hard binary edge per pixel. */
+function makeSoccerTexture(): THREE.CanvasTexture {
+  const { pent, hex } = icosahedronPanelCenters();
+  const panels = [
+    ...pent.map((c) => ({ c, ink: true })),
+    ...hex.map((c) => ({ c, ink: false })),
+  ];
+  const W = 640;
+  const H = 320;
+  const SS = 2; // supersample factor
+  const SW = W * SS;
+  const SH = H * SS;
+  const big = document.createElement("canvas");
+  big.width = SW;
+  big.height = SH;
+  const bctx = big.getContext("2d")!;
+  const img = bctx.createImageData(SW, SH);
+  const ink: [number, number, number] = [27, 29, 36]; // graphite pentagons
+  const pearl: [number, number, number] = [246, 244, 239]; // pearl hexagons
+  const seam: [number, number, number] = [200, 162, 76]; // champagne stitching
+  const SEAM_W = 0.05; // radians of angular gap either side of a boundary
+  const dir = new THREE.Vector3();
+  for (let y = 0; y < SH; y++) {
+    const phi = ((y + 0.5) / SH) * Math.PI;
+    const sinPhi = Math.sin(phi);
+    const cosPhi = Math.cos(phi);
+    for (let x = 0; x < SW; x++) {
+      const theta = ((x + 0.5) / SW) * Math.PI * 2;
+      dir.set(-Math.cos(theta) * sinPhi, cosPhi, Math.sin(theta) * sinPhi);
+      let best = -Infinity;
+      let second = -Infinity;
+      let isInk = false;
+      for (const p of panels) {
+        const d = dir.dot(p.c);
+        if (d > best) {
+          second = best;
+          best = d;
+          isInk = p.ink;
+        } else if (d > second) {
+          second = d;
+        }
+      }
+      const gap =
+        Math.acos(THREE.MathUtils.clamp(second, -1, 1)) -
+        Math.acos(THREE.MathUtils.clamp(best, -1, 1));
+      const rgb = gap < SEAM_W ? seam : isInk ? ink : pearl;
+      const idx = (y * SW + x) * 4;
+      img.data[idx] = rgb[0];
+      img.data[idx + 1] = rgb[1];
+      img.data[idx + 2] = rgb[2];
+      img.data[idx + 3] = 255;
+    }
+  }
+  bctx.putImageData(img, 0, 0);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d")!;
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(big, 0, 0, W, H);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  tex.needsUpdate = true;
+  return tex;
+}
+
+function makeBall(): { group: THREE.Group; core: THREE.MeshPhysicalMaterial } {
   const group = new THREE.Group();
-  // pearl clearcoat core with a whisper of iridescence — the studio
-  // Lightformers give it the lacquered billiard-ball sheen
   const core = new THREE.MeshPhysicalMaterial({
-    color: PEARL,
-    metalness: 0.05,
-    roughness: 0.16,
+    map: makeSoccerTexture(),
+    metalness: 0.04,
+    roughness: 0.34,
     clearcoat: 1,
-    clearcoatRoughness: 0.08,
-    iridescence: 0.3,
+    clearcoatRoughness: 0.14,
+    iridescence: 0.1,
     iridescenceIOR: 1.3,
     transparent: true,
     opacity: 0, // damped in by chapter presence — never flashes at spawn
   });
-  const gold = new THREE.MeshStandardMaterial({
-    color: CHAMPAGNE,
-    emissive: new THREE.Color(CHAMPAGNE),
-    emissiveIntensity: 0.18,
-    metalness: 1,
-    roughness: 0.18,
-    transparent: true,
-    opacity: 0,
-  });
   group.add(new THREE.Mesh(new THREE.SphereGeometry(BALL_R, 64, 64), core));
-  // three orthogonal seams, half-embedded in the surface like inlay
-  const seamGeo = new THREE.TorusGeometry(BALL_R + 0.002, 0.008, 8, 96);
-  const seamA = new THREE.Mesh(seamGeo, gold);
-  const seamB = new THREE.Mesh(seamGeo, gold);
-  seamB.rotation.x = Math.PI / 2;
-  const seamC = new THREE.Mesh(seamGeo, gold);
-  seamC.rotation.y = Math.PI / 2;
-  group.add(seamA, seamB, seamC);
-  // gold studs where the seams cross — rivet detail
-  const studGeo = new THREE.SphereGeometry(0.02, 12, 12);
-  const d = BALL_R + 0.002;
-  for (const p of [
-    [d, 0, 0], [-d, 0, 0], [0, d, 0], [0, -d, 0], [0, 0, d], [0, 0, -d],
-  ] as const) {
-    const stud = new THREE.Mesh(studGeo, gold);
-    stud.position.set(p[0], p[1], p[2]);
-    group.add(stud);
-  }
-  return { group, core, gold };
+  return { group, core };
 }
 
 function Football() {
@@ -609,7 +677,6 @@ function Football() {
     g.rotation.y += delta * 0.22;
     const o = THREE.MathUtils.damp(ball.core.opacity, vis, DAMP, delta);
     ball.core.opacity = o;
-    ball.gold.opacity = o;
     g.visible = o > 0.02;
   });
 
