@@ -212,7 +212,7 @@ export function Contact() {
           style={{ fontFamily: "var(--font-jbmono), monospace", letterSpacing: "0.06em" }}
         >
           <a className="link-quiet" href="mailto:pokacity@gmail.com">pokacity@gmail.com</a>
-          <a className="link-quiet" href="https://www.linkedin.com/in/prolisko" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a className="link-quiet" href="https://www.linkedin.com/in/artur-prolisko-1575b345/" target="_blank" rel="noreferrer">LinkedIn</a>
           <a className="link-quiet" href="#hero">Back to top ↑</a>
         </div>
       </div>
