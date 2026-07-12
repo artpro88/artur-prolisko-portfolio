@@ -6,14 +6,14 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 // Three.js loads after first paint, code-split (docs/12 §7 lazy init).
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
-// Scene runs for users without reduced motion on anything that isn't a
-// phone: a fine pointer (mouse/trackpad) qualifies at ANY window width —
-// gating on width alone erased the scene in split-screen desktop windows.
-// Phones (coarse pointer + narrow) keep the filmic CSS layer but skip the
-// WebGL canvas: it sits behind full-width text there anyway, and three.js
-// boot is the single biggest main-thread cost on mobile (docs/12 §7).
-const QUERY =
-  "((pointer: fine) or (min-width: 768px)) and (prefers-reduced-motion: no-preference)";
+// Scene runs on every device — phones included — as long as the user
+// hasn't asked for reduced motion. Previously gated off on coarse-pointer
+// + narrow viewports (portrait phones), which caused the scene to vanish
+// in portrait but reappear in landscape on the same phone (>=768px) —
+// same hardware, so the width gate was pure inconsistency, not a real
+// performance ceiling. Idle-mount + dpr cap [1, 1.5] + low-res PMREM (64)
+// keep boot cost low enough for phones (docs/12 §7).
+const QUERY = "(prefers-reduced-motion: no-preference)";
 
 const subscribe = (cb: () => void) => {
   const mq = window.matchMedia(QUERY);
