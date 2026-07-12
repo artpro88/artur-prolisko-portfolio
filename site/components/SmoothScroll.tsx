@@ -90,12 +90,22 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     let onPointsChanged: (() => void) | undefined;
 
     if (isDesktop) {
-      // How much longer wheel input stays swallowed after a jump's
-      // transition finishes — absorbs a trackpad's decaying tail so it
-      // can't read as a second, separate gesture and re-trigger a jump.
-      const SETTLE_MS = 300;
+      // A trackpad's momentum tail can keep emitting decaying wheel
+      // events well past a fixed "wait this long, then unlock" window —
+      // a firm swipe's tail length isn't predictable. So instead of a
+      // one-shot timer started when the transition completes, EVERY
+      // wheel event seen while busy (including the ones we swallow)
+      // re-arms this same window: busy only clears once there's been a
+      // genuine gap of silence, however long the tail actually runs.
+      const SETTLE_MS = 350;
       let busy = false;
       let cooldownTimer = 0;
+      const armCooldown = () => {
+        window.clearTimeout(cooldownTimer);
+        cooldownTimer = window.setTimeout(() => {
+          busy = false;
+        }, SETTLE_MS);
+      };
 
       const chapterAt = (scroll: number) =>
         points.findIndex((el) => {
@@ -114,6 +124,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         if (busy) {
           e.preventDefault();
           e.stopImmediatePropagation();
+          armCooldown();
           return;
         }
         const idx = chapterAt(window.scrollY);
@@ -132,11 +143,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
           duration: DURATION,
           easing: EASE,
           lock: true,
-          onComplete: () => {
-            cooldownTimer = window.setTimeout(() => {
-              busy = false;
-            }, SETTLE_MS);
-          },
+          onComplete: armCooldown,
         });
       };
       window.addEventListener("wheel", onWheel, { passive: false, capture: true });
