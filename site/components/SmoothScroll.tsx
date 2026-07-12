@@ -48,17 +48,26 @@ const DURATION = 0.6;
  * little as ~100px) reliably advancing AND a hard trackpad fling (that
  * can cover 1500px+) never advancing more than one chapter — the two
  * pull the threshold in opposite directions. So desktop instead gets its
- * own discrete stepper, driven off the FIRST wheel tick of a gesture
- * (not an accumulate-then-decide wait — direction only needs one tick's
- * sign, not the gesture's full magnitude, so there's nothing to gain by
- * waiting): it moves exactly one chapter in that tick's direction,
- * however hard or long the rest of the gesture turns out to be. What
- * would otherwise be a trackpad's decaying tail of extra wheel events is
- * swallowed through the transition and a short settle window after it
- * completes — long enough to outlast that tail — so the same physical
- * gesture can't re-trigger a second jump. Outside a chapter (inside a
- * tall section) wheel input is left untouched — ordinary smooth scroll,
- * exactly as today.
+ * own discrete stepper, driven off the FIRST wheel tick of a gesture:
+ * direction only needs one tick's sign, not the gesture's full
+ * magnitude, so it reacts immediately rather than waiting to see how the
+ * gesture plays out.
+ *
+ * What stops one gesture from advancing more than one chapter is a
+ * flat rate limit — at most one jump per RATE_LIMIT_MS, full stop. Two
+ * earlier, cleverer attempts both failed: accumulate-then-decide added a
+ * flat delay before EVERY jump (felt laggy); re-arming a cooldown on
+ * every trailing wheel event (to outlast a trackpad's decaying tail)
+ * meant the user's own retries — scrolling again because it feels stuck
+ * — kept re-arming the very lockout blocking them, freezing the page
+ * outright. A flat "one per second, no exceptions" has neither problem:
+ * it's measured from a fixed point in time, so it always expires on
+ * schedule regardless of how much or how little wheel input arrives
+ * during it, and the very first tick of a new window still reacts
+ * instantly. The trade-off — a deliberate rapid double-scroll can't skip
+ * two chapters at once — is the one explicitly wanted here. Outside a
+ * chapter (inside a tall section) wheel input is left untouched —
+ * ordinary smooth scroll, exactly as today.
  *
  * Disabled entirely under prefers-reduced-motion (native scroll, no snap).
  */
@@ -90,33 +99,12 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     let onPointsChanged: (() => void) | undefined;
 
     if (isDesktop) {
-      // A trackpad's momentum tail can keep emitting decaying wheel
-      // events well past a fixed "wait this long, then unlock" window —
-      // a firm swipe's tail length isn't predictable. So a wheel event
-      // seen while busy (including ones we swallow) re-arms this window:
-      // busy only clears once there's been a genuine gap of silence.
-      // BUT if the user just keeps scrolling — e.g. because it feels
-      // stuck and they try again — every one of those attempts would
-      // re-arm the very lockout that's blocking them, freezing the page
-      // forever (each retry resets the timer before it can fire). So
-      // MAX_LOCK_MS caps the total lockout from a fixed start time,
-      // guaranteeing it always releases regardless of continued input.
-      const SETTLE_MS = 350;
-      const MAX_LOCK_MS = 1000;
-      let busy = false;
-      let busySince = 0;
-      let cooldownTimer = 0;
-      const armCooldown = () => {
-        window.clearTimeout(cooldownTimer);
-        const remaining = MAX_LOCK_MS - (performance.now() - busySince);
-        if (remaining <= 0) {
-          busy = false;
-          return;
-        }
-        cooldownTimer = window.setTimeout(() => {
-          busy = false;
-        }, Math.min(SETTLE_MS, remaining));
-      };
+      // At most one jump per window, measured from a fixed point in
+      // time (the last jump) — not extended by however much wheel input
+      // arrives during it. See the block comment above for why this
+      // replaced two more "clever" approaches that both backfired.
+      const RATE_LIMIT_MS = 1000;
+      let lastJumpAt = -Infinity;
 
       const chapterAt = (scroll: number) =>
         points.findIndex((el) => {
@@ -132,14 +120,15 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       // block Lenis's handler from ever seeing the event, so a swallowed
       // wheel event genuinely doesn't move the page at all.
       const onWheel = (e: WheelEvent) => {
-        if (busy) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          armCooldown();
-          return;
-        }
         const idx = chapterAt(window.scrollY);
         if (idx === -1) return; // inside a tall section — native scroll
+        if (performance.now() - lastJumpAt < RATE_LIMIT_MS) {
+          // still rate-limited: hold position instead of letting this
+          // extra wheel input creep the scroll away from the chapter top
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          return;
+        }
         const targetIdx = idx + (e.deltaY > 0 ? 1 : -1);
         if (targetIdx < 0 || targetIdx >= points.length) {
           e.preventDefault();
@@ -148,20 +137,13 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         }
         e.preventDefault();
         e.stopImmediatePropagation();
-        busy = true;
-        busySince = performance.now();
+        lastJumpAt = performance.now();
         const targetTop = points[targetIdx].getBoundingClientRect().top + window.scrollY;
-        lenis.scrollTo(targetTop, {
-          duration: DURATION,
-          easing: EASE,
-          lock: true,
-          onComplete: armCooldown,
-        });
+        lenis.scrollTo(targetTop, { duration: DURATION, easing: EASE, lock: true });
       };
       window.addEventListener("wheel", onWheel, { passive: false, capture: true });
       teardownMode = () => {
         window.removeEventListener("wheel", onWheel, { capture: true });
-        window.clearTimeout(cooldownTimer);
       };
     } else {
       const snap = new Snap(lenis, {
