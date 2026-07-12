@@ -3,74 +3,109 @@
 import { useState } from "react";
 
 /**
- * Contact form — progressive enhancement over the plain mailto link.
- * Guided fields (name / company / message) lower the friction of a blank
- * email and signal intent, then compose a structured mailto on submit.
- *
- * No backend is wired yet, so this hands off to the visitor's mail client
- * rather than posting server-side. To capture leads in-page instead, swap
- * the handler for a POST to a Route Handler (e.g. Resend) — the markup
- * here doesn't need to change. Without JS, the email/LinkedIn links below
- * the form (in Contact) remain the fallback path.
+ * Contact form — posts to /api/contact, which sends the email
+ * server-side (no mailto handoff; that silently stalls on machines
+ * without a configured mail client). States: idle → sending → sent /
+ * error / unconfigured. "unconfigured" (503) means the server has no
+ * RESEND_API_KEY yet; we surface a direct-email fallback rather than a
+ * dead end. The email/LinkedIn links under the form (in Contact) are the
+ * no-JS fallback.
  */
 const EMAIL = "pokacity@gmail.com";
 
+type Status = "idle" | "sending" | "sent" | "error" | "unconfigured";
+
 export default function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const name = String(data.get("name") || "").trim();
-    const from = String(data.get("email") || "").trim();
-    const company = String(data.get("company") || "").trim();
-    const message = String(data.get("message") || "").trim();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      name: String(data.get("name") || "").trim(),
+      company: String(data.get("company") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      message: String(data.get("message") || "").trim(),
+    };
 
-    const subject = `Portfolio enquiry${name ? ` — ${name}` : ""}`;
-    const body = [
-      message,
-      "",
-      "—",
-      name && `Name: ${name}`,
-      company && `Company: ${company}`,
-      from && `Email: ${from}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json().catch(() => ({}));
 
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+      if (res.ok && json.ok) {
+        form.reset();
+        setStatus("sent");
+      } else if (res.status === 503 || json.code === "not_configured") {
+        setStatus("unconfigured");
+      } else {
+        setStatus("error");
+        setError(json.error || "Something went wrong.");
+      }
+    } catch {
+      setStatus("error");
+      setError("Network error.");
+    }
   };
+
+  if (status === "sent") {
+    return (
+      <div className="cform cform-done reveal" role="status">
+        <p className="cform-done-t">Message sent.</p>
+        <p className="cform-done-s">
+          Thanks — it&apos;s landed in my inbox and I&apos;ll be in touch shortly.
+        </p>
+      </div>
+    );
+  }
+
+  const sending = status === "sending";
 
   return (
     <form className="cform reveal" onSubmit={onSubmit} noValidate>
       <div className="cform-row">
         <label className="field">
           <span>Name</span>
-          <input name="name" type="text" autoComplete="name" required />
+          <input name="name" type="text" autoComplete="name" required disabled={sending} />
         </label>
         <label className="field">
           <span>Company / role</span>
-          <input name="company" type="text" autoComplete="organization" />
+          <input name="company" type="text" autoComplete="organization" disabled={sending} />
         </label>
       </div>
       <label className="field">
         <span>Email</span>
-        <input name="email" type="email" autoComplete="email" required />
+        <input name="email" type="email" autoComplete="email" required disabled={sending} />
       </label>
       <label className="field">
         <span>What do you need?</span>
-        <textarea name="message" rows={4} required />
+        <textarea name="message" rows={4} required disabled={sending} />
       </label>
       <div className="cform-foot">
-        <button type="submit" className="btn-primary">
-          Start a conversation →
+        <button type="submit" className="btn-primary" disabled={sending}>
+          {sending ? "Sending…" : "Start a conversation →"}
         </button>
-        {sent && (
+        {status === "error" && (
+          <span className="cform-note cform-err" role="status">
+            {error} Email me at{" "}
+            <a className="link-quiet" href={`mailto:${EMAIL}`}>
+              {EMAIL}
+            </a>
+          </span>
+        )}
+        {status === "unconfigured" && (
           <span className="cform-note" role="status">
-            Opening your email app…
+            Reach me directly at{" "}
+            <a className="link-quiet" href={`mailto:${EMAIL}`}>
+              {EMAIL}
+            </a>
           </span>
         )}
       </div>

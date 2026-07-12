@@ -320,9 +320,22 @@ h1, h2, h3 {
 .cform-note {
   font-family: var(--font-jbmono), ui-monospace, monospace;
   font-size: 0.66rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   color: var(--color-champ-hi);
+  line-height: 1.5;
 }
+.cform-err { color: var(--color-bordeaux-hi); }
+.cform-note a { color: var(--color-champ-hi); }
+
+.cform-done { align-items: flex-start; text-align: left; }
+.cform-done-t {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--color-champ-hi);
+  letter-spacing: -0.02em;
+}
+.cform-done-s { margin-top: 0.5rem; opacity: 0.8; font-size: 0.98rem; }
 
 /* ── Timeline (scroll-fill rail) ── */
 .tl-rail {
