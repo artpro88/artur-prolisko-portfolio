@@ -1,7 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": "nextjs",
-  "rootDirectory": "site"
+  "buildCommand": "cd site && npm run build",
+  "devCommand": "cd site && npm run dev",
+  "installCommand": "npm install --prefix site"
 }
